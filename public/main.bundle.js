@@ -31,7 +31,7 @@ if (__WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment *
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["enableProdMode"])();
 }
 __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_3__app_app_module__["a" /* AppModule */]);
-//# sourceMappingURL=C:/Users/Andrew/dropbox/meanbase/angular-src/src/main.js.map
+//# sourceMappingURL=C:/Users/Andrew/Dropbox/Code/meanaws/angular/src/main.js.map
 
 /***/ }),
 
@@ -62,7 +62,7 @@ var AppComponent = (function () {
     return AppComponent;
 }());
 
-//# sourceMappingURL=C:/Users/Andrew/dropbox/meanbase/angular-src/src/app.component.js.map
+//# sourceMappingURL=C:/Users/Andrew/Dropbox/Code/meanaws/angular/src/app.component.js.map
 
 /***/ }),
 
@@ -120,7 +120,8 @@ var appRoutes = [
     { path: 'register', component: __WEBPACK_IMPORTED_MODULE_8__components_register_register_component__["a" /* RegisterComponent */] },
     { path: 'login', component: __WEBPACK_IMPORTED_MODULE_7__components_login_login_component__["a" /* LoginComponent */] },
     { path: 'dashboard', component: __WEBPACK_IMPORTED_MODULE_10__components_dashboard_dashboard_component__["a" /* DashboardComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_17__guards_auth_guard__["a" /* AuthGuard */]] },
-    { path: 'profile', component: __WEBPACK_IMPORTED_MODULE_11__components_profile_profile_component__["a" /* ProfileComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_17__guards_auth_guard__["a" /* AuthGuard */]] }
+    { path: 'profile', component: __WEBPACK_IMPORTED_MODULE_11__components_profile_profile_component__["a" /* ProfileComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_17__guards_auth_guard__["a" /* AuthGuard */]] },
+    { path: '**', redirectTo: '' }
 ];
 var AppModule = (function () {
     function AppModule() {
@@ -154,13 +155,13 @@ var AppModule = (function () {
                 },
                 __WEBPACK_IMPORTED_MODULE_17__guards_auth_guard__["a" /* AuthGuard */]
             ],
-            bootstrap: [__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */]]
+            bootstrap: [__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */]],
         })
     ], AppModule);
     return AppModule;
 }());
 
-//# sourceMappingURL=C:/Users/Andrew/dropbox/meanbase/angular-src/src/app.module.js.map
+//# sourceMappingURL=C:/Users/Andrew/Dropbox/Code/meanaws/angular/src/app.module.js.map
 
 /***/ }),
 
@@ -196,7 +197,7 @@ var DashboardComponent = (function () {
     return DashboardComponent;
 }());
 
-//# sourceMappingURL=C:/Users/Andrew/dropbox/meanbase/angular-src/src/dashboard.component.js.map
+//# sourceMappingURL=C:/Users/Andrew/Dropbox/Code/meanaws/angular/src/dashboard.component.js.map
 
 /***/ }),
 
@@ -232,7 +233,7 @@ var HomeComponent = (function () {
     return HomeComponent;
 }());
 
-//# sourceMappingURL=C:/Users/Andrew/dropbox/meanbase/angular-src/src/home.component.js.map
+//# sourceMappingURL=C:/Users/Andrew/Dropbox/Code/meanaws/angular/src/home.component.js.map
 
 /***/ }),
 
@@ -298,7 +299,7 @@ var LoginComponent = (function () {
     var _a, _b, _c;
 }());
 
-//# sourceMappingURL=C:/Users/Andrew/dropbox/meanbase/angular-src/src/login.component.js.map
+//# sourceMappingURL=C:/Users/Andrew/Dropbox/Code/meanaws/angular/src/login.component.js.map
 
 /***/ }),
 
@@ -353,7 +354,7 @@ var NavbarComponent = (function () {
     var _a, _b, _c;
 }());
 
-//# sourceMappingURL=C:/Users/Andrew/dropbox/meanbase/angular-src/src/navbar.component.js.map
+//# sourceMappingURL=C:/Users/Andrew/Dropbox/Code/meanaws/angular/src/navbar.component.js.map
 
 /***/ }),
 
@@ -404,7 +405,7 @@ var ProfileComponent = (function () {
     var _a, _b;
 }());
 
-//# sourceMappingURL=C:/Users/Andrew/dropbox/meanbase/angular-src/src/profile.component.js.map
+//# sourceMappingURL=C:/Users/Andrew/Dropbox/Code/meanaws/angular/src/profile.component.js.map
 
 /***/ }),
 
@@ -489,7 +490,7 @@ var RegisterComponent = (function () {
     var _a, _b, _c, _d;
 }());
 
-//# sourceMappingURL=C:/Users/Andrew/dropbox/meanbase/angular-src/src/register.component.js.map
+//# sourceMappingURL=C:/Users/Andrew/Dropbox/Code/meanaws/angular/src/register.component.js.map
 
 /***/ }),
 
@@ -536,7 +537,7 @@ var AuthGuard = (function () {
     var _a, _b;
 }());
 
-//# sourceMappingURL=C:/Users/Andrew/dropbox/meanbase/angular-src/src/auth.guard.js.map
+//# sourceMappingURL=C:/Users/Andrew/Dropbox/Code/meanaws/angular/src/auth.guard.js.map
 
 /***/ }),
 
@@ -575,7 +576,7 @@ var TokenInterceptor = (function () {
     return TokenInterceptor;
 }());
 
-//# sourceMappingURL=C:/Users/Andrew/dropbox/meanbase/angular-src/src/authToken.interceptor.js.map
+//# sourceMappingURL=C:/Users/Andrew/Dropbox/Code/meanaws/angular/src/authToken.interceptor.js.map
 
 /***/ }),
 
@@ -591,7 +592,7 @@ var TokenInterceptor = (function () {
 var environment = {
     production: false
 };
-//# sourceMappingURL=C:/Users/Andrew/dropbox/meanbase/angular-src/src/environment.js.map
+//# sourceMappingURL=C:/Users/Andrew/Dropbox/Code/meanaws/angular/src/environment.js.map
 
 /***/ }),
 
@@ -697,7 +698,7 @@ var AuthService = (function () {
     var _a, _b;
 }());
 
-//# sourceMappingURL=C:/Users/Andrew/dropbox/meanbase/angular-src/src/auth.service.js.map
+//# sourceMappingURL=C:/Users/Andrew/Dropbox/Code/meanaws/angular/src/auth.service.js.map
 
 /***/ }),
 
@@ -799,7 +800,7 @@ var ConfigService = (function () {
     return ConfigService;
 }());
 
-//# sourceMappingURL=C:/Users/Andrew/dropbox/meanbase/angular-src/src/config.service.js.map
+//# sourceMappingURL=C:/Users/Andrew/Dropbox/Code/meanaws/angular/src/config.service.js.map
 
 /***/ }),
 
@@ -844,7 +845,7 @@ var ValidateService = (function () {
     return ValidateService;
 }());
 
-//# sourceMappingURL=C:/Users/Andrew/dropbox/meanbase/angular-src/src/validate.service.js.map
+//# sourceMappingURL=C:/Users/Andrew/Dropbox/Code/meanaws/angular/src/validate.service.js.map
 
 /***/ })
 

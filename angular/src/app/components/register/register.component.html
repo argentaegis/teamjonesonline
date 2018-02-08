@@ -1,0 +1,20 @@
+<h2 class="page-header">Register</h2>
+<form (submit)="onRegisterSubmit()">
+  <div class="form-group">
+    <label>Name</label>
+    <input type="text" [(ngModel)]="name" class="form-control" [ngModelOptions]="{standalone: true}">
+  </div>
+  <div class="form-group">
+    <label>Username</label>
+    <input type="text" [(ngModel)]="username" class="form-control" [ngModelOptions]="{standalone: true}">
+  </div>
+  <div class="form-group">
+    <label>Email</label>
+    <input type="text" [(ngModel)]="email" class="form-control" [ngModelOptions]="{standalone: true}">
+  </div>
+  <div class="form-group">
+    <label>Password</label>
+    <input type="text" [(ngModel)]="password" class="form-control" [ngModelOptions]="{standalone: true}">
+  </div>
+  <input type="submit" class="btn btn-primary" value="Submit">
+</form>

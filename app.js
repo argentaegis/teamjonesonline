@@ -3,16 +3,24 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const passport = require('passport');
-const mongoose = require('mongoose');
 const dbconfig = require('./config/database');
 
+var http = require('http');
+var AWS = require('aws-sdk');
 
-mongoose.connect(dbconfig.database);
-mongoose.connection.on('connected', () => {
-  console.log('Connected to database' + dbconfig.database);
-});
-mongoose.connection.on('error', (err) => {
-  console.log('DB Error' + err);
+
+AWS.config.loadFromPath('./awsconfig.json');
+console.log('aws configed');
+
+ddb = new AWS.DynamoDB({"endpoint": "http://127.0.0.1:8000", "region": "us-east-1", "accessKeyId": "accesskey", "secretAccessKey": "secretaccesskey"});
+console.log('dynamo ddb');
+
+ddb.listTables({Limit: 10}, function(err, data) {
+  if (err) {
+    console.log("Error", err.code);
+  } else {
+    console.log("Table names are ", data.TableNames);
+  }
 });
 
 const app = express();

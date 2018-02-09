@@ -18,5 +18,8 @@
     "passport-jwt": "*"
   },
   "author": "Andrew Jones",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "aws-sdk": "^2.191.0"
+  }
 }

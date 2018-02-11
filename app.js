@@ -43,9 +43,9 @@ app.use('/users', users);
 
 
 app.get('/', (req, res) => {
-  res.send('index');
+    res.send('index');
 });
 
 app.listen(port, () => {
-  console.log('Server started  on port ' + port);
+    console.log('Server started  on port ' + port);
 });

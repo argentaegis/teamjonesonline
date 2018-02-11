@@ -4,24 +4,18 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const passport = require('passport');
 const dbconfig = require('./config/database');
-
+const loadJsonFile = require('load-json-file');
 var http = require('http');
 var AWS = require('aws-sdk');
 
+const awsconfig = loadJsonFile.sync('./config/awsconfig.json');
 
-AWS.config.loadFromPath('./awsconfig.json');
-console.log('aws configed');
+AWS.config.loadFromPath('./config/awsconfig.json');
+ddb = new AWS.DynamoDB({"endpoint": awsconfig.dynamoEndpoint, "region": awsconfig.region, "accessKeyId": awsconfig.accelerate, "secretAccessKey": awsconfig.secretAccessKey});
 
-ddb = new AWS.DynamoDB({"endpoint": "http://127.0.0.1:8000", "region": "us-east-1", "accessKeyId": "accesskey", "secretAccessKey": "secretaccesskey"});
-console.log('dynamo ddb');
 
-ddb.listTables({Limit: 10}, function(err, data) {
-  if (err) {
-    console.log("Error", err.code);
-  } else {
-    console.log("Table names are ", data.TableNames);
-  }
-});
+const initTables = require('./models/initializeTables');
+
 
 const app = express();
 const users = require('./routes/users');

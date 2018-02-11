@@ -2,6 +2,9 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const dbconfig = require('../config/database');
 
+
+
+
 const UserSchema = mongoose.Schema({
   name: {
     type: String
@@ -29,6 +32,20 @@ module.exports.getUserById = function(id, callback) {
 module.exports.getUserByUsername = function(username, callback) {
   const query = {username: username};
   User.findOne(query, callback);
+};
+
+module.exports.schema = {
+  TableName: 'User',
+  KeySchema: [
+    {AttributeName: "username", KeyType: "HASH"},  //Partition key
+  ],
+  AttributeDefinitions: [
+    {AttributeName: "username", AttributeType: "S"}
+  ],
+  ProvisionedThroughput: {
+    ReadCapacityUnits: 10,
+    WriteCapacityUnits: 10
+  }
 };
 
 module.exports.addUser = function(newUser, callback){

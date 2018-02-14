@@ -4,14 +4,15 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const passport = require('passport');
-const dbconfig = require('./config/database');
-
-
-console.log('DEBUG: ' + process.env.DEBUG);
 
 const dynamoose = require('dynamoose');
 
-if(process.env.DEBUG === 'true')
+console.log('DEV: ' + process.env.DEV);
+
+const port = process.env.SERVERPORT;
+
+
+if(process.env.DEV === 'true')
 {
   dynamoose.local();
 }
@@ -20,8 +21,6 @@ if(process.env.DEBUG === 'true')
 const app = express();
 const users = require('./routes/users');
 
-
-const port = 3030;
 
 app.use(cors());
 

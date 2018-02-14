@@ -1,54 +1,44 @@
-const mongoose = require('mongoose');
+const dynamoose = require('dynamoose');
 const bcrypt = require('bcryptjs');
-const dbconfig = require('../config/database');
 
+var Schema = dynamoose.Schema;
 
-
-
-const UserSchema = mongoose.Schema({
-  name: {
-    type: String
+var UserSchema = new Schema({
+    username: {
+      type: String,
+      required: true,
+      hashKey: true
+    },
+    password: {
+      type: String,
+      required: true
+    },
+    name: {
+      type: String
+    },
+    email: {
+      type: String,
+      required: true
+    }
   },
-  email: {
-    type: String,
-    required: true
-  },
-  username: {
-    type: String,
-    required: true
-  },
-  password: {
-    type: String,
-    required: true
-  }
-});
+  {
+    throughput: {read: 15, write: 5}
+  });
 
-const User = module.exports = mongoose.model('User', UserSchema);
 
-module.exports.getUserById = function(id, callback) {
-  User.findById(id, callback);
-};
+const User = module.exports = dynamoose.model('User', UserSchema);;
 
 module.exports.getUserByUsername = function(username, callback) {
-  const query = {username: username};
-  User.findOne(query, callback);
-};
-
-module.exports.schema = {
-  TableName: 'User',
-  KeySchema: [
-    {AttributeName: "username", KeyType: "HASH"},  //Partition key
-  ],
-  AttributeDefinitions: [
-    {AttributeName: "username", AttributeType: "S"}
-  ],
-  ProvisionedThroughput: {
-    ReadCapacityUnits: 10,
-    WriteCapacityUnits: 10
-  }
+  console.log('getUserByUsername: ' + username);
+  //const query = {username: username};
+  User.query('username').eq(username).exec(function (err, user){
+    console.log('got user: ' + user[0]);
+    callback(err, user[0]);
+  });
 };
 
 module.exports.addUser = function(newUser, callback){
+  console.log('addUser');
   bcrypt.genSalt(10, function (err, salt) {
     bcrypt.hash(newUser.password, salt, (err, hash) => {
       if(err) throw err;
@@ -59,6 +49,7 @@ module.exports.addUser = function(newUser, callback){
 };
 
 module.exports.comparePassword = function(candidate, hash, callback) {
+  console.log('comparePassword');
   bcrypt.compare(candidate, hash, (err, isMatch) => {
     if(err) throw err;
     callback(null, isMatch);

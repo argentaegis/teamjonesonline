@@ -61,8 +61,15 @@ export class RegisterComponent implements OnInit {
         this.flashMessage.show("You have been registered.", {cssClass: 'alert-success', timeout: 3000});
         this.router.navigate(['/login'])
       }else {
-        this.flashMessage.show("There was an error registering the user.", {cssClass: 'alert-danger', timeout: 3000});
-        this.router.navigate(['/register'])
+        if(data.msg == "Username exists")
+        {
+          this.flashMessage.show("This username already exists.", {cssClass: 'alert-danger', timeout: 3000});
+          this.router.navigate(['/register'])
+        }
+        else {
+          this.flashMessage.show("There was an error registering the user.", {cssClass: 'alert-danger', timeout: 3000});
+          this.router.navigate(['/register'])
+        }
       }
 
     });

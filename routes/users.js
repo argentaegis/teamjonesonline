@@ -16,7 +16,6 @@ router.post('/register', (req, res, next) => {
 
   User.addUser(newUser, (err, user) => {
     if(err){
-      console.log("err: " + err);
       if(err == "Username exists")
       {
         res.json({success: false, msg:'Username exists'});
@@ -25,6 +24,26 @@ router.post('/register', (req, res, next) => {
       }
     } else {
       res.json({success: true, msg:'User registered'});
+    }
+  });
+});
+
+// usernameExists
+router.post('/usernameExists', (req, res, next) => {
+  let user = new User({
+    name: req.body.name,
+    email: req.body.email,
+    username: req.body.username,
+    password: req.body.password
+  });
+
+  User.getUserByUsername(user.username, (err, user) => {
+    if(err) {
+    }
+    if(!user){
+      return res.json({success: false, msg: 'Username not found'});
+    } else  {
+      return res.json({success: true, msg: 'Username found'});
     }
   });
 });
@@ -39,8 +58,6 @@ router.post('/authenticate', (req, res, next) => {
     if(!user){
       return res.json({success: false, msg: 'User not found'});
     }
-
-    console.log('Callback, USER: ' + user);
 
     User.comparePassword(password, user.password, (err, isMatch) => {
       if(err) throw err;

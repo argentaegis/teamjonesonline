@@ -29,16 +29,12 @@ var UserSchema = new Schema({
 const User = module.exports = dynamoose.model('User', UserSchema);;
 
 module.exports.getUserByUsername = function(username, callback) {
-  console.log('getUserByUsername: ' + username);
-  //const query = {username: username};
   User.query('username').eq(username).exec(function (err, user){
-    console.log('got user: ' + user[0]);
     callback(err, user[0]);
   });
 };
 
 module.exports.addUser = function(newUser, callback){
-  console.log('addUser');
   bcrypt.genSalt(10, function (err, salt) {
     bcrypt.hash(newUser.password, salt, (err, hash) => {
       User.getUserByUsername(newUser.username, (err, user) => {
@@ -46,11 +42,9 @@ module.exports.addUser = function(newUser, callback){
             throw err;
           }
           if(user){
-            console.log("Username exists");
             callback("Username exists", user);
           }
           else {
-            console.log("User DNE");
             newUser.password = hash;
             newUser.save(callback);
           }
@@ -60,7 +54,6 @@ module.exports.addUser = function(newUser, callback){
 };
 
 module.exports.comparePassword = function(candidate, hash, callback) {
-  console.log('comparePassword');
   bcrypt.compare(candidate, hash, (err, isMatch) => {
     if(err) throw err;
     callback(null, isMatch);

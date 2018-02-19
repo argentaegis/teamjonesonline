@@ -19,11 +19,36 @@ export class RegisterComponent implements OnInit {
   constructor(
     private validateService: ValidateService,
     private flashMessage: FlashMessagesService,
-    private authSercice: AuthService,
+    private authService: AuthService,
     private router: Router) { }
 
   ngOnInit() {
     return 1;
+  }
+
+  usernameExists()  {
+    const user = {
+      name: this.name,
+      username: this.username,
+      email: this.email,
+      password: this.password
+    }
+
+    console.log(user);
+
+    if (user.username.length < 4){
+      return;
+    }
+
+    this.authService.usernameExists(user).subscribe(data => {
+      if(data.success){
+        this.flashMessage.show("That username is taken.", {cssClass: 'alert-danger', timeout: 3000});
+        return true;
+      } else{
+
+        return false;
+      }
+    });
   }
 
   onRegisterSubmit(){
@@ -55,7 +80,7 @@ export class RegisterComponent implements OnInit {
       }
     }
 
-    this.authSercice.registerUser(user).subscribe(data =>  {
+    this.authService.registerUser(user).subscribe(data =>  {
 
       if(data.success){
         this.flashMessage.show("You have been registered.", {cssClass: 'alert-success', timeout: 3000});

@@ -6,7 +6,7 @@
   </div>
   <div class="form-group">
     <label>Username</label>
-    <input type="text" [(ngModel)]="username" class="form-control" [ngModelOptions]="{standalone: true}">
+    <input type="text" [(ngModel)]="username" (input)="usernameExists()" class="form-control" [ngModelOptions]="{standalone: true}">
   </div>
   <div class="form-group">
     <label>Email</label>

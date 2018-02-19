@@ -21,6 +21,13 @@ export class AuthService {
     return this.http.post<AuthResponse>(url, user);
   }
 
+  usernameExists(user){
+    var url = this.config.baseServiceUrl + 'users/usernameExists';
+
+    return this.http.post<AuthResponse>(url, user);
+  }
+
+
   authenticateUser(user){
     var url = this.config.baseServiceUrl + 'users/authenticate';
 

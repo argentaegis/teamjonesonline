@@ -1,9 +1,9 @@
-import { Component, OnChanges, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ValidateService} from '../../services/validate.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { AuthService } from "../../services/auth.service";
-import { Router } from '@angular/router';
-import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +11,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  @Input() user:  any;
+  @Input() user =  {name: '', username: '', email: '', password: '', passwordEcho:''};
 
   registrationForm: FormGroup;
 
@@ -29,8 +29,15 @@ export class RegisterComponent {
       name: '',
       username: '',
       email: '',
-      password: '',
-      passwordEcho: ''
+      password: new FormControl(this.user.password, [
+        Validators.required,
+        Validators.minLength(8)
+      ]),
+      passwordEcho: new FormControl(this.user.passwordEcho, [
+        Validators.required,
+        Validators.minLength(8),
+
+      ])
     });
   }
 
@@ -62,6 +69,7 @@ export class RegisterComponent {
       this.flashMessage.show("Passwords do not match.", {cssClass: 'alert-danger', timeout: 3000});
     }
   }
+
   onRegisterSubmit(){
     var user = this.registrationForm.value;
 
@@ -107,4 +115,9 @@ export class RegisterComponent {
   }
 
 
+  get email() {
+    var val = this.registrationForm.get('email');
+    console.log('val: ' + val);
+    return val;
+  }
 }

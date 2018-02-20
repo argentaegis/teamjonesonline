@@ -29,7 +29,8 @@ export class RegisterComponent {
       name: '',
       username: '',
       email: '',
-      password: ''
+      password: '',
+      passwordEcho: ''
     });
   }
 
@@ -53,6 +54,14 @@ export class RegisterComponent {
     });
   }
 
+  passwordEchoMatches() {
+    var user = this.registrationForm.value;
+
+    if(user.passwordEcho != user.password)
+    {
+      this.flashMessage.show("Passwords do not match.", {cssClass: 'alert-danger', timeout: 3000});
+    }
+  }
   onRegisterSubmit(){
     var user = this.registrationForm.value;
 
@@ -65,17 +74,17 @@ export class RegisterComponent {
       this.flashMessage.show("Please enter a valid email.", {cssClass: 'alert-danger', timeout: 3000});
       return false;
     }
-
-
-    class AuthResponse{
-      success: boolean;
-      msg: string;
-
-      constructor(suc: boolean, message: string){
-        this.success = suc;
-        this.msg = message;
-      }
-    }
+    //
+    //
+    // class AuthResponse{
+    //   success: boolean;
+    //   msg: string;
+    //
+    //   constructor(suc: boolean, message: string){
+    //     this.success = suc;
+    //     this.msg = message;
+    //   }
+    // }
 
     this.authService.registerUser(user).subscribe(data =>  {
 

@@ -5,26 +5,43 @@
   </div>
   <div class="form-group">
     <label>Username</label>
-    <input formControlName="username" (input)="usernameExists()" class="form-control" required>
+    <input formControlName="username" (input)="usernameExists()" class="form-control">
+  </div>
+  <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger">
+    <div *ngIf="username.errors.required">
+      Username is required.
+    </div>
+    <div *ngIf="username.errors.usernameExists">
+      That username is already in use.
+    </div>
   </div>
   <div class="form-group">
     <label>Email</label>
-    <input type="email" formControlName="email" class="form-control" email required>
-    <div *ngIf="email.invalid && (email.dirty || email.touched)"
-         class="alert alert-danger">
-
-      <div *ngIf="email.errors.email">
-        Please enter a valid email address.
-      </div>
+    <input type="email" formControlName="email" class="form-control">
+  </div>
+  <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+    <div *ngIf="email.errors.email">
+      Please enter a valid email address.
+    </div>
+    <div *ngIf="email.errors.required">
+      Email is required.
     </div>
   </div>
   <div class="form-group">
     <label>Password</label>
-    <input type="password" formControlName="password" class="form-control" required>
+    <input type="password" formControlName="password" class="form-control">
+  </div>
+  <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+    <div *ngIf="password.errors.minlength">
+      Passwords must be 8 or more characters.
+    </div>
+    <div *ngIf="password.errors.required">
+      Passwords is required.
+    </div>
   </div>
   <div class="form-group">
     <label>Password</label>
-    <input type="password" formControlName="passwordEcho" (input)="passwordEchoMatches()" class="form-control" required>
+    <input type="password" formControlName="passwordEcho" (input)="passwordEchoMatches()" class="form-control">
   </div>
   <button type="submit" [disabled]="registrationForm.pristine" class="btn btn-primary">Register</button>
 </form>

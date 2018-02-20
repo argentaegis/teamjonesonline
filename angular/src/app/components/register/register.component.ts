@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ValidateService} from '../../services/validate.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { AuthService } from "../../services/auth.service";
+import { usernameExistsValidator } from  "../../validators/usernameExistsValidator";
 
 @Component({
   selector: 'app-register',
@@ -27,8 +28,15 @@ export class RegisterComponent {
   createForm() {
     this.registrationForm = this.fb.group({
       name: '',
-      username: '',
-      email: '',
+      username: new FormControl(
+        this.user.username,
+        [ Validators.required ],
+        [ usernameExistsValidator(this.authService)]),
+      email: new FormControl(
+        this.user.email,
+        [ Validators.required,
+        Validators.email]
+      ),
       password: new FormControl(this.user.password, [
         Validators.required,
         Validators.minLength(8)
@@ -116,8 +124,14 @@ export class RegisterComponent {
 
 
   get email() {
-    var val = this.registrationForm.get('email');
-    console.log('val: ' + val);
-    return val;
+    return this.registrationForm.get('email');
+  }
+
+  get password() {
+    return this.registrationForm.get('password');
+  }
+
+  get username() {
+    return this.registrationForm.get('username');
   }
 }

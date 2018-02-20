@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import {Form, FormBuilder, FormGroup} from '@angular/forms';
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
 import {FlashMessagesService} from "angular2-flash-messages";
@@ -8,24 +9,29 @@ import {FlashMessagesService} from "angular2-flash-messages";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
-  username: String;
-  password: String;
+export class LoginComponent {
+  @Input() user: any;
+
+  loginForm: FormGroup;
 
   constructor(
-    private authService:AuthService,
-    private router:Router,
-    private flashMessage:FlashMessagesService) { }
+    private router: Router,
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private flashMessage: FlashMessagesService) {
+    this.createForm();
+  }
 
-  ngOnInit() {
+  createForm(){
+    this.loginForm = this.fb.group({
+      username: '',
+      password: ''
+    })
+
   }
 
   onLoginSubmit() {
-
-    const user = {
-      username: this.username,
-      password: this.password
-    }
+    var user = this.loginForm.value;
 
     this.authService.authenticateUser(user).subscribe( data => {
       console.log(data);

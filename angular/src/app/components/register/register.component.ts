@@ -1,38 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, Input } from '@angular/core';
 import { ValidateService} from '../../services/validate.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { AuthService } from "../../services/auth.service";
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
-  name: String;
-  username: String;
-  email: String;
-  password: String;
+export class RegisterComponent {
+  @Input() user:  any;
 
+  registrationForm: FormGroup;
 
   constructor(
     private validateService: ValidateService,
     private flashMessage: FlashMessagesService,
     private authService: AuthService,
-    private router: Router) { }
+    private router: Router,
+    private fb: FormBuilder) {
+    this.createForm();
+  }
 
-  ngOnInit() {
-    return 1;
+  createForm() {
+    this.registrationForm = this.fb.group({
+      name: '',
+      username: '',
+      email: '',
+      password: ''
+    });
   }
 
   usernameExists()  {
-    const user = {
-      name: this.name,
-      username: this.username,
-      email: this.email,
-      password: this.password
-    }
+    var user = this.registrationForm.value;
 
     console.log(user);
 
@@ -52,12 +54,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onRegisterSubmit(){
-    const user = {
-      name: this.name,
-      username: this.username,
-      email: this.email,
-      password: this.password
-    }
+    var user = this.registrationForm.value;
 
     if(! this.validateService.validateRegister(user)){
       this.flashMessage.show("Please fill in all fields.", {cssClass: 'alert-danger', timeout: 3000});

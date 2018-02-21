@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
-const config = require('../config/database');
 const User = require('../models/user');
 
 // Register
@@ -68,7 +67,7 @@ router.post('/authenticate', (req, res, next) => {
           username: user.username,
           email: user.email
         };
-        const token = jwt.sign(sendUser, config.secret, {
+        const token = jwt.sign(sendUser, process.env.PASSPORT_SECRET, {
           expiresIn: 604800 // 1 week
         });
 

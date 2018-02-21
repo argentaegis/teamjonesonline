@@ -19,7 +19,7 @@ import { AuthService } from './services/auth.service';
 import {ConfigService} from "./services/config.service";
 import {TokenInterceptor} from "./services/authToken.interceptor";
 import { AuthGuard } from "./guards/auth.guard";
-import { TranslateComponent } from '../../../../temp/angular/src/app/translate/translate.component';
+import { TranslateComponent } from './components/translate/translate.component';
 
 
 const appRoutes: Routes =  [

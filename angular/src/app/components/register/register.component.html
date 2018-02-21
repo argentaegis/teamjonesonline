@@ -5,7 +5,7 @@
   </div>
   <div class="form-group">
     <label>Username</label>
-    <input formControlName="username" (input)="usernameExists()" class="form-control">
+    <input formControlName="username" class="form-control">
   </div>
   <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger">
     <div *ngIf="username.errors.required">
@@ -41,7 +41,12 @@
   </div>
   <div class="form-group">
     <label>Password</label>
-    <input type="password" formControlName="passwordEcho" (input)="passwordEchoMatches()" class="form-control">
+    <input type="password" formControlName="passwordEcho" class="form-control">
+  </div>
+  <div *ngIf="registrationForm.errors && registrationForm.errors.match && (passwordEcho.dirty || passwordEcho.touched) && (passwordEcho.dirty || passwordEcho.touched)" class="alert alert-danger">
+    <div *ngIf="registrationForm.errors && registrationForm.errors.match">
+      Passwords do not match.
+    </div>
   </div>
   <button type="submit" [disabled]="registrationForm.pristine" class="btn btn-primary">Register</button>
 </form>

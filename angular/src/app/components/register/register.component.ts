@@ -5,6 +5,7 @@ import { ValidateService} from '../../services/validate.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { AuthService } from "../../services/auth.service";
 import { usernameExistsValidator } from  "../../validators/usernameExistsValidator";
+import { passwordsMatchValidator } from  "../../validators/passwordsMatchValidator";
 
 @Component({
   selector: 'app-register',
@@ -46,36 +47,10 @@ export class RegisterComponent {
         Validators.minLength(8),
 
       ])
-    });
-  }
-
-  usernameExists()  {
-    var user = this.registrationForm.value;
-
-    console.log(user);
-
-    if (user.username.length < 4){
-      return;
-    }
-
-    this.authService.usernameExists(user).subscribe(data => {
-      if(data.success){
-        this.flashMessage.show("That username is taken.", {cssClass: 'alert-danger', timeout: 3000});
-        return true;
-      } else{
-
-        return false;
-      }
-    });
-  }
-
-  passwordEchoMatches() {
-    var user = this.registrationForm.value;
-
-    if(user.passwordEcho != user.password)
+    },
     {
-      this.flashMessage.show("Passwords do not match.", {cssClass: 'alert-danger', timeout: 3000});
-    }
+      validator: passwordsMatchValidator
+    });
   }
 
   onRegisterSubmit(){
@@ -133,5 +108,9 @@ export class RegisterComponent {
 
   get username() {
     return this.registrationForm.get('username');
+  }
+
+  get passwordEcho() {
+    return this.registrationForm.get('passwordEcho');
   }
 }

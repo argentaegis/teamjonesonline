@@ -1,0 +1,13 @@
+<form [formGroup]="translateForm" (ngSubmit)="onTranslateSubmit()">
+  <div class="form-group">
+    <label>Source Text</label>
+    <input class="form-control" formControlName="sourceText">
+  </div>
+  <button type="submit" [disabled]="translateForm.pristine" class="btn btn-primary">Translate</button>
+  <br><br>
+  <div class="form-group">
+    <label>Translated Text</label>
+
+    <blockquote class="blockquote">{{translatedText}}</blockquote>
+  </div>
+</form>

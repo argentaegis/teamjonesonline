@@ -19,25 +19,29 @@ import { AuthService } from './services/auth.service';
 import {ConfigService} from "./services/config.service";
 import {TokenInterceptor} from "./services/authToken.interceptor";
 import { AuthGuard } from "./guards/auth.guard";
+import { TranslateComponent } from '../../../../temp/angular/src/app/translate/translate.component';
+
 
 const appRoutes: Routes =  [
-    {path:'', component: HomeComponent},
-    {path:'register', component: RegisterComponent},
-    {path:'login', component: LoginComponent},
-    {path:'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
-    {path:'profile', component: ProfileComponent, canActivate:[AuthGuard]},
-    {path:'**', redirectTo: ''}
+  {path:'', component: HomeComponent},
+  {path:'register', component: RegisterComponent},
+  {path:'login', component: LoginComponent},
+  {path:'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
+  {path:'profile', component: ProfileComponent, canActivate:[AuthGuard]},
+  {path:'translate', component: TranslateComponent, canActivate:[AuthGuard]},
+  {path:'**', redirectTo: ''}
 ]
 
 @NgModule({
     declarations: [
-        AppComponent,
-        NavbarComponent,
-        LoginComponent,
-        RegisterComponent,
-        HomeComponent,
-        DashboardComponent,
-        ProfileComponent
+      AppComponent,
+      NavbarComponent,
+      LoginComponent,
+      RegisterComponent,
+      HomeComponent,
+      DashboardComponent,
+      ProfileComponent,
+      TranslateComponent
     ],
     imports: [
       BrowserModule,

@@ -16,24 +16,7 @@ if(process.env.DEV === 'true')
 {
   dynamoose.local();
 }
-//
-// var testFile = './angular/src/app/components/translate/test_text.jpg';
-// var testFile2 = './angular/src/app/components/translate/test_text2.jpg';
-//
-// const Vision = require('node-google-vision')
-//
-// // Set your Google Cloud credentials
-// const GoogleParameters = {
-//   "projectId": "dean-demos",
-//   "keyFilename": "./DEAN Demos-40d2753c22e7.json"
-// }
-//
-// const vision = new Vision(GoogleParameters);
-//
-// vision.textDetection(testFile2).then((detections) => {
-//
-//   detections.forEach(text => console.log(text));
-// });
+
 
 
 

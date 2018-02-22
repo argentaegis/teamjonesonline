@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import {FormControl, FormBuilder, FormGroup} from '@angular/forms';
 //const googleTranslate = require('google-translate')("AIzaSyCH5vl4pfc2l7v8MbfD1Yrvhwx8vgNaxNI");
-//const vision = require('@google-cloud/vision');
 import { TranslateService } from '../../services/translate.service';
 
 @Component({
@@ -28,8 +27,25 @@ export class TranslateComponent  {
   }
 
   updateTranslation(translation){
-    console.log('Translation: ' + translation.translatedText);
-    this.translatedText = translation.translatedText;
+    console.log('updateTranslation: ' + translation);
+    console.log(translation);
+    var translatedValue = '';
+
+    if(Array.isArray(translation)){
+      translation.forEach( function(trans) {
+        console.log(trans);
+        translatedValue = translatedValue.concat(trans.translatedText + '\n');
+        console.log(translatedValue);
+      });
+    }
+    else {
+      translatedValue = translation.translatedText;
+    }
+
+
+
+    this.translatedText = translatedValue;
+
   }
 
   onTranslateSubmit() {
@@ -37,6 +53,7 @@ export class TranslateComponent  {
 
     var translateRequest = {
       sourceText: this.translateForm.value.sourceText,
+      sourceImage: '',
       sourceLang: 'en',
       targetLang: 'fr'
     }
@@ -50,20 +67,20 @@ export class TranslateComponent  {
         }
       }
     );
-    // var source = this.translateForm.value.sourceText;
-    //
-    // console.log(source);
-    // googleTranslate.translate(
-    //   source,
-    //   'en',
-    //   'fr',
-    //   (err, translation) => this.updateTranslation(err, translation)
-    // );
-
   };
 
   onTranslateTestTextImage() {
-    console.log('ttti');
+    var translateRequest = {
+      sourceText: '',
+      sourceImage: '',
+      sourceLang: 'fr',
+      targetLang: 'en'
+    }
+
+    this.translateService.translateImage(translateRequest).subscribe( data =>{
+      console.log(data);
+      this.updateTranslation(data.translation);
+    });
   }
 
 }

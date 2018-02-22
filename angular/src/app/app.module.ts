@@ -20,6 +20,7 @@ import {ConfigService} from "./services/config.service";
 import {TokenInterceptor} from "./services/authToken.interceptor";
 import { AuthGuard } from "./guards/auth.guard";
 import { TranslateComponent } from './components/translate/translate.component';
+import { TranslateService } from './services/translate.service';
 
 
 const appRoutes: Routes =  [
@@ -28,7 +29,7 @@ const appRoutes: Routes =  [
   {path:'login', component: LoginComponent},
   {path:'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
   {path:'profile', component: ProfileComponent, canActivate:[AuthGuard]},
-  {path:'translate', component: TranslateComponent, canActivate:[AuthGuard]},
+  {path:'translate', component: TranslateComponent},
   {path:'**', redirectTo: ''}
 ]
 
@@ -59,7 +60,8 @@ const appRoutes: Routes =  [
         useClass: TokenInterceptor,
         multi   : true,
       },
-      AuthGuard
+      AuthGuard,
+      TranslateService
     ],
     bootstrap: [AppComponent],
 

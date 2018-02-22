@@ -68,7 +68,8 @@ router.post('/authenticate', (req, res, next) => {
           email: user.email
         };
         const token = jwt.sign(sendUser, process.env.PASSPORT_SECRET, {
-          expiresIn: 604800 // 1 week
+          // expiresIn: 604800 // 1 week
+          expiresIn: 3600 // 1 hour
         });
 
         res.json({

@@ -12,7 +12,7 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private config: ConfigService,
+    private config: ConfigService
     ) { }
 
   registerUser(user){
@@ -47,11 +47,6 @@ export class AuthService {
     this.user = user;
   }
 
-  loadToken(){
-    const token = localStorage.getItem('id_token');
-    this.authToken = token;
-  }
-
   logout(){
     this.authToken = null;
     this.user = null;
@@ -65,8 +60,8 @@ export class AuthService {
 }
 
 export interface AuthResponse {
-  success: boolean,
-  msg: string,
-  token: string,
-  user: any
+  success: boolean;
+  msg: string;
+  token: string;
+  user: any;
 }

@@ -63,8 +63,14 @@ router.post('/translateImage', (req, res, next) =>{
   var testFile = './angular/src/app/components/translate/test_text.jpg';
   var testFile2 = './angular/src/app/components/translate/test_text2.jpg';
 
+  //var image = req.body.imageBase64.split(',')[1];
+  var image = req.body.imageBase64;
+ // vision.textDetection(image).then((detections) => {
+  vision.textDetection(image).then((detections, err) => {
+    if(err){
+      console.log(err);
+    }
 
-  vision.textDetection(testFile2).then((detections) => {
     var textLines = detections[0].description.split(/\r?\n/);
 
     console.log(textLines);
@@ -86,6 +92,8 @@ router.post('/translateImage', (req, res, next) =>{
     })
   });
 });
+
+
 
 
 module.exports = router;

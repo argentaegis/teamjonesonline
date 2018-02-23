@@ -17,9 +17,6 @@ if(process.env.DEV === 'true')
   dynamoose.local();
 }
 
-
-
-
 const app = express();
 const users = require('./routes/users');
 const translate = require('./routes/translate');

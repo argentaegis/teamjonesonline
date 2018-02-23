@@ -11,5 +11,5 @@
     <blockquote class="blockquote">{{translatedText}}</blockquote>
   </div>
 </form>
-<button (click)="onTranslateTestTextImage()"  class="btn btn-secondary">Translate Test Text Image</button>
-
+<input type="file" id="textImage" (change)="onFileChange($event)" #fileInput>
+<!--<button (click)="onTranslateTestTextImage()"  class="btn btn-secondary">Translate Test Text Image</button>-->

@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import {FormControl, FormBuilder, FormGroup} from '@angular/forms';
 //const googleTranslate = require('google-translate')("AIzaSyCH5vl4pfc2l7v8MbfD1Yrvhwx8vgNaxNI");
 import { TranslateService } from '../../services/translate.service';
+import { ImageAnalysisService } from "../../services/image-analysis.service";
 
 @Component({
   selector: 'app-translate',
@@ -15,7 +16,8 @@ export class TranslateComponent  {
 
   constructor(
     private fb: FormBuilder,
-    private translateService: TranslateService) {
+    private translateService: TranslateService,
+    private imageAnalysisService: ImageAnalysisService) {
     this.createForm();
     this.translatedText = "hi";
   }
@@ -55,7 +57,8 @@ export class TranslateComponent  {
       sourceText: this.translateForm.value.sourceText,
       sourceImage: '',
       sourceLang: 'en',
-      targetLang: 'fr'
+      targetLang: 'fr',
+      imageBase64: ''
     }
 
     this.translateService.translateText(translateRequest).subscribe( data => {
@@ -69,18 +72,53 @@ export class TranslateComponent  {
     );
   };
 
-  onTranslateTestTextImage() {
-    var translateRequest = {
-      sourceText: '',
-      sourceImage: '',
-      sourceLang: 'fr',
-      targetLang: 'en'
+  // onTranslateTestTextImage() {
+  //   var translateRequest = {
+  //     sourceText: '',
+  //     sourceImage: '',
+  //     sourceLang: 'fr',
+  //     targetLang: 'en'
+  //   }
+  //
+  //   this.translateService.translateImage(translateRequest).subscribe( data =>{
+  //     console.log(data);
+  //     this.updateTranslation(data.translation);
+  //   });
+  //
+  // }
+
+  onFileChange(event) {
+    const reader = new FileReader();
+    if(event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0];
+      reader.readAsDataURL(file);
+
+      reader.onload = () => {
+        console.log(reader.result);
+
+          var translateRequest = {
+            sourceText: '',
+            sourceImage: '',
+            sourceLang: 'fr',
+            targetLang: 'en',
+            imageBase64: reader.result
+          }
+
+          this.translateService.translateImage(translateRequest).subscribe( data =>{
+            console.log(data);
+            this.updateTranslation(data.translation);
+          });
+
+        // this.imageAnalysisService.imageToText(reader.result).subscribe( data =>
+        // {
+        //   console.log('Back data: ' + data);
+        //
+        //   var textLines = data[0].description.split(/\r?\n/);
+        //
+        //   console.log(textLines);
+        // });
+      };
+
     }
-
-    this.translateService.translateImage(translateRequest).subscribe( data =>{
-      console.log(data);
-      this.updateTranslation(data.translation);
-    });
   }
-
 }

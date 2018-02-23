@@ -21,6 +21,7 @@ import {TokenInterceptor} from "./services/authToken.interceptor";
 import { AuthGuard } from "./guards/auth.guard";
 import { TranslateComponent } from './components/translate/translate.component';
 import { TranslateService } from './services/translate.service';
+import {ImageAnalysisService} from "./services/image-analysis.service";
 
 
 const appRoutes: Routes =  [
@@ -61,7 +62,8 @@ const appRoutes: Routes =  [
         multi   : true,
       },
       AuthGuard,
-      TranslateService
+      TranslateService,
+      ImageAnalysisService
     ],
     bootstrap: [AppComponent],
 

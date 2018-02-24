@@ -18,7 +18,7 @@
     "google-translate": "^2.1.0",
     "jsonwebtoken": "8.1.0",
     "load-json-file": "^4.0.0",
-    "node-google-vision": "^0.1.1",
+    "node-cloud-vision-api-comoc": "^0.1.2",
     "passport": "0.4.0",
     "passport-jwt": "3.0.1"
   },

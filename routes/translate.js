@@ -2,13 +2,13 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
-const googleTranslate = require('google-translate')("AIzaSyCH5vl4pfc2l7v8MbfD1Yrvhwx8vgNaxNI");
-const GoogleParameters = {
-  "projectId": "dean-demos",
-  "keyFilename": "./DEAN Demos-40d2753c22e7.json"
-}
-const Vision = require('node-google-vision')
-const vision = new Vision(GoogleParameters);
+const GoogleTranslate = require('google-translate');
+const vision = require('node-cloud-vision-api-comoc')
+
+const googleAPIKey = process.env.GOOGLE_API_KEY;
+
+const googleTranslate = GoogleTranslate(googleAPIKey);
+vision.init({auth: googleAPIKey});
 
 
 translateText = function(translateRequest, callback){
@@ -24,9 +24,6 @@ translateText = function(translateRequest, callback){
 
 // Translate text
 router.post('/translateText', (req, res, next) =>{
-  console.log('translateText req.sourceText:' +  req.body.sourceText);
-  console.log('translateText req.sourceLang:' + req.body.sourceLang);
-  console.log('translateText req.targetLang:' + req.body.targetLang);
 
   var translateRequest = {
     sourceText: req.body.sourceText,
@@ -39,58 +36,50 @@ router.post('/translateText', (req, res, next) =>{
       console.log(err);
       res.json({success: false, msg: 'translation failed'});
     } else {
-      console.log('translation: ' + translation);
       res.json({success: true, translation: translation});
     }
   });
-  // googleTranslate.translate(
-  //   req.body.sourceText,
-  //   req.body.sourceLang,
-  //   req.body.targetLang,
-  //   (err, translation) => {
-  //     if(err){
-  //       console.log(err);
-  //       res.json({success: false, msg: 'translation failed'});
-  //     } else {
-  //       console.log('translation: ' + translation);
-  //       res.json({success: true, translation: translation});
-  //     }
-  //   }
-  // );
 });
 
 router.post('/translateImage', (req, res, next) =>{
-  var testFile = './angular/src/app/components/translate/test_text.jpg';
-  var testFile2 = './angular/src/app/components/translate/test_text2.jpg';
+  var image = req.body.imageBase64.split(',')[1];
 
-  //var image = req.body.imageBase64.split(',')[1];
-  var image = req.body.imageBase64;
- // vision.textDetection(image).then((detections) => {
-  vision.textDetection(image).then((detections, err) => {
-    if(err){
-      console.log(err);
-    }
+  const visionRequest = new vision.Request({
+    image: new vision.Image({
+      base64: image
+    }),
+    features: [
+      new vision.Feature('TEXT_DETECTION', 1)
+    ]
+  })
 
-    var textLines = detections[0].description.split(/\r?\n/);
+  vision.annotate(visionRequest).then((translation) => {
+    var textData = translation.responses[0].textAnnotations[0].description;
+    var textLines = textData.split('\n');
+    console.log('translation: ' + textData);
 
-    console.log(textLines);
 
-    var translateRequest = {
-      sourceText: textLines,
-      sourceLang: req.body.sourceLang,
-      targetLang: req.body.targetLang
-    }
+     console.log(textData);
 
-    translateText(translateRequest, (err, translation) => {
-      if(err){
-        console.log(err);
-        res.json({success: false, msg: 'translation failed'});
-      } else {
-        console.log('translation: ' + translation);
-        res.json({success: true, translation: translation});
-      }
-    })
-  });
+     var translateRequest = {
+       sourceText: textLines,
+       sourceLang: req.body.sourceLang,
+       targetLang: req.body.targetLang
+     }
+
+     translateText(translateRequest, (err, translation) => {
+       if(err){
+         console.log(err);
+         res.json({success: false, msg: 'translation failed'});
+       } else {
+         console.log('translation: ' + translation);
+         res.json({success: true, translation: translation});
+       }
+     })
+  }, (err) => {
+    console.log('Error: ' + err);
+    res.json({success: false, msg: 'translation failed'});
+  })
 });
 
 

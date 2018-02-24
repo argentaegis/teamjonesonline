@@ -19,7 +19,6 @@ export class TranslateComponent  {
     private translateService: TranslateService,
     private imageAnalysisService: ImageAnalysisService) {
     this.createForm();
-    this.translatedText = "hi";
   }
 
   createForm(){
@@ -72,21 +71,6 @@ export class TranslateComponent  {
     );
   };
 
-  // onTranslateTestTextImage() {
-  //   var translateRequest = {
-  //     sourceText: '',
-  //     sourceImage: '',
-  //     sourceLang: 'fr',
-  //     targetLang: 'en'
-  //   }
-  //
-  //   this.translateService.translateImage(translateRequest).subscribe( data =>{
-  //     console.log(data);
-  //     this.updateTranslation(data.translation);
-  //   });
-  //
-  // }
-
   onFileChange(event) {
     const reader = new FileReader();
     if(event.target.files && event.target.files.length > 0) {
@@ -108,15 +92,6 @@ export class TranslateComponent  {
             console.log(data);
             this.updateTranslation(data.translation);
           });
-
-        // this.imageAnalysisService.imageToText(reader.result).subscribe( data =>
-        // {
-        //   console.log('Back data: ' + data);
-        //
-        //   var textLines = data[0].description.split(/\r?\n/);
-        //
-        //   console.log(textLines);
-        // });
       };
 
     }

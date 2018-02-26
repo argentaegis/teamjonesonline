@@ -8,7 +8,7 @@
   <div class="form-group">
     <label>Translated Text</label>
 
-    <blockquote class="blockquote">{{translatedText}}</blockquote>
+    <blockquote class="blockquote" [innerHTML]="translatedText"></blockquote>
   </div>
 </form>
 <input type="file" id="textImage" (change)="onFileChange($event)" #fileInput>

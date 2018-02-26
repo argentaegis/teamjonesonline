@@ -33,13 +33,15 @@ export class TranslateComponent  {
     var translatedValue = '';
 
     if(Array.isArray(translation)){
+      console.log('array: ' + translation);
       translation.forEach( function(trans) {
         console.log(trans);
-        translatedValue = translatedValue.concat(trans.translatedText + '\n');
+        translatedValue = translatedValue.concat(trans.translatedText + '<br>');
         console.log(translatedValue);
       });
     }
     else {
+      console.log('notarray: ' + translation);
       translatedValue = translation.translatedText;
     }
 

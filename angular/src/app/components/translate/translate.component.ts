@@ -1,11 +1,9 @@
 import { Component, Input } from '@angular/core';
 import {FormControl, FormBuilder, FormGroup} from '@angular/forms';
 import { TranslateService } from '../../services/translate.service';
-import { ImageAnalysisService } from '../../services/image-analysis.service';
-import { WebCamComponent } from 'ack-angular-webcam';
 
-const MediaStreamRecorder = require('msr');
-const btoa = require('btoa')
+
+
 
 
 @Component({
@@ -17,23 +15,13 @@ export class TranslateComponent {
   @Input() sourceText: String;
   translateForm: FormGroup;
   translatedText: String;
-  webcam: WebCamComponent;
-  base64;
-  webcamOptions: {
-  };
-  mediaConstraints = {
-    audio: true
-  };
-  audioRecorder;
 
 
   constructor(
     private fb: FormBuilder,
-    private translateService: TranslateService,
-    private imageAnalysisService: ImageAnalysisService) {
+    private translateService: TranslateService) {
     this.createForm();
   }
-
   createForm() {
     this.translateForm = this.fb.group({
       sourceText: new FormControl(this.sourceText)
@@ -109,68 +97,4 @@ export class TranslateComponent {
     }
   }
 
-  genBase64Image(){
-    this.webcam.getBase64()
-      .then( (data) => {
-        console.log(data);
-        var translateRequest = {
-          sourceText: '',
-          sourceImage: '',
-          sourceLang: 'fr',
-          targetLang: 'en',
-          mediaBase64: data
-        }
-
-        this.translateService.translateImage(translateRequest).subscribe( xdata =>{
-          console.log(xdata);
-          this.updateTranslation(xdata.translation);
-        });
-      });
-  }
-
-  onCamError(err) { }
-
-  onCamSuccess() { }
-
-  onStartRecording() {
-    navigator.getUserMedia(this.mediaConstraints, (stream) => {
-      this.audioRecorder = new MediaStreamRecorder(stream);
-      this.audioRecorder.mimeType = 'audio/wav'; // check this line for audio/wav
-      this.audioRecorder.audioChannels = 1;
-      this.audioRecorder.ondataavailable = (blob) => {
-        var mediaData = '';
-        const reader = new FileReader();
-        reader.onloadend = function () {
-          mediaData = reader.result;
-
-          var translateRequest = {
-            sourceText: '',
-            sourceImage: '',
-            sourceLang: 'fr',
-            targetLang: 'en',
-            mediaBase64: mediaData
-          };
-
-          this.translateService.translateAudio(translateRequest).subscribe( data =>{
-            this.updateTranslation(data.translation);
-          });
-
-          this.onStopRecording();
-        }.bind(this);
-
-        reader.readAsDataURL(blob);
-
-      }.
-      this.audioRecorder.start(30000);
-
-    }, this.onMediaError);
-  }
-
-  onStopRecording() {
-    this.audioRecorder.stop();
-  }
-
-  onMediaError(e) {
-    console.error('media error', e);
-  }
 }

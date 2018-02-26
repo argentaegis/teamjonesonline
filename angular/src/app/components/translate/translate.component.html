@@ -12,11 +12,9 @@
   </div>
 </form>
 <input type="file" id="textImage" (change)="onFileChange($event)" #fileInput>
-<ack-webcam
-  [(ref)]   = "webcam"
-  [options] = "webcamOptions"
-  (success) = "onCamSuccess($event)"
-  (catch)   = "onCamError($event)"></ack-webcam>
-<button (click)="genBase64Image()"> generate base64 </button>\
-<button (click)="onStartRecording()">Start Recording</button>
-<button (click)="onStopRecording()">Stop Recording and Translate</button>
+<br>
+<br>
+<app-translate-image></app-translate-image>
+<br>
+<br>
+<app-translate-audio></app-translate-audio>

@@ -1,0 +1,12 @@
+<div>
+  <label>Translated Text</label>
+
+  <blockquote class="blockquote" [innerHTML]="translatedText"></blockquote>
+
+  <ack-webcam
+    [(ref)]   = "webcam"
+    [options] = "webcamOptions"
+    (success) = "onCamSuccess($event)"
+    (catch)   = "onCamError($event)"></ack-webcam>
+  <button (click)="genBase64Image()"> generate base64 </button>\
+</div>

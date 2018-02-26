@@ -43,5 +43,5 @@ export interface TranslateRequest {
   sourceImage: string;
   sourceLang: string;
   targetLang: string;
-  imageBase64: string;
+  mediaBase64: string;
 }

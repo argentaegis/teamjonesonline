@@ -5,6 +5,7 @@ import { ImageAnalysisService } from '../../services/image-analysis.service';
 import { WebCamComponent } from 'ack-angular-webcam';
 
 const MediaStreamRecorder = require('msr');
+const btoa = require('btoa')
 
 
 @Component({
@@ -68,7 +69,7 @@ export class TranslateComponent {
       sourceImage: '',
       sourceLang: 'en',
       targetLang: 'fr',
-      imageBase64: ''
+      mediaBase64: ''
     }
 
     this.translateService.translateText(translateRequest).subscribe( data => {
@@ -96,7 +97,7 @@ export class TranslateComponent {
             sourceImage: '',
             sourceLang: 'fr',
             targetLang: 'en',
-            imageBase64: reader.result
+            mediaBase64: reader.result
           };
 
           this.translateService.translateImage(translateRequest).subscribe( data =>{
@@ -108,7 +109,7 @@ export class TranslateComponent {
     }
   }
 
-  genBase64(){
+  genBase64Image(){
     this.webcam.getBase64()
       .then( (data) => {
         console.log(data);
@@ -117,7 +118,7 @@ export class TranslateComponent {
           sourceImage: '',
           sourceLang: 'fr',
           targetLang: 'en',
-          imageBase64: data
+          mediaBase64: data
         }
 
         this.translateService.translateImage(translateRequest).subscribe( xdata =>{
@@ -137,50 +138,36 @@ export class TranslateComponent {
       this.audioRecorder.mimeType = 'audio/wav'; // check this line for audio/wav
       this.audioRecorder.audioChannels = 1;
       this.audioRecorder.ondataavailable = (blob) => {
-        var translateRequest = {
-          sourceText: '',
-          sourceImage: '',
-          sourceLang: 'fr',
-          targetLang: 'en',
-          imageBase64: '' //blob to 64?
-        };
+        var mediaData = '';
+        const reader = new FileReader();
+        reader.onloadend = function () {
+          mediaData = reader.result;
 
-        console.log('ondataavailable:  before call');
-        //send here?
-        this.translateService.translateAudio(translateRequest).subscribe( data =>{
-          console.log(data);
-          //this.updateTranslation(data.translation);
-        });
-      };
+          var translateRequest = {
+            sourceText: '',
+            sourceImage: '',
+            sourceLang: 'fr',
+            targetLang: 'en',
+            mediaBase64: mediaData
+          };
+
+          this.translateService.translateAudio(translateRequest).subscribe( data =>{
+            this.updateTranslation(data.translation);
+          });
+
+          this.onStopRecording();
+        }.bind(this);
+
+        reader.readAsDataURL(blob);
+
+      }.
       this.audioRecorder.start(30000);
 
     }, this.onMediaError);
-
-
   }
 
   onStopRecording() {
     this.audioRecorder.stop();
-    console.log('stop');
-
-    // this.audioRecorder.ondataavailable = function(blob) {
-    //   var translateRequest = {
-    //     sourceText: '',
-    //     sourceImage: '',
-    //     sourceLang: 'fr',
-    //     targetLang: 'en',
-    //     imageBase64: '' //blob to 64?
-    //   };
-    //
-    //   console.log('ondataavailable:  before call');
-    //   //send here?
-    //   this.translateService.translateAudio(translateRequest).subscribe( data =>{
-    //     console.log(data);
-    //     //this.updateTranslation(data.translation);
-    //   });
-    // };
-    this.audioRecorder.save();
-
   }
 
   onMediaError(e) {

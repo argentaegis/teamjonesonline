@@ -22,6 +22,13 @@ export class TranslateService {
     return this.http.post<TranslateResponse>(url, translateRequest);
   }
 
+  translateAudio(translateRequest: TranslateRequest){
+    var url = this.config.baseServiceUrl + 'translate/translateAudio';
+
+    console.log('translateRequest: ' + translateRequest);
+    return this.http.post<TranslateResponse>(url, translateRequest);
+  }
+
 }
 
 

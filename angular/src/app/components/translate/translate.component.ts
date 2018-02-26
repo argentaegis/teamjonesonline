@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
 import {FormControl, FormBuilder, FormGroup} from '@angular/forms';
 import { TranslateService } from '../../services/translate.service';
-import { ImageAnalysisService } from "../../services/image-analysis.service";
-
+import { ImageAnalysisService } from '../../services/image-analysis.service';
 import { WebCamComponent } from 'ack-angular-webcam';
+
+const MediaStreamRecorder = require('msr');
 
 
 @Component({
@@ -11,16 +12,19 @@ import { WebCamComponent } from 'ack-angular-webcam';
   templateUrl: './translate.component.html',
   styleUrls: ['./translate.component.css']
 })
-export class TranslateComponent  {
+export class TranslateComponent {
   @Input() sourceText: String;
   translateForm: FormGroup;
   translatedText: String;
   webcam: WebCamComponent;
   base64;
   webcamOptions: {
-    width: 400;
-    height: 400;
   };
+  mediaConstraints = {
+    audio: true
+  };
+  audioRecorder;
+
 
   constructor(
     private fb: FormBuilder,
@@ -29,10 +33,11 @@ export class TranslateComponent  {
     this.createForm();
   }
 
-  createForm(){
+  createForm() {
     this.translateForm = this.fb.group({
       sourceText: new FormControl(this.sourceText)
     });
+
   }
 
   updateTranslation(translation){
@@ -47,14 +52,10 @@ export class TranslateComponent  {
         translatedValue = translatedValue.concat(trans.translatedText + '<br>');
         console.log(translatedValue);
       });
-    }
-    else {
+    } else {
       console.log('notarray: ' + translation);
       translatedValue = translation.translatedText;
     }
-
-
-
     this.translatedText = translatedValue;
 
   }
@@ -96,7 +97,7 @@ export class TranslateComponent  {
             sourceLang: 'fr',
             targetLang: 'en',
             imageBase64: reader.result
-          }
+          };
 
           this.translateService.translateImage(translateRequest).subscribe( data =>{
             console.log(data);
@@ -106,7 +107,6 @@ export class TranslateComponent  {
 
     }
   }
-
 
   genBase64(){
     this.webcam.getBase64()
@@ -131,4 +131,59 @@ export class TranslateComponent  {
 
   onCamSuccess() { }
 
+  onStartRecording() {
+    navigator.getUserMedia(this.mediaConstraints, (stream) => {
+      this.audioRecorder = new MediaStreamRecorder(stream);
+      this.audioRecorder.mimeType = 'audio/wav'; // check this line for audio/wav
+      this.audioRecorder.audioChannels = 1;
+      this.audioRecorder.ondataavailable = (blob) => {
+        var translateRequest = {
+          sourceText: '',
+          sourceImage: '',
+          sourceLang: 'fr',
+          targetLang: 'en',
+          imageBase64: '' //blob to 64?
+        };
+
+        console.log('ondataavailable:  before call');
+        //send here?
+        this.translateService.translateAudio(translateRequest).subscribe( data =>{
+          console.log(data);
+          //this.updateTranslation(data.translation);
+        });
+      };
+      this.audioRecorder.start(30000);
+
+    }, this.onMediaError);
+
+
+  }
+
+  onStopRecording() {
+    this.audioRecorder.stop();
+    console.log('stop');
+
+    // this.audioRecorder.ondataavailable = function(blob) {
+    //   var translateRequest = {
+    //     sourceText: '',
+    //     sourceImage: '',
+    //     sourceLang: 'fr',
+    //     targetLang: 'en',
+    //     imageBase64: '' //blob to 64?
+    //   };
+    //
+    //   console.log('ondataavailable:  before call');
+    //   //send here?
+    //   this.translateService.translateAudio(translateRequest).subscribe( data =>{
+    //     console.log(data);
+    //     //this.updateTranslation(data.translation);
+    //   });
+    // };
+    this.audioRecorder.save();
+
+  }
+
+  onMediaError(e) {
+    console.error('media error', e);
+  }
 }

@@ -1,14 +1,25 @@
 const express = require('express');
 const router = express.Router();
-const passport = require('passport');
-const jwt = require('jsonwebtoken');
 const GoogleTranslate = require('google-translate');
 const vision = require('node-cloud-vision-api-comoc')
+
+const speech = require('@google-cloud/speech');
+const fs = require('fs');
+
+const GoogleParameters = {
+  "projectId": "dean-demos",
+  "keyFilename": "./DEAN Demos-40d2753c22e7.json"
+}
+
+
+
 
 const googleAPIKey = process.env.GOOGLE_API_KEY;
 
 const googleTranslate = GoogleTranslate(googleAPIKey);
 vision.init({auth: googleAPIKey});
+
+
 
 
 translateText = function(translateRequest, callback){
@@ -82,6 +93,46 @@ router.post('/translateImage', (req, res, next) =>{
     console.log('Error: ' + err);
     res.json({success: false, msg: 'translation failed'});
   })
+});
+
+router.post('/translateAudio', (req, res, next) => {
+
+// Creates a client
+  const client = new speech.SpeechClient(GoogleParameters);
+
+  // The name of the audio file to transcribe
+  const fileName = './angular/src/app/components/translate/audio_1.wav';
+
+  console.log('wav file: ' + fileName);
+
+
+  const config = {
+    encoding: 'LPCM',
+    languageCode: 'en-US',
+  };
+
+  const audio = {
+    content: fs.readFileSync(fileName ).toString('base64'),
+  };
+
+  const request = {
+    audio: audio,
+    config: config,
+  };
+
+// Detects speech in the audio file
+  client
+    .recognize(request)
+    .then(data => {
+      const response = data[0];
+      const transcription = response.results
+        .map(result => result.alternatives[0].transcript)
+        .join('\n');
+      console.log(`Transcription: ${transcription}`);
+    })
+    .catch(err => {
+      console.error('ERROR:', err);
+    });
 });
 
 

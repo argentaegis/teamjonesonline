@@ -24,6 +24,8 @@ import { TranslateService } from './services/translate.service';
 import {ImageAnalysisService} from "./services/image-analysis.service";
 
 
+import { WebCamModule } from 'ack-angular-webcam';
+
 const appRoutes: Routes =  [
   {path:'', component: HomeComponent},
   {path:'register', component: RegisterComponent},
@@ -50,7 +52,8 @@ const appRoutes: Routes =  [
       ReactiveFormsModule,
       HttpClientModule,
       RouterModule.forRoot(appRoutes),
-      FlashMessagesModule.forRoot()
+      FlashMessagesModule.forRoot(),
+      WebCamModule
     ],
     providers: [
       ValidateService,

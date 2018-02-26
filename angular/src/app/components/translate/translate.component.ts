@@ -1,8 +1,10 @@
 import { Component, Input } from '@angular/core';
 import {FormControl, FormBuilder, FormGroup} from '@angular/forms';
-//const googleTranslate = require('google-translate')("AIzaSyCH5vl4pfc2l7v8MbfD1Yrvhwx8vgNaxNI");
 import { TranslateService } from '../../services/translate.service';
 import { ImageAnalysisService } from "../../services/image-analysis.service";
+
+import { WebCamComponent } from 'ack-angular-webcam';
+
 
 @Component({
   selector: 'app-translate',
@@ -13,6 +15,12 @@ export class TranslateComponent  {
   @Input() sourceText: String;
   translateForm: FormGroup;
   translatedText: String;
+  webcam: WebCamComponent;
+  base64;
+  webcamOptions: {
+    width: 400;
+    height: 400;
+  };
 
   constructor(
     private fb: FormBuilder,
@@ -98,4 +106,29 @@ export class TranslateComponent  {
 
     }
   }
+
+
+  genBase64(){
+    this.webcam.getBase64()
+      .then( (data) => {
+        console.log(data);
+        var translateRequest = {
+          sourceText: '',
+          sourceImage: '',
+          sourceLang: 'fr',
+          targetLang: 'en',
+          imageBase64: data
+        }
+
+        this.translateService.translateImage(translateRequest).subscribe( xdata =>{
+          console.log(xdata);
+          this.updateTranslation(xdata.translation);
+        });
+      });
+  }
+
+  onCamError(err) { }
+
+  onCamSuccess() { }
+
 }

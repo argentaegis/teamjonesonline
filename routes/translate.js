@@ -44,6 +44,8 @@ router.post('/translateText', (req, res, next) =>{
 router.post('/translateImage', (req, res, next) =>{
   var image = req.body.imageBase64.split(',')[1];
 
+  console.log(image);
+
   const visionRequest = new vision.Request({
     image: new vision.Image({
       base64: image

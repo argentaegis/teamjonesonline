@@ -66,11 +66,12 @@ router.post('/translateImage', (req, res, next) =>{
 
   vision.annotate(visionRequest).then((translation) => {
     var textLines;
-    if(translation.response != null) {
+    if(translation.responses != null) {
       var textData = translation.responses[0].textAnnotations[0].description;
       textLines = textData.split('\n');
     }
     else {
+      console.log(translation);
       textLines = 'No translation found.';
       console.log(textLines);
     }
@@ -80,6 +81,9 @@ router.post('/translateImage', (req, res, next) =>{
        sourceLang: req.body.sourceLang,
        targetLang: req.body.targetLang
      }
+
+     console.log('translateRequest');
+     console.log(translateRequest);
 
     translateText(translateRequest, (err, translation) => {
        if(err){

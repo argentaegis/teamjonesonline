@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {TranslateService} from '../../../services/translate.service';
 import {WebCamComponent} from 'ack-angular-webcam';
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-translate-image',
@@ -8,6 +9,9 @@ import {WebCamComponent} from 'ack-angular-webcam';
   styleUrls: ['./translate-image.component.css']
 })
 export class TranslateImageComponent implements OnInit {
+
+  @Input('parentForm')
+  public parentForm: FormGroup;
   translatedText: String;
   webcam: WebCamComponent;
   base64;
@@ -17,12 +21,23 @@ export class TranslateImageComponent implements OnInit {
   translating: Boolean;
 
   tryAgainMessage: 'Please try again';
+  translateImageForm: FormGroup;
 
   constructor(
+    private fb: FormBuilder,
     private translateService: TranslateService
-  ) { }
+  ) {
+    this.createForm();
+  }
+
+
+  createForm(){
+    this.translateImageForm = this.fb.group({
+    });
+  }
 
   ngOnInit() {
+    this.parentForm.addControl('translateImageForm', this.translateImageForm);
   }
 
   updateTranslation(translation){
@@ -57,8 +72,8 @@ export class TranslateImageComponent implements OnInit {
         var translateRequest = {
           sourceText: '',
           sourceImage: '',
-          sourceLang: 'fr',
-          targetLang: 'en',
+          sourceLang: this.getSourceLanguage(),
+          targetLang: this.getTargetLanguage(),
           mediaBase64: imageData
         }
 
@@ -80,5 +95,14 @@ export class TranslateImageComponent implements OnInit {
   onCamError(err) { }
 
   onCamSuccess() { }
+
+  getSourceLanguage(){
+    return this.parentForm.controls['selectLanguagesForm'].value.nativeLanguageSelect;
+
+  }
+
+  getTargetLanguage(){
+    return this.parentForm.controls['selectLanguagesForm'].value.foreignLanguageSelect;
+  }
 
 }

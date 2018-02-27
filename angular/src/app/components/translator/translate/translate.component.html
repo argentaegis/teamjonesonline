@@ -22,7 +22,7 @@
       </div>
       <div id="translateAudio" [ngClass]="cardToShow == 'translateAudio' ? 'collapse show' : 'collapse'" aria-labelledby="headingOne" data-parent="#accordion">
         <div class="card-body">
-          <app-translate-audio></app-translate-audio>
+          <app-translate-audio [parentForm]="translateForm"></app-translate-audio>
         </div>
       </div>
     </div>
@@ -34,7 +34,7 @@
       </div>
       <div id="translateImage" [ngClass]="cardToShow == 'translateImage' ? 'collapse show' : 'collapse'" aria-labelledby="headingOne" data-parent="#accordion">
         <div class="card-body">
-          <app-translate-image></app-translate-image>
+          <app-translate-image [parentForm]="translateForm"></app-translate-image>
         </div>
       </div>
     </div>

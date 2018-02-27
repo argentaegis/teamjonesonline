@@ -13,6 +13,7 @@ export class TranslateComponent {
   public translateForm: FormGroup;
   selectLanguagesForm: FormGroup;
 
+
   constructor(
     private fb: FormBuilder
   ) {
@@ -28,6 +29,7 @@ export class TranslateComponent {
   showCard(cardName) {
     this.cardToShow = cardName;
 
+    console.log('translate.component');
     console.log(this.translateForm.controls['selectLanguagesForm'].value);
   }
 }

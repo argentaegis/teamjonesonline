@@ -20,7 +20,6 @@ export class SelectLanguagesComponentComponent implements OnInit {
   constructor(
     private fb: FormBuilder
   ) {
-    console.log(languages);
     this.myLanguages = languages;
     this.createForm();
   }
@@ -34,6 +33,7 @@ export class SelectLanguagesComponentComponent implements OnInit {
     this.selectLanguagesForm.controls['nativeLanguageSelect'].setValue('en');
     this.selectLanguagesForm.controls['foreignLanguageSelect'].setValue('fr');
 
+    console.log('SelectLanguagesComponentComponent.component');
     console.log(this.selectLanguagesForm.value);
   }
 

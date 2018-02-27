@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { TranslateService } from '../../../services/translate.service';
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 const MediaStreamRecorder = require('msr');
 
 @Component({
@@ -9,17 +10,29 @@ const MediaStreamRecorder = require('msr');
 })
 export class TranslateAudioComponent implements OnInit {
 
+  @Input('parentForm')
+  public parentForm: FormGroup;
   audioRecorder;
   translatedText: String;
   mediaConstraints = {
     audio: true
   };
+  translateAudioForm: FormGroup;
+
 
   constructor(
+    private fb: FormBuilder,
     private translateService: TranslateService
-  ) { }
+  ) {
+    this.createForm();
+  }
 
+  createForm(){
+    this.translateAudioForm = this.fb.group({
+    });
+  }
   ngOnInit() {
+    this.parentForm.addControl('translateAudioForm', this.translateAudioForm);
   }
 
   onStartRecording() {
@@ -36,8 +49,8 @@ export class TranslateAudioComponent implements OnInit {
           var translateRequest = {
             sourceText: '',
             sourceImage: '',
-            sourceLang: 'fr',
-            targetLang: 'en',
+            sourceLang: this.getTargetLanguage(),
+            targetLang: this.getSourceLanguage(),
             mediaBase64: mediaData
           };
 
@@ -83,6 +96,16 @@ export class TranslateAudioComponent implements OnInit {
       translatedValue = translation.translatedText;
     }
     this.translatedText = translatedValue;
+
+  }
+
+  getSourceLanguage(){
+    return this.parentForm.controls['selectLanguagesForm'].value.nativeLanguageSelect;
+
+  }
+
+  getTargetLanguage(){
+    return this.parentForm.controls['selectLanguagesForm'].value.foreignLanguageSelect;
 
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '../../services/translate.service';
+import { TranslateService } from '../../../services/translate.service';
 const MediaStreamRecorder = require('msr');
 
 @Component({

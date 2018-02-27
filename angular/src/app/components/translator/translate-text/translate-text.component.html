@@ -7,14 +7,6 @@
   <br><br>
   <div class="form-group">
     <label>Translated Text</label>
-
     <blockquote class="blockquote" [innerHTML]="translatedText"></blockquote>
   </div>
 </form>
-<input type="file" id="textImage" (change)="onFileChange($event)" #fileInput>
-<br>
-<br>
-<app-translate-image></app-translate-image>
-<br>
-<br>
-<app-translate-audio></app-translate-audio>

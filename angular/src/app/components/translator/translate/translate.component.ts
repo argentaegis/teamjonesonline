@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 
 
 @Component({
@@ -9,28 +10,24 @@ import { Component, Input } from '@angular/core';
 export class TranslateComponent {
 
   cardToShow: String;
+  public translateForm: FormGroup;
+  selectLanguagesForm: FormGroup;
 
   constructor(
-) {
+    private fb: FormBuilder
+  ) {
+    this.createForm();
     this.cardToShow = 'translateText';
   }
 
+  createForm() {
+    this.translateForm = this.fb.group({
+    });
+  }
+
   showCard(cardName) {
-    console.log('showCard: ' + cardName);
     this.cardToShow = cardName;
-  }
 
-  showText(){
-    var value = this.cardToShow === 'translateText'
-
-    console.log('show val: ' + value);
-    return value;
-  }
-
-  showImage(){
-    var value = this.cardToShow === 'translateImage'
-
-    console.log('show val: ' + value);
-    return value;
+    console.log(this.translateForm.controls['selectLanguagesForm'].value);
   }
 }

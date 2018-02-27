@@ -8,7 +8,7 @@ import {TranslateService} from "../../../services/translate.service";
   styleUrls: ['./translate-text.component.css']
 })
 export class TranslateTextComponent implements OnInit {
-  @Input() sourceText: String;
+  sourceText: String;
   translateForm: FormGroup;
   translatedText: String;
   constructor(

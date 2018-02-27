@@ -29,6 +29,7 @@ import { TranslateImageComponent } from './components/translator/translate-image
 
 import { WebCamModule } from 'ack-angular-webcam';
 import { TranslateTextComponent } from './components/translator/translate-text/translate-text.component';
+import { SelectLanguagesComponentComponent } from './components/translator/select-languages-component/select-languages-component.component';
 
 const appRoutes: Routes =  [
   {path:'', component: HomeComponent},
@@ -52,7 +53,8 @@ const appRoutes: Routes =  [
       TranslateComponent,
       TranslateImageComponent,
       TranslateAudioComponent,
-      TranslateTextComponent
+      TranslateTextComponent,
+      SelectLanguagesComponentComponent
     ],
     imports: [
       BrowserModule,

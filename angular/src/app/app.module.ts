@@ -23,6 +23,9 @@ import { TranslateComponent } from './components/translate/translate.component';
 import { TranslateService } from './services/translate.service';
 import {ImageAnalysisService} from "./services/image-analysis.service";
 
+import { TranslateAudioComponent } from './components/translate-audio/translate-audio.component';
+import { TranslateImageComponent } from './components/translate-image/translate-image.component';
+
 
 import { WebCamModule } from 'ack-angular-webcam';
 
@@ -45,7 +48,9 @@ const appRoutes: Routes =  [
       HomeComponent,
       DashboardComponent,
       ProfileComponent,
-      TranslateComponent
+      TranslateComponent,
+      TranslateImageComponent,
+      TranslateAudioComponent
     ],
     imports: [
       BrowserModule,

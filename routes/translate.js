@@ -53,7 +53,7 @@ router.post('/translateText', (req, res, next) =>{
 });
 
 router.post('/translateImage', (req, res, next) =>{
-  var image = req.body.imageBase64.split(',')[1];
+  var image = req.body.mediaBase64.split(',')[1];
 
   console.log(image);
 
@@ -100,19 +100,14 @@ router.post('/translateAudio', (req, res, next) => {
 // Creates a client
   const client = new speech.SpeechClient(GoogleParameters);
 
-  // The name of the audio file to transcribe
-  const fileName = './angular/src/app/components/translate/audio_1.wav';
-
-  console.log('wav file: ' + fileName);
-
 
   const config = {
     encoding: 'LPCM',
-    languageCode: 'en-US',
+    languageCode: 'fr-FR',
   };
 
   const audio = {
-    content: fs.readFileSync(fileName ).toString('base64'),
+    content: req.body.mediaBase64.split(',')[1]
   };
 
   const request = {
@@ -120,7 +115,6 @@ router.post('/translateAudio', (req, res, next) => {
     config: config,
   };
 
-// Detects speech in the audio file
   client
     .recognize(request)
     .then(data => {
@@ -129,6 +123,22 @@ router.post('/translateAudio', (req, res, next) => {
         .map(result => result.alternatives[0].transcript)
         .join('\n');
       console.log(`Transcription: ${transcription}`);
+
+      var translateRequest = {
+        sourceText: transcription,
+        sourceLang: req.body.sourceLang,
+        targetLang: req.body.targetLang
+      }
+
+      translateText(translateRequest, (err, translation) => {
+        if(err){
+          console.log(err);
+          res.json({success: false, msg: 'translation failed'});
+        } else {
+          console.log('translation: ' + translation);
+          res.json({success: true, translation: translation});
+        }
+      })
     })
     .catch(err => {
       console.error('ERROR:', err);

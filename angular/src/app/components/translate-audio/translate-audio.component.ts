@@ -50,7 +50,9 @@ export class TranslateAudioComponent implements OnInit {
 
         reader.readAsDataURL(blob);
 
-      }.
+      };
+
+
       this.audioRecorder.start(30000);
 
     }, this.onMediaError);
@@ -62,7 +64,8 @@ export class TranslateAudioComponent implements OnInit {
 
   onMediaError(e) {
     console.error('media error', e);
-  }
+  };
+
   updateTranslation(translation){
     console.log('updateTranslation: ' + translation);
     console.log(translation);

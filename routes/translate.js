@@ -55,8 +55,6 @@ router.post('/translateText', (req, res, next) =>{
 router.post('/translateImage', (req, res, next) =>{
   var image = req.body.mediaBase64.split(',')[1];
 
-  console.log(image);
-
   const visionRequest = new vision.Request({
     image: new vision.Image({
       base64: image
@@ -67,32 +65,36 @@ router.post('/translateImage', (req, res, next) =>{
   })
 
   vision.annotate(visionRequest).then((translation) => {
-    var textData = translation.responses[0].textAnnotations[0].description;
-    var textLines = textData.split('\n');
-    console.log('translation: ' + textData);
+    var textLines;
+    if(translation.response != null) {
+      var textData = translation.responses[0].textAnnotations[0].description;
+      textLines = textData.split('\n');
+    }
+    else {
+      textLines = 'No translation found.';
+      console.log(textLines);
+    }
 
-
-     console.log(textData);
-
-     var translateRequest = {
+    var translateRequest = {
        sourceText: textLines,
        sourceLang: req.body.sourceLang,
        targetLang: req.body.targetLang
      }
 
-     translateText(translateRequest, (err, translation) => {
+    translateText(translateRequest, (err, translation) => {
        if(err){
          console.log(err);
          res.json({success: false, msg: 'translation failed'});
        } else {
-         console.log('translation: ' + translation);
          res.json({success: true, translation: translation});
        }
      })
+
   }, (err) => {
     console.log('Error: ' + err);
     res.json({success: false, msg: 'translation failed'});
   })
+
 });
 
 router.post('/translateAudio', (req, res, next) => {
@@ -122,7 +124,6 @@ router.post('/translateAudio', (req, res, next) => {
       const transcription = response.results
         .map(result => result.alternatives[0].transcript)
         .join('\n');
-      console.log(`Transcription: ${transcription}`);
 
       var translateRequest = {
         sourceText: transcription,
@@ -135,7 +136,6 @@ router.post('/translateAudio', (req, res, next) => {
           console.log(err);
           res.json({success: false, msg: 'translation failed'});
         } else {
-          console.log('translation: ' + translation);
           res.json({success: true, translation: translation});
         }
       })

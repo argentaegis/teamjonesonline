@@ -19,15 +19,16 @@ import { AuthService } from './services/auth.service';
 import {ConfigService} from "./services/config.service";
 import {TokenInterceptor} from "./services/authToken.interceptor";
 import { AuthGuard } from "./guards/auth.guard";
-import { TranslateComponent } from './components/translate/translate.component';
+import { TranslateComponent } from './components/translator/translate/translate.component';
 import { TranslateService } from './services/translate.service';
 import {ImageAnalysisService} from "./services/image-analysis.service";
 
-import { TranslateAudioComponent } from './components/translate-audio/translate-audio.component';
-import { TranslateImageComponent } from './components/translate-image/translate-image.component';
+import { TranslateAudioComponent } from './components/translator/translate-audio/translate-audio.component';
+import { TranslateImageComponent } from './components/translator/translate-image/translate-image.component';
 
 
 import { WebCamModule } from 'ack-angular-webcam';
+import { TranslateTextComponent } from './components/translator/translate-text/translate-text.component';
 
 const appRoutes: Routes =  [
   {path:'', component: HomeComponent},
@@ -50,7 +51,8 @@ const appRoutes: Routes =  [
       ProfileComponent,
       TranslateComponent,
       TranslateImageComponent,
-      TranslateAudioComponent
+      TranslateAudioComponent,
+      TranslateTextComponent
     ],
     imports: [
       BrowserModule,

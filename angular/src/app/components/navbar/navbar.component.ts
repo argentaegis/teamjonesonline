@@ -12,9 +12,9 @@ export class NavbarComponent implements OnInit {
   public isCollapsed = false;
 
   constructor(
-    private authService:AuthService,
-    private router:Router,
-    private flashMessage:FlashMessagesService ) { }
+    private authService: AuthService,
+    private router: Router,
+    private flashMessage: FlashMessagesService ) { }
 
   ngOnInit() {
   }

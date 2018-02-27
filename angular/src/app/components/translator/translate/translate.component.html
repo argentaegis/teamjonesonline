@@ -1,7 +1,39 @@
-<app-translate-text></app-translate-text>
-<br>
-<br>
-<app-translate-image></app-translate-image>
-<br>
-<br>
-<app-translate-audio></app-translate-audio>
+<div id="accordion">
+  <div class="card">
+    <div class="card-header" (click)="showCard('translateText')" >
+      <h5 class="mb-0">
+        Translate Text
+      </h5>
+    </div>
+    <div id="translateText" [ngClass]="cardToShow == 'translateText' ? 'collapse show' : 'collapse'"  aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+        <app-translate-text></app-translate-text>
+      </div>
+    </div>
+  </div>
+  <div calss="card">
+    <div class="card-header" (click)="showCard('translateAudio')" >
+      <h5 class="mb-0">
+        Translate Speech
+      </h5>
+    </div>
+    <div id="translateAudio" [ngClass]="cardToShow == 'translateAudio' ? 'collapse show' : 'collapse'" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+        <app-translate-audio></app-translate-audio>
+      </div>
+    </div>
+  </div>
+  <div calss="card">
+    <div class="card-header" (click)="showCard('translateImage')" >
+      <h5 class="mb-0">
+        Translate Image
+      </h5>
+    </div>
+    <div id="translateImage" [ngClass]="cardToShow == 'translateImage' ? 'collapse show' : 'collapse'" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+        <app-translate-image></app-translate-image>
+      </div>
+    </div>
+  </div>
+
+</div>

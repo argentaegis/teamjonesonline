@@ -13,6 +13,10 @@ export class TranslateImageComponent implements OnInit {
   base64;
   webcamOptions: {
   };
+  imageSource: String;
+  translating: Boolean;
+
+  tryAgainMessage: 'Please try again';
 
   constructor(
     private translateService: TranslateService
@@ -42,22 +46,35 @@ export class TranslateImageComponent implements OnInit {
   }
 
   genBase64Image(){
+
+    this.translating = true;
+
     this.webcam.getBase64()
-      .then( (data) => {
-        console.log(data);
+      .then( (imageData) => {
+
+        this.imageSource = imageData;
+
         var translateRequest = {
           sourceText: '',
           sourceImage: '',
           sourceLang: 'fr',
           targetLang: 'en',
-          mediaBase64: data
+          mediaBase64: imageData
         }
 
-        this.translateService.translateImage(translateRequest).subscribe( xdata =>{
-          console.log(xdata);
-          this.updateTranslation(xdata.translation);
+        this.translateService.translateImage(translateRequest).subscribe( res =>{
+          if(res.success){
+            console.log(res);
+            this.updateTranslation(res.translation);
+            this.translating = false;
+          } else {
+            this.updateTranslation(this.tryAgainMessage);
+            this.translating = false;
+          }
+
         });
       });
+
   }
 
   onCamError(err) { }

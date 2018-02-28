@@ -49,7 +49,6 @@ export class SelectLanguagesComponentComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.parentForm.addControl('selectLanguagesForm', this.selectLanguagesForm);
   }
 

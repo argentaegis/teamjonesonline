@@ -1,12 +1,12 @@
 <form [formGroup]="translateTextForm" (ngSubmit)="onTranslateSubmit()">
   <div class="form-group">
     <label>{{getNativeLanguage().name}}</label>
-    <input class="form-control" formControlName="nativeText" (keypress)="clearOtherTextControl('translateText')">
+    <input class="form-control" formControlName="nativeText" (keypress)="clearTextControl('translateText')">
   </div>
   <button type="submit" [disabled]="translateTextForm.pristine" class="btn btn-primary">Translate</button>
   <br><br>
   <div class="form-group">
     <label>{{getTargetLanguage().name}}</label>
-    <input class="form-control" formControlName="translateText" (keypress)="clearOtherTextControl('nativeText')">
+    <input class="form-control" formControlName="translateText" (keypress)="clearTextControl('nativeText')">
   </div>
 </form>

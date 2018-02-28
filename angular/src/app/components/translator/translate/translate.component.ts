@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 
 
@@ -7,11 +7,11 @@ import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
   templateUrl: './translate.component.html',
   styleUrls: ['./translate.component.css']
 })
-export class TranslateComponent {
+export class TranslateComponent implements OnInit {
 
   cardToShow: String;
   public translateForm: FormGroup;
-  selectLanguagesForm: FormGroup;
+  //selectLanguagesForm: FormGroup;
 
 
   constructor(
@@ -23,6 +23,15 @@ export class TranslateComponent {
 
   createForm() {
     this.translateForm = this.fb.group({
+    });
+  }
+
+  ngOnInit() {
+    this.onChanges();
+  }
+
+  onChanges(): void {
+    this.translateForm.valueChanges.subscribe(val => {
     });
   }
 

@@ -24,6 +24,8 @@ export class TranslateTextComponent implements OnInit {
 
   ngOnInit() {
     this.parentForm.addControl('translateTextForm', this.translateTextForm);
+
+    this.onLanguageSelectionChanges();
   }
 
   createForm() {
@@ -31,7 +33,12 @@ export class TranslateTextComponent implements OnInit {
       nativeText: new FormControl(this.nativeText),
       translateText: new FormControl(this.translateText)
     });
+  }
 
+  onLanguageSelectionChanges(): void {
+    this.parentForm.get('selectLanguagesForm').valueChanges.subscribe(val => {
+      this.clearForm();
+    });
   }
 
   onTranslateSubmit() {
@@ -94,15 +101,20 @@ export class TranslateTextComponent implements OnInit {
 
   getNativeLanguage(){
     return this.parentForm.controls['selectLanguagesForm'].value.nativeLanguageSelect;
-
   }
 
   getTargetLanguage(){
     return this.parentForm.controls['selectLanguagesForm'].value.foreignLanguageSelect;
   }
 
-  clearOtherTextControl(controlToClear){
+  clearTextControl(controlToClear){
     console.log('clearTranslate');
     this.translateTextForm.controls[controlToClear].setValue('');
   }
+
+  clearForm(){
+    this.clearTextControl('nativeText');
+    this.clearTextControl('translateText');
+  }
+
 }

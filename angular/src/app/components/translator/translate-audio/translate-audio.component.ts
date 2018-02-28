@@ -67,6 +67,8 @@ export class TranslateAudioComponent implements OnInit {
             mediaBase64: mediaData
           };
 
+          console.log('translateRequest');
+          console.log(translateRequest);
           this.translateService.translateAudio(translateRequest).subscribe( data =>{
             this.updateTranslation(data.translation);
           });

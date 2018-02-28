@@ -42,6 +42,9 @@ router.post('/translateText', (req, res, next) =>{
     targetLang: req.body.targetLang
   }
 
+  console.log('text translate req');
+  console.log(translateRequest);
+
   translateText(translateRequest, (err, translation) =>{
     if(err){
       console.log(err);
@@ -109,7 +112,7 @@ router.post('/translateAudio', (req, res, next) => {
 
   const config = {
     encoding: 'LPCM',
-    languageCode: 'fr-FR',
+    languageCode: req.body.sourceLang
   };
 
   const audio = {
@@ -118,22 +121,33 @@ router.post('/translateAudio', (req, res, next) => {
 
   const request = {
     audio: audio,
-    config: config,
+    config: config
   };
+
+  console.log('text translate req');
+  console.log(request.config);
 
   client
     .recognize(request)
     .then(data => {
       const response = data[0];
-      const transcription = response.results
-        .map(result => result.alternatives[0].transcript)
-        .join('\n');
+      const transcription = response.results.map(result => result.alternatives[0].transcript)
+       .join('\n');
+
+      console.log('RESULTS');
+      console.log(data[0].results);
+
+
+
 
       var translateRequest = {
         sourceText: transcription,
         sourceLang: req.body.sourceLang,
         targetLang: req.body.targetLang
       }
+
+      console.log('text translate req');
+      console.log(translateRequest);
 
       translateText(translateRequest, (err, translation) => {
         if(err){

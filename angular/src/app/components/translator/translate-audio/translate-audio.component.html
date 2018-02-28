@@ -1,12 +1,22 @@
 <form [formGroup]="translateAudioForm">
   <div>
-    <button class="btn btn-primary" (click)="onStartRecording()">Start Recording</button>
-    <button class="btn btn-primary" (click)="onStopRecording()">Stop Recording and Translate</button>
+    <div *ngIf="!recording">
+      <button class="btn btn-primary" (click)="onStartRecording()">Start Recording</button>
+    </div>
+    <div *ngIf="recording">
+      <button class="btn btn-primary" (click)="onStopRecording()">Stop Recording and Translate</button>
+    </div>
   </div>
   <div>
-    <label>Translated Text</label>
+    <label>I heard {{getSourceLanguage().name}}</label>
     <br>
 
-    <input class="form-control" readonly="readonly" [innerHTML]="translatedText">
+    <textarea class="form-control" readonly="readonly" [innerHTML]="originalText"></textarea>
+  </div>
+  <div>
+    <label>{{getTargetLanguage().name}}</label>
+    <br>
+
+    <textarea class="form-control" readonly="readonly" [innerHTML]="translatedText"></textarea>
   </div>
 </form>

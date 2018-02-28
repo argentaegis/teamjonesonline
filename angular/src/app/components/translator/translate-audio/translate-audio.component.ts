@@ -120,7 +120,6 @@ export class TranslateAudioComponent implements OnInit {
     this.originalText = originalValue;
   }
 
-
   getSourceLanguage() {
     if(this.flipSource) {
       return this.parentForm.controls['selectLanguagesForm'].value.nativeLanguageSelect;
@@ -135,5 +134,15 @@ export class TranslateAudioComponent implements OnInit {
     } else {
       return this.parentForm.controls['selectLanguagesForm'].value.nativeLanguageSelect;
     }
+  }
+
+  flipTranslation() {
+    this.flipSource = !this.flipSource;
+    this.clearForm();
+  }
+
+  clearForm(){
+    this.originalText = '';
+    this.translatedText = '';
   }
 }

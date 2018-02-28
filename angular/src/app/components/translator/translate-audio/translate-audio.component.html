@@ -18,11 +18,9 @@
       <fa class="btn btn-outline-secondary" [name]="'exchange'" [rotate]="90" [size]=2 (click)="flipTranslation()"></fa>
     </div>
   </div>
-  <br>
   <div>
     <label>Read in {{getTargetLanguage().name}}</label>
     <br>
-
     <textarea class="form-control" readonly="readonly" [innerHTML]="translatedText"></textarea>
   </div>
 </form>

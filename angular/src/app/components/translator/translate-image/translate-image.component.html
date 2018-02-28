@@ -1,14 +1,22 @@
 <form [formGroup]="translateImageForm">
-  <div>
-    <label>Translated Text</label>
-    <blockquote class="blockquote" [innerHTML]="translatedText"></blockquote>
 
-    <ack-webcam *ngIf="!translating"
-      [(ref)]   = "webcam"
-      [options] = "webcamOptions"
-      (success) = "onCamSuccess($event)"
-      (catch)   = "onCamError($event)"></ack-webcam>
-    <button *ngIf="!translating" (click)="genBase64Image()">Translate</button>
-    <img *ngIf="translating" src="{{imageSource}}" />
+    <div class="text-center">
+      <ack-webcam *ngIf="!translating"
+                  [(ref)]   = "webcam"
+                  [options] = "webcamOptions"
+                  (success) = "onCamSuccess($event)"
+                  (catch)   = "onCamError($event)"></ack-webcam>
+      <img *ngIf="translating" src="{{imageSource}}" />
+    </div>
+
+
+  <div class="text-center">
+    <fa class="btn btn-primary" [name]="'camera'" [size]=2 (click)="turnCameraOn()"></fa>
+    <fa class="btn btn-primary" [name]="'image'" [size]=2 (click)="genBase64Image()"></fa>
+
+  </div>
+  <div class="form-group">
+    <label>{{getTargetLanguage().name}}</label>
+    <textarea class="form-control" readonly="readonly" [innerHTML]="translatedText"></textarea>
   </div>
 </form>

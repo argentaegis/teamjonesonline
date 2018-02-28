@@ -16,12 +16,14 @@ export class TranslateImageComponent implements OnInit {
   webcam: WebCamComponent;
   base64;
   webcamOptions: {
+    video: false
   };
   imageSource: String;
   translating: Boolean;
 
   tryAgainMessage: 'Please try again';
-  translateImageForm: FormGroup;
+  translateImageForm: FormGroup
+  cameraOn: Boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -33,6 +35,7 @@ export class TranslateImageComponent implements OnInit {
 
   createForm(){
     this.translateImageForm = this.fb.group({
+
     });
   }
 
@@ -49,12 +52,16 @@ export class TranslateImageComponent implements OnInit {
       console.log('array: ' + translation);
       translation.forEach( function(trans) {
         console.log(trans);
-        translatedValue = translatedValue.concat(trans.translatedText + '<br>');
+        translatedValue = translatedValue.concat(trans.translatedText + '\n');
         console.log(translatedValue);
       });
     } else {
       console.log('notarray: ' + translation);
-      translatedValue = translation.translatedText;
+      if(translation){
+        translatedValue = translation.translatedText;
+      } else {
+        translatedValue = 'No translation available.';
+      }
     }
     this.translatedText = translatedValue;
 
@@ -72,8 +79,8 @@ export class TranslateImageComponent implements OnInit {
         var translateRequest = {
           sourceText: '',
           sourceImage: '',
-          sourceLang: this.getSourceLanguage(),
-          targetLang: this.getTargetLanguage(),
+          sourceLang: this.getTargetLanguage().code,
+          targetLang: this.getSourceLanguage().code,
           mediaBase64: imageData
         }
 
@@ -89,20 +96,24 @@ export class TranslateImageComponent implements OnInit {
 
         });
       });
-
   }
 
   onCamError(err) { }
 
   onCamSuccess() { }
 
-  public getSourceLanguage(){
+  getSourceLanguage(){
     return this.parentForm.controls['selectLanguagesForm'].value.nativeLanguageSelect;
 
   }
 
-  public getTargetLanguage(){
+  getTargetLanguage(){
     return this.parentForm.controls['selectLanguagesForm'].value.foreignLanguageSelect;
   }
+
+  turnCameraOn() {
+    this.cameraOn = true;
+  }
+
 
 }

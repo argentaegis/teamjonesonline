@@ -1,20 +1,26 @@
 <form [formGroup]="translateAudioForm">
   <div>
-    <div *ngIf="!recording">
-      <button class="btn btn-primary" (click)="onStartRecording()">Start Recording</button>
-    </div>
-    <div *ngIf="recording">
-      <button class="btn btn-primary" (click)="onStopRecording()">Stop Recording and Translate</button>
-    </div>
-  </div>
-  <div>
-    <label>I heard {{getSourceLanguage().name}}</label>
+    <label>Speak in {{getSourceLanguage().name}}</label>
     <br>
 
     <textarea class="form-control" readonly="readonly" [innerHTML]="originalText"></textarea>
   </div>
+  <br>
+  <div class="text-center">
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+      <div *ngIf="!recording">
+        <fa class="btn btn-outline-secondary" [name]="'microphone'" [size]=2 (click)="onStartRecording()"></fa>
+      </div>
+      <div *ngIf="recording">
+
+        <fa class="btn btn-outline-secondary" [name]="'stop-circle'" [size]=2 (click)="onStopRecording()"></fa>
+      </div>
+      <fa class="btn btn-outline-primary" [name]="'exchange'" [rotate]="90" [size]=2 (click)="flipSource = !flipSource"></fa>
+    </div>
+  </div>
+  <br>
   <div>
-    <label>{{getTargetLanguage().name}}</label>
+    <label>Read in {{getTargetLanguage().name}}</label>
     <br>
 
     <textarea class="form-control" readonly="readonly" [innerHTML]="translatedText"></textarea>

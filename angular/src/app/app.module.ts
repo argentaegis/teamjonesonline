@@ -31,6 +31,9 @@ import { WebCamModule } from 'ack-angular-webcam';
 import { TranslateTextComponent } from './components/translator/translate-text/translate-text.component';
 import { SelectLanguagesComponentComponent } from './components/translator/select-languages-component/select-languages-component.component';
 
+import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome'
+
+
 const appRoutes: Routes =  [
   {path:'', component: HomeComponent},
   {path:'register', component: RegisterComponent},
@@ -62,7 +65,8 @@ const appRoutes: Routes =  [
       HttpClientModule,
       RouterModule.forRoot(appRoutes),
       FlashMessagesModule.forRoot(),
-      WebCamModule
+      WebCamModule,
+      Angular2FontawesomeModule
     ],
     providers: [
       ValidateService,

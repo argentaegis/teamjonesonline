@@ -96,12 +96,12 @@ export class TranslateImageComponent implements OnInit {
 
   onCamSuccess() { }
 
-  getSourceLanguage(){
+  public getSourceLanguage(){
     return this.parentForm.controls['selectLanguagesForm'].value.nativeLanguageSelect;
 
   }
 
-  getTargetLanguage(){
+  public getTargetLanguage(){
     return this.parentForm.controls['selectLanguagesForm'].value.foreignLanguageSelect;
   }
 

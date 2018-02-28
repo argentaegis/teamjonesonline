@@ -8,9 +8,13 @@ import {TranslateService} from "../../../services/translate.service";
   styleUrls: ['./translate-text.component.css']
 })
 export class TranslateTextComponent implements OnInit {
-  sourceText: String;
-  translateForm: FormGroup;
-  translatedText: String;
+
+  @Input('parentForm')
+  public parentForm: FormGroup;
+
+  nativeText: String;
+  translateTextForm: FormGroup;
+  translateText: String;
   constructor(
     private fb: FormBuilder,
     private translateService: TranslateService
@@ -19,30 +23,47 @@ export class TranslateTextComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.parentForm.addControl('translateTextForm', this.translateTextForm);
   }
 
   createForm() {
-    this.translateForm = this.fb.group({
-      sourceText: new FormControl(this.sourceText)
+    this.translateTextForm = this.fb.group({
+      nativeText: new FormControl(this.nativeText),
+      translateText: new FormControl(this.translateText)
     });
 
   }
 
   onTranslateSubmit() {
-    var sourceText = this.translateForm.value.sourceText;
+    var sourceText;
+    var sourceLang;
+    var targetLang;
+    var translateToControlName;
+
+    if (this.translateTextForm.value.nativeText !== '') {
+      sourceText = this.translateTextForm.value.nativeText;
+      sourceLang = this.getNativeLanguage().code;
+      targetLang = this.getTargetLanguage().code;
+      translateToControlName = 'translateText';
+    } else {
+      sourceText = this.translateTextForm.value.translateText;
+      sourceLang = this.getTargetLanguage().code;
+      targetLang = this.getNativeLanguage().code;
+      translateToControlName = 'nativeText';
+    }
 
     var translateRequest = {
-      sourceText: this.translateForm.value.sourceText,
+      sourceText: sourceText,
       sourceImage: '',
-      sourceLang: 'en',
-      targetLang: 'fr',
+      sourceLang: sourceLang,
+      targetLang: targetLang,
       mediaBase64: ''
     }
 
     this.translateService.translateText(translateRequest).subscribe( data => {
         console.log(data);
         if (data.success) {
-          this.updateTranslation(data.translation);
+          this.updateTranslation(data.translation, translateToControlName);
         } else {
           console.log(data.msg);
         }
@@ -50,7 +71,8 @@ export class TranslateTextComponent implements OnInit {
     );
   };
 
-  updateTranslation(translation){
+  updateTranslation(translation, translateToControlName){
+
     console.log('updateTranslation: ' + translation);
     console.log(translation);
     var translatedValue = '';
@@ -66,7 +88,21 @@ export class TranslateTextComponent implements OnInit {
       console.log('notarray: ' + translation);
       translatedValue = translation.translatedText;
     }
-    this.translatedText = translatedValue;
 
+    this.translateTextForm.controls[translateToControlName].setValue(translatedValue);
+  }
+
+  getNativeLanguage(){
+    return this.parentForm.controls['selectLanguagesForm'].value.nativeLanguageSelect;
+
+  }
+
+  getTargetLanguage(){
+    return this.parentForm.controls['selectLanguagesForm'].value.foreignLanguageSelect;
+  }
+
+  clearOtherTextControl(controlToClear){
+    console.log('clearTranslate');
+    this.translateTextForm.controls[controlToClear].setValue('');
   }
 }

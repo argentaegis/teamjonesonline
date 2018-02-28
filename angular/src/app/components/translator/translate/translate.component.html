@@ -10,7 +10,7 @@
       </div>
       <div id="translateText" [ngClass]="cardToShow == 'translateText' ? 'collapse show' : 'collapse'"  aria-labelledby="headingOne" data-parent="#accordion">
         <div class="card-body">
-          <app-translate-text></app-translate-text>
+          <app-translate-text [parentForm]="translateForm"></app-translate-text>
         </div>
       </div>
     </div>

@@ -14,14 +14,16 @@ export class SelectLanguagesComponentComponent implements OnInit {
   public parentForm: FormGroup;
   myLanguages: any;
   selectLanguagesForm: FormGroup;
-  nativeLanguageSelect: String;
-  foreignLanguageSelect: String;
+  nativeLanguageSelect: Language;
+  foreignLanguageSelect: Language;
 
   constructor(
     private fb: FormBuilder
   ) {
     this.myLanguages = languages;
     this.createForm();
+
+
   }
 
   createForm() {
@@ -30,15 +32,32 @@ export class SelectLanguagesComponentComponent implements OnInit {
       foreignLanguageSelect: new FormControl(this.foreignLanguageSelect)
     });
 
-    this.selectLanguagesForm.controls['nativeLanguageSelect'].setValue('en');
-    this.selectLanguagesForm.controls['foreignLanguageSelect'].setValue('fr');
+    var english = this.myLanguages.languages.filter(function( obj ) {
+      return obj.code == 'en';
+    })[0];
+
+    var french = this.myLanguages.languages.filter(function( obj ) {
+      return obj.code == 'fr';
+    })[0];
+
+    this.selectLanguagesForm.controls['nativeLanguageSelect'].setValue(english);
+    this.selectLanguagesForm.controls['foreignLanguageSelect'].setValue(french);
+
 
     console.log('SelectLanguagesComponentComponent.component');
     console.log(this.selectLanguagesForm.value);
   }
 
   ngOnInit() {
+
     this.parentForm.addControl('selectLanguagesForm', this.selectLanguagesForm);
   }
 
+}
+
+export interface Language {
+  code: String;
+  name: String;
+  nativeName: String;
+  icon: String;
 }

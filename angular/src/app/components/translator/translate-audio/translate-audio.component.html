@@ -1,10 +1,12 @@
 <form [formGroup]="translateAudioForm">
   <div>
+    <button class="btn btn-primary" (click)="onStartRecording()">Start Recording</button>
+    <button class="btn btn-primary" (click)="onStopRecording()">Stop Recording and Translate</button>
+  </div>
+  <div>
     <label>Translated Text</label>
+    <br>
 
-    <blockquote class="blockquote" [innerHTML]="translatedText"></blockquote>
-
-    <button (click)="onStartRecording()">Start Recording</button>
-    <button (click)="onStopRecording()">Stop Recording and Translate</button>
+    <input class="form-control" readonly="readonly" [innerHTML]="translatedText">
   </div>
 </form>

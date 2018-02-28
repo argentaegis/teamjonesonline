@@ -3,7 +3,7 @@
     <label>{{getNativeLanguage().name}}</label>
     <input class="form-control" formControlName="nativeText" (keypress)="clearTextControl('translateText')">
   </div>
-  <button type="submit" [disabled]="translateTextForm.pristine" class="btn btn-primary">Translate</button>
+  <button class="btn btn-primary" type="submit" [disabled]="translateTextForm.pristine" >Translate</button>
   <br><br>
   <div class="form-group">
     <label>{{getTargetLanguage().name}}</label>

@@ -12,20 +12,20 @@ export class TranslateImageComponent implements OnInit {
 
   @Input('parentForm')
   public parentForm: FormGroup;
-  translatedText: String;
+  translatedText: string;
   webcam: WebCamComponent;
   base64;
   webcamOptions: {
     width: 50,
     height: 50
   };
-  imageSource: String;
-  translating: Boolean;
+  imageSource: string;
+  translating: boolean;
   flipSource: boolean;
 
   tryAgainMessage: 'Please try again';
   translateImageForm: FormGroup
-  cameraOn: Boolean = false;
+  cameraOn: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -112,6 +112,8 @@ export class TranslateImageComponent implements OnInit {
 
   flipTranslation() {
     this.flipSource = !this.flipSource;
+
+    this.translatedText = '';
   }
 
   getSourceLanguage(){

@@ -5,7 +5,7 @@
     <div class="card">
       <div class="card-header" (click)="showCard('translateText')" >
         <h5 class="mb-0">
-          Translate Text
+          <fa [name]="'align-left'" [size]=1></fa>
         </h5>
       </div>
       <div id="translateText" [ngClass]="cardToShow == 'translateText' ? 'collapse show' : 'collapse'"  aria-labelledby="headingOne" data-parent="#accordion">
@@ -17,7 +17,7 @@
     <div calss="card">
       <div class="card-header" (click)="showCard('translateAudio')" >
         <h5 class="mb-0">
-          Translate Speech
+          <fa [name]="'microphone'" [size]=1></fa>
         </h5>
       </div>
       <div id="translateAudio" [ngClass]="cardToShow == 'translateAudio' ? 'collapse show' : 'collapse'" aria-labelledby="headingOne" data-parent="#accordion">
@@ -29,7 +29,7 @@
     <div calss="card">
       <div class="card-header" (click)="showCard('translateImage')" >
         <h5 class="mb-0">
-          Translate Image
+          <fa [name]="'camera'" [size]=1></fa>
         </h5>
       </div>
       <div id="translateImage" [ngClass]="cardToShow == 'translateImage' ? 'collapse show' : 'collapse'" aria-labelledby="headingOne" data-parent="#accordion">

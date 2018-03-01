@@ -1,6 +1,6 @@
 <form [formGroup]="translateAudioForm">
   <div>
-    <label>Speak in {{getSourceLanguage().name}}</label>
+    <label><fa [name]="'microphone'" [size]=1></fa> {{getSourceLanguage().nativeName}}</label>
     <br>
 
     <textarea class="form-control" rows="5" readonly="readonly"
@@ -20,7 +20,7 @@
     </div>
   </div>
   <div>
-    <label>Read in {{getTargetLanguage().name}}</label>
+    <label><fa [name]="'eye'" [size]=1></fa>{{getTargetLanguage().nativeName}}</label>
     <br>
     <textarea class="form-control" rows="5" readonly="readonly"
               [innerHTML]="translatedText"></textarea>

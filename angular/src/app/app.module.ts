@@ -33,6 +33,7 @@ import { SelectLanguagesComponentComponent } from './components/translator/selec
 
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome'
 
+import { CookieService } from 'ngx-cookie-service';
 
 const appRoutes: Routes =  [
   {path:'', component: HomeComponent},
@@ -79,7 +80,8 @@ const appRoutes: Routes =  [
       },
       AuthGuard,
       TranslateService,
-      ImageAnalysisService
+      ImageAnalysisService,
+      CookieService
     ],
     bootstrap: [AppComponent],
 

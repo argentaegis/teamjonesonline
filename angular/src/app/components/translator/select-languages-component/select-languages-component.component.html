@@ -1,14 +1,12 @@
 <form [formGroup]="selectLanguagesForm">
   <label class="control-label" for="nativeLanguageSelect">Translate</label>
-  <select id="nativeLanguageSelect" class="form-control" formControlName="nativeLanguageSelect" class="nav-item dropdown show">
-    <option value=null disabled selected hidden>--Select--</option>
+  <select id="nativeLanguageSelect" class="form-control" formControlName="nativeLanguageSelect" (change)="languageChanged('native')" class="nav-item dropdown show">
     <option *ngFor="let x of myLanguages.languages"
             [ngValue]="x">{{ x.nativeName }}</option>
   </select>
 
   <label class="control-label" for="foreignLanguageSelect">and</label>
-  <select id="foreignLanguageSelect" class="form-control" formControlName="foreignLanguageSelect" class="nav-item dropdown show">
-    <option value=null disabled selected hidden>--Select--</option>
+  <select id="foreignLanguageSelect" class="form-control" formControlName="foreignLanguageSelect" (change)="languageChanged('foreign')" class="nav-item dropdown show">
     <option *ngFor="let x of myLanguages.languages"
             [ngValue]="x">{{ x.nativeName }}</option>
   </select>

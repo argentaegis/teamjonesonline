@@ -108,7 +108,6 @@ export class TranslateTextComponent implements OnInit {
   }
 
   clearTextControl(controlToClear){
-    console.log('clearTranslate');
     this.translateTextForm.controls[controlToClear].setValue('');
   }
 

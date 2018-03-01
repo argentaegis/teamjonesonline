@@ -23,14 +23,23 @@ vision.init({auth: googleAPIKey});
 
 
 translateText = function(translateRequest, callback){
-  googleTranslate.translate(
-    translateRequest.sourceText,
-    translateRequest.sourceLang,
-    translateRequest.targetLang,
-    (err, translation) => {
-      callback(err, translation);
-    }
-  );
+  console.log("TRANSLATE TEXT");
+  console.log(translateRequest);
+  if(translateRequest.sourceLang == translateRequest.targetLang && translateRequest.targetLang == 'en'){
+    console.log('BYPASS TRANSLATE');
+    callback(null, {translatedText: translateRequest.sourceText, originalText: translateRequest.sourceText});
+  } else {
+    console.log('Google Translate');
+    googleTranslate.translate(
+      translateRequest.sourceText,
+      translateRequest.sourceLang,
+      translateRequest.targetLang,
+      (err, translation) => {
+        callback(err, translation);
+      }
+    );
+  }
+
 }
 
 // Translate text
@@ -102,44 +111,38 @@ router.post('/translateImage', (req, res, next) =>{
           sourceLang: 'en',
           targetLang: req.body.targetLang
         }
-
-      }
-    }
-
-    translateText(translateRequest, (err, translation) => {
-      if (err) {
-        console.log(err);
-        res.json({success: false, msg: 'translation failed'});
-      } else {
-        console.log(translation)
-        var imageTranslation = translation.translatedText;
-
-        var innerTranslateRequest = {
-          sourceText: translation.originalText,
-          sourceLang: 'en',
-          targetLang: req.body.sourceLang
-        }
-
-        translateText(innerTranslateRequest, (err, translation) => {
+        translateText(translateRequest, (err, translation) => {
           if (err) {
             console.log(err);
             res.json({success: false, msg: 'translation failed'});
           } else {
-            console.log(translation);
+            console.log(translation)
+            var imageTranslation = translation.translatedText;
 
-            var imageOriginalText = translation.translatedText;
-            translation.translatedText = imageTranslation;
-            translation.originalText = imageOriginalText;
+            var innerTranslateRequest = {
+              sourceText: translation.originalText,
+              sourceLang: 'en',
+              targetLang: req.body.sourceLang
+            }
 
-            res.json({success: true, translation: translation});
+            translateText(innerTranslateRequest, (err, translation) => {
+              if (err) {
+                console.log(err);
+                res.json({success: false, msg: 'translation failed'});
+              } else {
+                console.log(translation);
+
+                var imageOriginalText = translation.translatedText;
+                translation.translatedText = imageTranslation;
+                translation.originalText = imageOriginalText;
+
+                res.json({success: true, translation: translation, msg: 'translated image description'});
+              }
+            })
           }
-        })
+        });
       }
-    });
-
-
-
-
+    }
   }, (err) => {
     console.log('Error: ' + err);
     res.json({success: false, msg: 'translation failed'});

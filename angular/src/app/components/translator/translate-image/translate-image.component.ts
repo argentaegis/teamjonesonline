@@ -43,7 +43,7 @@ export class TranslateImageComponent implements OnInit {
     this.parentForm.addControl('translateImageForm', this.translateImageForm);
   }
 
-  updateTranslation(translation){
+  updateTranslation(translation, msg){
     console.log('updateTranslation: ' + translation);
     console.log(translation);
     var translatedValue = '';
@@ -58,7 +58,13 @@ export class TranslateImageComponent implements OnInit {
     } else {
       console.log('notarray: ' + translation);
       if(translation){
-        translatedValue = translation.translatedText;
+        console.log('msg: ' + msg);
+        if(msg == 'translated image description'){
+          translatedValue = translation.translatedText + ' : ' + translation.originalText;
+        }else {
+          translatedValue = translation.translatedText;
+        }
+
       } else {
         translatedValue = 'No translation available.';
       }
@@ -87,10 +93,10 @@ export class TranslateImageComponent implements OnInit {
         this.translateService.translateImage(translateRequest).subscribe( res =>{
           if(res.success){
             console.log(res);
-            this.updateTranslation(res.translation);
+            this.updateTranslation(res.translation, res.msg);
             this.translating = false;
           } else {
-            this.updateTranslation(this.tryAgainMessage);
+            this.updateTranslation(this.tryAgainMessage, res.msg);
             this.translating = false;
           }
 

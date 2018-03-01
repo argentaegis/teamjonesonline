@@ -23,13 +23,9 @@ vision.init({auth: googleAPIKey});
 
 
 translateText = function(translateRequest, callback){
-  console.log("TRANSLATE TEXT");
-  console.log(translateRequest);
   if(translateRequest.sourceLang == translateRequest.targetLang && translateRequest.targetLang == 'en'){
-    console.log('BYPASS TRANSLATE');
     callback(null, {translatedText: translateRequest.sourceText, originalText: translateRequest.sourceText});
   } else {
-    console.log('Google Translate');
     googleTranslate.translate(
       translateRequest.sourceText,
       translateRequest.sourceLang,
@@ -116,7 +112,6 @@ router.post('/translateImage', (req, res, next) =>{
             console.log(err);
             res.json({success: false, msg: 'translation failed'});
           } else {
-            console.log(translation)
             var imageTranslation = translation.translatedText;
 
             var innerTranslateRequest = {

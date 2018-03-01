@@ -60,42 +60,85 @@ router.post('/translateImage', (req, res, next) =>{
       base64: image
     }),
     features: [
-      new vision.Feature('TEXT_DETECTION', 1)
+      new vision.Feature('TEXT_DETECTION', 1),
+      new vision.Feature('LABEL_DETECTION', 1)
     ]
   })
 
   vision.annotate(visionRequest).then((translation) => {
-    var textLines;
+    var textLines = [];
+    var translateRequest;
     if(translation.responses
         && translation.responses[0]
         && translation.responses[0].textAnnotations) {
-      console.log(translation.responses);
       var textData = translation.responses[0].textAnnotations[0].description;
       textLines = textData.split('\n');
-    }
-    else {
-      console.log(translation);
-      textLines = 'No translation found.';
-      console.log(textLines);
-    }
 
-    var translateRequest = {
-       sourceText: textLines,
-       sourceLang: req.body.sourceLang,
-       targetLang: req.body.targetLang
-     }
+      translateRequest = {
+        sourceText: textLines,
+        sourceLang: req.body.sourceLang,
+        targetLang: req.body.targetLang
+      }
 
-     console.log('translateRequest');
-     console.log(translateRequest);
+      translateText(translateRequest, (err, translation) => {
+        if(err){
+          console.log(err);
+          res.json({success: false, msg: 'translation failed'});
+        } else {
+          res.json({success: true, translation: translation});
+        }
+      })
+
+    } else {
+      if(translation.responses
+        && translation.responses[0]
+        && translation.responses[0].labelAnnotations){
+
+        var imageDescription = translation.responses[0].labelAnnotations[0].description;
+
+
+        translateRequest = {
+          sourceText: imageDescription,
+          sourceLang: 'en',
+          targetLang: req.body.targetLang
+        }
+
+      }
+    }
 
     translateText(translateRequest, (err, translation) => {
-       if(err){
-         console.log(err);
-         res.json({success: false, msg: 'translation failed'});
-       } else {
-         res.json({success: true, translation: translation});
-       }
-     })
+      if (err) {
+        console.log(err);
+        res.json({success: false, msg: 'translation failed'});
+      } else {
+        console.log(translation)
+        var imageTranslation = translation.translatedText;
+
+        var innerTranslateRequest = {
+          sourceText: translation.originalText,
+          sourceLang: 'en',
+          targetLang: req.body.sourceLang
+        }
+
+        translateText(innerTranslateRequest, (err, translation) => {
+          if (err) {
+            console.log(err);
+            res.json({success: false, msg: 'translation failed'});
+          } else {
+            console.log(translation);
+
+            var imageOriginalText = translation.translatedText;
+            translation.translatedText = imageTranslation;
+            translation.originalText = imageOriginalText;
+
+            res.json({success: true, translation: translation});
+          }
+        })
+      }
+    });
+
+
+
 
   }, (err) => {
     console.log('Error: ' + err);

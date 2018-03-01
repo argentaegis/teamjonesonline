@@ -3,7 +3,8 @@
     <label>Speak in {{getSourceLanguage().name}}</label>
     <br>
 
-    <textarea class="form-control" readonly="readonly" [innerHTML]="originalText"></textarea>
+    <textarea class="form-control" rows="5" readonly="readonly"
+              [innerHTML]="originalText"></textarea>
   </div>
   <br>
   <div class="text-center">
@@ -21,6 +22,7 @@
   <div>
     <label>Read in {{getTargetLanguage().name}}</label>
     <br>
-    <textarea class="form-control" readonly="readonly" [innerHTML]="translatedText"></textarea>
+    <textarea class="form-control" rows="5" readonly="readonly"
+              [innerHTML]="translatedText"></textarea>
   </div>
 </form>

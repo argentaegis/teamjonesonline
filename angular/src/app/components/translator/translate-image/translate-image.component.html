@@ -1,19 +1,19 @@
 <form [formGroup]="translateImageForm">
 
     <div *ngIf="cameraOn" class="text-center">
-      <ack-webcam *ngIf="!translating"
-                  [(ref)]   = "webcam"
-                  [options] = "webcamOptions"
-                  (success) = "onCamSuccess($event)"
-                  (catch)   = "onCamError($event)"></ack-webcam>
-      <img *ngIf="translating" src="{{imageSource}}" />
+        <ack-webcam *ngIf="!translating"
+                    [(ref)]   = "webcam"
+                    [options] = "webcamOptions"
+                    (success) = "onCamSuccess($event)"
+                    (catch)   = "onCamError($event)"></ack-webcam>
+        <img *ngIf="translating" src="{{imageSource}}" class="translate-image" />
     </div>
 
 
   <div class="text-center">
-    <fa class="btn btn-primary" [name]="'camera'" [size]=2 (click)="turnCameraOn()"></fa>
-    <fa class="btn btn-primary" [name]="'image'" [size]=2 (click)="genBase64Image()"></fa>
-
+    <fa *ngIf="!cameraOn" class="btn btn-primary" [name]="'camera'" [size]=2 (click)="turnCameraOn()"></fa>
+    <fa *ngIf="cameraOn && !translating"  class="btn btn-primary" [name]="'image'" [size]=2 (click)="genBase64Image()"></fa>
+    <fa *ngIf="cameraOn && translating"  class="btn btn-outline-primary" [name]="'image'"></fa>
   </div>
   <div class="form-group">
     <label>{{getSourceLanguage().name}}</label>

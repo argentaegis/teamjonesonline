@@ -21,6 +21,7 @@ export class TranslateImageComponent implements OnInit {
   };
   imageSource: String;
   translating: Boolean;
+  flipSource: boolean;
 
   tryAgainMessage: 'Please try again';
   translateImageForm: FormGroup
@@ -109,13 +110,25 @@ export class TranslateImageComponent implements OnInit {
 
   onCamSuccess() { }
 
+  flipTranslation() {
+    this.flipSource = !this.flipSource;
+  }
+
   getSourceLanguage(){
-    return this.parentForm.controls['selectLanguagesForm'].value.nativeLanguageSelect;
+    if (this.flipSource){
+      return this.parentForm.controls['selectLanguagesForm'].value.foreignLanguageSelect;
+    } else {
+      return this.parentForm.controls['selectLanguagesForm'].value.nativeLanguageSelect;
+    }
 
   }
 
   getTargetLanguage(){
-    return this.parentForm.controls['selectLanguagesForm'].value.foreignLanguageSelect;
+    if (this.flipSource){
+      return this.parentForm.controls['selectLanguagesForm'].value.nativeLanguageSelect;
+    } else {
+      return this.parentForm.controls['selectLanguagesForm'].value.foreignLanguageSelect;
+    }
   }
 
   turnCameraOn() {

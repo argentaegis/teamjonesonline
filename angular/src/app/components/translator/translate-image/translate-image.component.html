@@ -11,9 +11,16 @@
 
 
   <div class="text-center">
-    <fa *ngIf="!cameraOn" class="btn btn-primary" [name]="'camera'" [size]=2 (click)="turnCameraOn()"></fa>
-    <fa *ngIf="cameraOn && !translating"  class="btn btn-primary" [name]="'image'" [size]=2 (click)="genBase64Image()"></fa>
-    <fa *ngIf="cameraOn && translating"  class="btn btn-outline-primary" [name]="'image'"></fa>
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+      <div *ngIf="!cameraOn">
+        <fa  class="btn btn-primary" [name]="'camera'" [size]=2 (click)="turnCameraOn()"></fa>
+      </div>
+      <div *ngIf="cameraOn">
+        <fa *ngIf="!translating"  class="btn btn-primary" [name]="'image'" [size]=2 (click)="genBase64Image()"></fa>
+        <fa *ngIf="translating"  class="btn btn-outline-primary" [name]="'image'"></fa>
+      </div>
+      <fa class="btn btn-secondary" [name]="'exchange'" [rotate]="90" [size]=2 (click)="flipTranslation()"></fa>
+    </div>
   </div>
   <div class="form-group">
     <label>{{getSourceLanguage().name}}</label>

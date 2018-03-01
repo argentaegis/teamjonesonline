@@ -10,13 +10,13 @@
   <div class="text-center">
     <div class="btn-group btn-group-toggle" data-toggle="buttons">
       <div *ngIf="!recording">
-        <fa class="btn btn-outline-primary" [name]="'microphone'" [size]=2 (click)="onStartRecording()"></fa>
+        <fa class="btn btn-primary" [name]="'microphone'" [size]=2 (click)="onStartRecording()"></fa>
       </div>
       <div *ngIf="recording">
 
-        <fa class="btn btn-outline-primary" [name]="'stop-circle'" [size]=2 (click)="onStopRecording()"></fa>
+        <fa class="btn btn-primary" [name]="'stop-circle'" [size]=2 (click)="onStopRecording()"></fa>
       </div>
-      <fa class="btn btn-outline-secondary" [name]="'exchange'" [rotate]="90" [size]=2 (click)="flipTranslation()"></fa>
+      <fa class="btn btn-secondary" [name]="'exchange'" [rotate]="90" [size]=2 (click)="flipTranslation()"></fa>
     </div>
   </div>
   <div>

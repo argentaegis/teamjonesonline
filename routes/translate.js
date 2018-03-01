@@ -42,9 +42,6 @@ router.post('/translateText', (req, res, next) =>{
     targetLang: req.body.targetLang
   }
 
-  console.log('text translate req');
-  console.log(translateRequest);
-
   translateText(translateRequest, (err, translation) =>{
     if(err){
       console.log(err);
@@ -69,7 +66,10 @@ router.post('/translateImage', (req, res, next) =>{
 
   vision.annotate(visionRequest).then((translation) => {
     var textLines;
-    if(translation.responses != null) {
+    if(translation.responses
+        && translation.responses[0]
+        && translation.responses[0].textAnnotations) {
+      console.log(translation.responses);
       var textData = translation.responses[0].textAnnotations[0].description;
       textLines = textData.split('\n');
     }
@@ -105,10 +105,7 @@ router.post('/translateImage', (req, res, next) =>{
 });
 
 router.post('/translateAudio', (req, res, next) => {
-
-// Creates a client
   const client = new speech.SpeechClient(GoogleParameters);
-
 
   const config = {
     encoding: 'LPCM',
@@ -124,9 +121,6 @@ router.post('/translateAudio', (req, res, next) => {
     config: config
   };
 
-  console.log('text translate req');
-  console.log(request.config);
-
   client
     .recognize(request)
     .then(data => {
@@ -134,20 +128,12 @@ router.post('/translateAudio', (req, res, next) => {
       const transcription = response.results.map(result => result.alternatives[0].transcript)
        .join('\n');
 
-      console.log('RESULTS');
-      console.log(data[0].results);
-
-
-
 
       var translateRequest = {
         sourceText: transcription,
         sourceLang: req.body.sourceLang,
         targetLang: req.body.targetLang
       }
-
-      console.log('text translate req');
-      console.log(translateRequest);
 
       translateText(translateRequest, (err, translation) => {
         if(err){

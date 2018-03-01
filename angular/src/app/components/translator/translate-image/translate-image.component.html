@@ -1,6 +1,6 @@
 <form [formGroup]="translateImageForm">
 
-    <div class="text-center">
+    <div *ngIf="cameraOn" class="text-center">
       <ack-webcam *ngIf="!translating"
                   [(ref)]   = "webcam"
                   [options] = "webcamOptions"
@@ -16,7 +16,7 @@
 
   </div>
   <div class="form-group">
-    <label>{{getTargetLanguage().name}}</label>
+    <label>{{getSourceLanguage().name}}</label>
     <textarea class="form-control" readonly="readonly" [innerHTML]="translatedText"></textarea>
   </div>
 </form>

@@ -11,8 +11,6 @@ export class TranslateComponent implements OnInit {
 
   cardToShow: String;
   public translateForm: FormGroup;
-  //selectLanguagesForm: FormGroup;
-
 
   constructor(
     private fb: FormBuilder

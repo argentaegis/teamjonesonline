@@ -1,9 +1,11 @@
 require('dotenv').config();
 const express = require('express');
+const helmet = require('helmet')
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const passport = require('passport');
+
 
 const dynamoose = require('dynamoose');
 
@@ -18,19 +20,19 @@ if(process.env.DEV === 'true')
 }
 
 const app = express();
-const users = require('./routes/users');
-const translate = require('./routes/translate');
+app.use(helmet());
 
 
 app.use(cors());
-
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(bodyParser.json({limit: '50mb'}));
-
 app.use(passport.initialize());
 app.use(passport.session());
 require('./config/passport')(passport);
+
+
+const users = require('./routes/users');
+const translate = require('./routes/translate');
 
 app.use('/users', users);
 app.use('/translate', translate);

@@ -42,3 +42,10 @@ Thumbs.db
 public/
 .env
 DEAN Demos-40d2753c22e7.json
+/.ebextensions
+server.cert
+server.key
+*.zip
+*.crt
+CSRKEY
+/TextImages

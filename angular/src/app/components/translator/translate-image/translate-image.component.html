@@ -1,15 +1,14 @@
 <form [formGroup]="translateImageForm">
-
-    <div *ngIf="cameraOn" class="text-center">
-        <ack-webcam *ngIf="!translating"
-                    [(ref)]   = "webcam"
-                    [options] = "webcamOptions"
-                    (success) = "onCamSuccess($event)"
-                    (catch)   = "onCamError($event)"></ack-webcam>
-        <img *ngIf="translating" src="{{imageSource}}" class="translate-image" />
-    </div>
-
-
+  <div *ngIf="cameraOn" class="text-center">
+      <ack-webcam *ngIf="!translating"
+                  [(ref)]   = "webcam"
+                  [options] = "webcamOptions"
+                  [useParentWidthHeight] = "useParentWidthHeight"
+                  [facingMode]  = "facingMode"
+                  (success) = "onCamSuccess($event)"
+                  (catch)   = "onCamError($event)"></ack-webcam>
+      <img *ngIf="translating" src="{{imageSource}}" class="translate-image" />
+  </div>
   <div class="text-center">
     <div class="btn-group btn-group-toggle" data-toggle="buttons">
       <div *ngIf="!cameraOn">

@@ -26,6 +26,8 @@ export class TranslateImageComponent implements OnInit {
   tryAgainMessage: 'Please try again';
   translateImageForm: FormGroup
   cameraOn: boolean = false;
+  facingMode: string = 'environment';
+  useParentWidthHeight: boolean = true;
 
   constructor(
     private fb: FormBuilder,

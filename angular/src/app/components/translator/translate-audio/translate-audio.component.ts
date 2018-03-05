@@ -51,8 +51,9 @@ export class TranslateAudioComponent implements OnInit {
 
   onStartRecording() {
     this.recording = true;
-    navigator.getUserMedia(this.mediaConstraints, (stream) => {
-      this.audioRecorder = new MediaStreamRecorder(stream);
+    navigator.mediaDevices.getUserMedia(this.mediaConstraints).then(function(stream){
+      this.audioRecorder = new MediaStreamRecorder.StereoAudioRecorder(stream);
+
       this.audioRecorder.mimeType = 'audio/wav'; // check this line for audio/wav
       this.audioRecorder.audioChannels = 1;
       this.audioRecorder.ondataavailable = (blob) => {
@@ -80,13 +81,12 @@ export class TranslateAudioComponent implements OnInit {
 
         reader.readAsDataURL(blob);
 
-      };
-
+      }
 
       this.audioRecorder.start(30000);
 
-    }, this.onMediaError);
-  }
+    }.bind(this) );
+  };
 
   onStopRecording() {
     this.audioRecorder.stop();

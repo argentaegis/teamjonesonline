@@ -36,13 +36,13 @@ import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawe
 import { CookieService } from 'ngx-cookie-service';
 
 const appRoutes: Routes =  [
-  {path:'', component: HomeComponent},
-  {path:'register', component: RegisterComponent},
-  {path:'login', component: LoginComponent},
-  {path:'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
-  {path:'profile', component: ProfileComponent, canActivate:[AuthGuard]},
-  {path:'translate', component: TranslateComponent},
-  {path:'**', redirectTo: ''}
+  {path:'', component: TranslateComponent},
+  // {path:'register', component: RegisterComponent},
+  // {path:'login', component: LoginComponent},
+  // {path:'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
+  // {path:'profile', component: ProfileComponent, canActivate:[AuthGuard]},
+  // {path:'translate', component: TranslateComponent},
+  // {path:'**', redirectTo: ''}
 ]
 
 @NgModule({

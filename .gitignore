@@ -49,3 +49,4 @@ server.key
 *.crt
 CSRKEY
 /TextImages
+/angular/www

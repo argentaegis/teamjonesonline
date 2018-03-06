@@ -30,7 +30,7 @@ app.use(helmet());
 app.use(helmet.referrerPolicy({ policy: 'same-origin' }));
 
 app.use(cors());
-app.use(express.static(path.join(__dirname, '/angular/www')));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json({limit: '50mb'}));
 
 app.use(passport.initialize());

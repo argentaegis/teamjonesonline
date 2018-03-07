@@ -16,6 +16,7 @@
     "dotenv": "^5.0.0",
     "dynamoose": "^0.8.6",
     "express": "4.16.2",
+    "express-https-redirect": "^1.0.0",
     "google-cloud-speech": "0.0.2",
     "google-translate": "^2.1.0",
     "helmet": "^3.12.0",

@@ -1,6 +1,6 @@
 <form [formGroup]="translateTextForm" (ngSubmit)="onTranslateSubmit()">
   <div class="form-group">
-    <label>{{getNativeLanguage().nativeName}}</label>
+    <label>{{getSourceLanguage().nativeName}}</label>
     <input class="form-control" formControlName="nativeText" (keypress)="clearTextControl('translateText')">
   </div>
   <div class="text-center">

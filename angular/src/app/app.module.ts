@@ -29,11 +29,12 @@ import { TranslateImageComponent } from './components/translator/translate-image
 
 import { WebCamModule } from 'ack-angular-webcam';
 import { TranslateTextComponent } from './components/translator/translate-text/translate-text.component';
-import { SelectLanguagesComponentComponent } from './components/translator/select-languages-component/select-languages-component.component';
+import { SelectLanguagesComponent } from './components/translator/select-languages/select-languages-component';
 
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome'
 
 import { CookieService } from 'ngx-cookie-service';
+import { SelectedLanguagesService } from "./services/selected-languages/selected-languages.service";
 
 const appRoutes: Routes =  [
   {path:'', component: TranslateComponent},
@@ -58,7 +59,7 @@ const appRoutes: Routes =  [
       TranslateImageComponent,
       TranslateAudioComponent,
       TranslateTextComponent,
-      SelectLanguagesComponentComponent
+      SelectLanguagesComponent
     ],
     imports: [
       BrowserModule,
@@ -81,7 +82,8 @@ const appRoutes: Routes =  [
       AuthGuard,
       TranslateService,
       ImageAnalysisService,
-      CookieService
+      CookieService,
+      SelectedLanguagesService
     ],
     bootstrap: [AppComponent],
 

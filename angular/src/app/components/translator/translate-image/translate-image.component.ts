@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {TranslateService} from '../../../services/translate.service';
 import {WebCamComponent} from 'ack-angular-webcam';
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {SelectedLanguagesService} from "../../../services/selected-languages/selected-languages.service";
 
 @Component({
   selector: 'app-translate-image',
@@ -31,7 +32,8 @@ export class TranslateImageComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private selectedLanguageService: SelectedLanguagesService
   ) {
     this.createForm();
   }
@@ -118,20 +120,20 @@ export class TranslateImageComponent implements OnInit {
     this.translatedText = '';
   }
 
-  getSourceLanguage(){
-    if (this.flipSource){
-      return this.parentForm.controls['selectLanguagesForm'].value.foreignLanguageSelect;
-    } else {
-      return this.parentForm.controls['selectLanguagesForm'].value.nativeLanguageSelect;
-    }
 
+  getSourceLanguage() {
+    if(this.flipSource) {
+      return this.selectedLanguageService.rightLang;
+    } else {
+      return this.selectedLanguageService.leftLang;
+    }
   }
 
-  getTargetLanguage(){
-    if (this.flipSource){
-      return this.parentForm.controls['selectLanguagesForm'].value.nativeLanguageSelect;
+  getTargetLanguage() {
+    if(this.flipSource) {
+      return this.selectedLanguageService.leftLang;
     } else {
-      return this.parentForm.controls['selectLanguagesForm'].value.foreignLanguageSelect;
+      return this.selectedLanguageService.rightLang;
     }
   }
 

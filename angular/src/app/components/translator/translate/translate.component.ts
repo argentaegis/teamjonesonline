@@ -35,8 +35,5 @@ export class TranslateComponent implements OnInit {
 
   showCard(cardName) {
     this.cardToShow = cardName;
-
-    console.log('translate.component');
-    console.log(this.translateForm.controls['selectLanguagesForm'].value);
   }
 }

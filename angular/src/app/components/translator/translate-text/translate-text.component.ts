@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {TranslateService} from "../../../services/translate.service";
+import {SelectedLanguagesService} from "../../../services/selected-languages/selected-languages.service";
 
 @Component({
   selector: 'app-translate-text',
@@ -17,27 +18,20 @@ export class TranslateTextComponent implements OnInit {
   translateText: String;
   constructor(
     private fb: FormBuilder,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private selectedLanguageService: SelectedLanguagesService
   ) {
     this.createForm();
   }
 
   ngOnInit() {
     this.parentForm.addControl('translateTextForm', this.translateTextForm);
-
-    this.onLanguageSelectionChanges();
   }
 
   createForm() {
     this.translateTextForm = this.fb.group({
       nativeText: new FormControl(this.nativeText),
       translateText: new FormControl(this.translateText)
-    });
-  }
-
-  onLanguageSelectionChanges(): void {
-    this.parentForm.get('selectLanguagesForm').valueChanges.subscribe(val => {
-      this.clearForm();
     });
   }
 
@@ -49,13 +43,13 @@ export class TranslateTextComponent implements OnInit {
 
     if (this.translateTextForm.value.nativeText !== '') {
       sourceText = this.translateTextForm.value.nativeText;
-      sourceLang = this.getNativeLanguage().code;
+      sourceLang = this.getSourceLanguage().code;
       targetLang = this.getTargetLanguage().code;
       translateToControlName = 'translateText';
     } else {
       sourceText = this.translateTextForm.value.translateText;
       sourceLang = this.getTargetLanguage().code;
-      targetLang = this.getNativeLanguage().code;
+      targetLang = this.getSourceLanguage().code;
       translateToControlName = 'nativeText';
     }
 
@@ -99,12 +93,13 @@ export class TranslateTextComponent implements OnInit {
     this.translateTextForm.controls[translateToControlName].setValue(translatedValue);
   }
 
-  getNativeLanguage(){
-    return this.parentForm.controls['selectLanguagesForm'].value.nativeLanguageSelect;
+  getSourceLanguage() {
+      return this.selectedLanguageService.leftLang;
+
   }
 
-  getTargetLanguage(){
-    return this.parentForm.controls['selectLanguagesForm'].value.foreignLanguageSelect;
+  getTargetLanguage() {
+      return this.selectedLanguageService.rightLang;
   }
 
   clearTextControl(controlToClear){

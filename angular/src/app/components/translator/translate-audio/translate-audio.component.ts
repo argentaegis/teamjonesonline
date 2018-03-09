@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { TranslateService } from '../../../services/translate.service';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {SelectedLanguagesService} from "../../../services/selected-languages/selected-languages.service";
 const MediaStreamRecorder = require('msr');
 
 @Component({
@@ -25,7 +26,8 @@ export class TranslateAudioComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private selectedLanguageService: SelectedLanguagesService
   ) {
     this.createForm();
     this.recording = false;
@@ -38,15 +40,6 @@ export class TranslateAudioComponent implements OnInit {
     });
   }
   ngOnInit() {
-    this.parentForm.addControl('translateAudioForm', this.translateAudioForm);
-
-    this.onLanguageSelectionChanges();
-  }
-
-  onLanguageSelectionChanges(): void {
-    this.parentForm.get('selectLanguagesForm').valueChanges.subscribe(val => {
-
-    });
   }
 
   onStartRecording() {
@@ -122,17 +115,17 @@ export class TranslateAudioComponent implements OnInit {
 
   getSourceLanguage() {
     if(this.flipSource) {
-      return this.parentForm.controls['selectLanguagesForm'].value.nativeLanguageSelect;
+      return this.selectedLanguageService.leftLang;
     } else {
-      return this.parentForm.controls['selectLanguagesForm'].value.foreignLanguageSelect;
+      return this.selectedLanguageService.rightLang;
     }
   }
 
   getTargetLanguage() {
     if(this.flipSource) {
-      return this.parentForm.controls['selectLanguagesForm'].value.foreignLanguageSelect;
+      return this.selectedLanguageService.rightLang;
     } else {
-      return this.parentForm.controls['selectLanguagesForm'].value.nativeLanguageSelect;
+      return this.selectedLanguageService.leftLang;
     }
   }
 

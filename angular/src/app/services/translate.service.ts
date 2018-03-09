@@ -24,6 +24,7 @@ export class TranslateService {
 
   translateAudio(translateRequest: TranslateRequest){
     var url = this.config.baseServiceUrl + 'translate/translateAudio';
+    console.log('sending req to : ' + url);
 
     return this.http.post<TranslateResponse>(url, translateRequest);
   }

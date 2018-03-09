@@ -13,7 +13,7 @@ export class TranslateImageComponent implements OnInit {
 
   @Input('parentForm')
   public parentForm: FormGroup;
-  translatedText: string;
+  translatedText: string = '';
   webcam: WebCamComponent;
   base64;
   webcamOptions: {

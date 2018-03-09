@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import { TranslateService } from '../../../services/translate.service';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {SelectedLanguagesService} from "../../../services/selected-languages/selected-languages.service";
-const MediaStreamRecorder = require('msr');
+const MediaStreamRecorder = require('msr-labs');
 
 @Component({
   selector: 'app-translate-audio',
@@ -14,14 +14,17 @@ export class TranslateAudioComponent implements OnInit {
   @Input('parentForm')
   public parentForm: FormGroup;
   audioRecorder;
-  translatedText: String;
-  originalText: String;
+  translatedText: string = '';
+  originalText: string = '';
   mediaConstraints = {
-    audio: true
+    audio: true,
+    video: false
   };
   translateAudioForm: FormGroup;
   recording: boolean;
   flipSource: boolean;
+
+
 
 
   constructor(
@@ -44,41 +47,45 @@ export class TranslateAudioComponent implements OnInit {
 
   onStartRecording() {
     this.recording = true;
-    navigator.mediaDevices.getUserMedia(this.mediaConstraints).then(function(stream){
-      this.audioRecorder = new MediaStreamRecorder.StereoAudioRecorder(stream);
 
-      this.audioRecorder.mimeType = 'audio/wav'; // check this line for audio/wav
-      this.audioRecorder.audioChannels = 1;
-      this.audioRecorder.ondataavailable = (blob) => {
-        var mediaData = '';
-        const reader = new FileReader();
-        reader.onloadend = function () {
-          mediaData = reader.result;
+    navigator.getUserMedia(this.mediaConstraints, this.onMediaSuccess.bind(this), this.onMediaError.bind(this));
 
-          var translateRequest = {
-            sourceText: '',
-            sourceImage: '',
-            sourceLang: this.getSourceLanguage().code,
-            targetLang: this.getTargetLanguage().code,
-            mediaBase64: mediaData
-          };
+    // navigator.mediaDevices.getUserMedia(this.mediaConstraints).then(function(stream){
+    //   this.audioRecorder = new MediaStreamRecorder.StereoAudioRecorder(stream);
+    //
 
-          console.log('translateRequest');
-          console.log(translateRequest);
-          this.translateService.translateAudio(translateRequest).subscribe( data =>{
-            this.updateTranslation(data.translation);
-          });
-
-          this.onStopRecording();
-        }.bind(this);
-
-        reader.readAsDataURL(blob);
-
-      }
-
-      this.audioRecorder.start(30000);
-
-    }.bind(this) );
+    //   this.audioRecorder.mimeType = 'audio/wav'; // check this line for audio/wav
+    //   this.audioRecorder.audioChannels = 1;
+    //   this.audioRecorder.ondataavailable = (blob) => {
+    //     var mediaData = '';
+    //     const reader = new FileReader();
+    //     reader.onloadend = function () {
+    //       mediaData = reader.result;
+    //
+    //       var translateRequest = {
+    //         sourceText: '',
+    //         sourceImage: '',
+    //         sourceLang: this.getSourceLanguage().code,
+    //         targetLang: this.getTargetLanguage().code,
+    //         mediaBase64: mediaData
+    //       };
+    //
+    //       console.log('translateRequest');
+    //       console.log(translateRequest);
+    //       this.translateService.translateAudio(translateRequest).subscribe( data =>{
+    //         this.updateTranslation(data.translation);
+    //       });
+    //
+    //       this.onStopRecording();
+    //     }.bind(this);
+    //
+    //     reader.readAsDataURL(blob);
+    //
+    //   }
+    //
+    //   this.audioRecorder.start(30000);
+    //
+    // }.bind(this) );
   };
 
   onStopRecording() {
@@ -89,6 +96,40 @@ export class TranslateAudioComponent implements OnInit {
   onMediaError(e) {
     console.error('media error', e);
   };
+
+  onMediaSuccess(stream) {
+    this.audioRecorder = new MediaStreamRecorder(stream);
+    this.audioRecorder.mimeType = 'audio/wav';
+    this.audioRecorder.audioChannels = 1;
+    this.audioRecorder.ondataavailable = function (blob) {
+      var mediaData = '';
+
+      const reader = new FileReader();
+      reader.onloadend = function () {
+        mediaData = reader.result;
+
+        var translateRequest = {
+          sourceText: '',
+          sourceImage: '',
+          sourceLang: this.getSourceLanguage().code,
+          targetLang: this.getTargetLanguage().code,
+          mediaBase64: mediaData
+        };
+
+        console.log('translateRequest');
+        console.log(translateRequest);
+        this.translateService.translateAudio(translateRequest).subscribe( data =>{
+          console.log('Returned with: ' + JSON.stringify(data));
+          this.updateTranslation(data.translation);
+        });
+
+        this.onStopRecording();
+      }.bind(this);
+      reader.readAsDataURL(blob);
+
+    }.bind(this);
+    this.audioRecorder.start(3000);
+  }
 
   updateTranslation(translation){
     console.log('updateTranslation: ' + translation);

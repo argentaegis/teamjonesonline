@@ -17,8 +17,8 @@ export class TranslateImageComponent implements OnInit {
   webcam: WebCamComponent;
   base64;
   webcamOptions: {
-    width: 50,
-    height: 50
+    audio: true,
+    video: false
   };
   imageSource: string;
   translating: boolean;

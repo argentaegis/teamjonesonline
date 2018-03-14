@@ -44,12 +44,15 @@ const translate = require('./routes/translate');
 app.use('/users', users);
 app.use('/translate', translate);
 app.get('/', (req, res) => {
+  res.redirect('https://www.tucomprends.com');
   res.send('index');
 });
 
 
 const httpServer = http.createServer(app);
 const httpsServer = https.createServer(credentials, app);
+
+
 
 httpServer.listen(port, () => {
   console.log('Server started on port ' + port);

@@ -11,16 +11,14 @@ export class SelectLanguagesComponent implements OnInit {
 
   @Input('parentForm')
   public parentForm: FormGroup;
-  myLanguages: any;
   selectLanguagesForm: FormGroup;
   leftLanguageSelect: FormControl;
   rightLanguageSelect: FormControl;
-  
+
   constructor(
     private fb: FormBuilder,
     public selectedLanguageService: SelectedLanguagesService
   ) {
-    this.myLanguages = this.selectedLanguageService.languagesSupported;
     this.createForm();
   }
 
@@ -41,7 +39,7 @@ export class SelectLanguagesComponent implements OnInit {
       this.selectedLanguageService.setLanguageByCode(leftOrRight, this.selectLanguagesForm.controls['leftLanguageSelect'].value.code);
     }
 
-    if(leftOrRight == 'right'){
+    if(leftOrRight === 'right'){
       this.selectedLanguageService.setLanguageByCode(leftOrRight, this.selectLanguagesForm.controls['rightLanguageSelect'].value.code);
     }
   }

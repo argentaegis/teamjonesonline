@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-const languages = require('./languages.json');
+const languages = require('../../assets/languages.json');
 
 @Injectable()
 export class SelectedLanguagesService {

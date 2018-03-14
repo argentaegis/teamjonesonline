@@ -11,6 +11,8 @@ const GoogleParameters = {
   "keyFilename": "./DEAN Demos-40d2753c22e7.json"
 }
 
+const languages = require('./languages.json');
+
 
 
 
@@ -188,6 +190,10 @@ router.post('/translateAudio', (req, res, next) => {
     .catch(err => {
       console.error('ERROR:', err);
     });
+});
+
+router.post('/supportedLanguages', (req, res, next) => {
+  res.json({success: true, languages: languages.languages})
 });
 
 

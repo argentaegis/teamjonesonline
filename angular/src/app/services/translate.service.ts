@@ -11,19 +11,19 @@ export class TranslateService {
   ) { }
 
   translateText(translateRequest: TranslateRequest){
-    var url = this.config.baseServiceUrl + 'translate/translateText';
+    var url = this.config.baseServiceUrl + '/translate/translateText';
 
     return this.http.post<TranslateResponse>(url, translateRequest);
   }
 
   translateImage(translateRequest: TranslateRequest){
-    var url = this.config.baseServiceUrl + 'translate/translateImage';
+    var url = this.config.baseServiceUrl + '/translate/translateImage';
 
     return this.http.post<TranslateResponse>(url, translateRequest);
   }
 
   translateAudio(translateRequest: TranslateRequest){
-    var url = this.config.baseServiceUrl + 'translate/translateAudio';
+    var url = this.config.baseServiceUrl + '/translate/translateAudio';
     console.log('sending req to : ' + url);
 
     return this.http.post<TranslateResponse>(url, translateRequest);

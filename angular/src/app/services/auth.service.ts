@@ -16,26 +16,26 @@ export class AuthService {
     ) { }
 
   registerUser(user){
-    var url = this.config.baseServiceUrl + 'users/register';
+    var url = this.config.baseServiceUrl + '/users/register';
 
     return this.http.post<AuthResponse>(url, user);
   }
 
   usernameExists(user){
-    var url = this.config.baseServiceUrl + 'users/usernameExists';
+    var url = this.config.baseServiceUrl + '/users/usernameExists';
 
     return this.http.post<AuthResponse>(url, user);
   }
 
 
   authenticateUser(user){
-    var url = this.config.baseServiceUrl + 'users/authenticate';
+    var url = this.config.baseServiceUrl + '/users/authenticate';
 
     return this.http.post<AuthResponse>(url, user);
   }
 
   getUserProfile(){
-    var url = this.config.baseServiceUrl + 'users/profile';
+    var url = this.config.baseServiceUrl + '/users/profile';
     var profileVal =  this.http.get<AuthResponse>(url);
     return profileVal;
   }

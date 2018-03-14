@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { SelectedLanguagesService } from "../../services/selected-languages/selected-languages.service";
 
 @Component({
   selector: 'page-text',
@@ -7,7 +8,9 @@ import { NavController } from 'ionic-angular';
 })
 export class TextPage {
 
-  constructor(public navCtrl: NavController) {
+  constructor(
+    public navCtrl: NavController,
+    public selectedLanguagesService: SelectedLanguagesService) {
 
   }
 

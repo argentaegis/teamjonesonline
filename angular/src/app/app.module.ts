@@ -37,13 +37,13 @@ import { CookieService } from 'ngx-cookie-service';
 import { SelectedLanguagesService } from "./services/selected-languages/selected-languages.service";
 
 const appRoutes: Routes =  [
-  {path:'', component: TranslateComponent},
-  // {path:'register', component: RegisterComponent},
-  // {path:'login', component: LoginComponent},
-  // {path:'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
-  // {path:'profile', component: ProfileComponent, canActivate:[AuthGuard]},
-  // {path:'translate', component: TranslateComponent},
-  // {path:'**', redirectTo: ''}
+  {path:'', component: HomeComponent},
+  {path:'register', component: RegisterComponent},
+  {path:'login', component: LoginComponent},
+  {path:'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
+  {path:'profile', component: ProfileComponent, canActivate:[AuthGuard]},
+  {path:'translate', component: TranslateComponent},
+  {path:'*', redirectTo: ''}
 ]
 
 @NgModule({

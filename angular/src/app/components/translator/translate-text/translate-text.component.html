@@ -2,6 +2,8 @@
   <div class="form-group">
     <label>{{getSourceLanguage().nativeName}}</label>
     <input class="form-control" formControlName="nativeText" (keypress)="clearTextControl('translateText')">
+
+    <button class="btn btn-primary" (click)="playAudio()">Play</button>
   </div>
   <div class="text-center">
     <button class="btn btn-primary" type="submit" [disabled]="translateTextForm.pristine" >Translate</button>

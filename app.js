@@ -44,7 +44,7 @@ const translate = require('./routes/translate');
 app.use('/users', users);
 app.use('/translate', translate);
 app.get('/', (req, res) => {
-  res.redirect('https://www.tucomprends.com');
+  res.redirect('https://www.teamjonesonline.com');
   res.send('index');
 });
 

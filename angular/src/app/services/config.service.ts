@@ -6,7 +6,7 @@ export class ConfigService {
   baseServiceUrl: String;
 
   constructor() {
-    this.baseServiceUrl = "https://www.tucomprends.com";
+    this.baseServiceUrl = "https://www.teamjonesonline.com";
     //this.baseServiceUrl = "https://translate-env.us-east-2.elasticbeanstalk.com";
     //this.baseServiceUrl = "https://localhost:443";
   }

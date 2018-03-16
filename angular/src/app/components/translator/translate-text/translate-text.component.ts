@@ -13,9 +13,12 @@ export class TranslateTextComponent implements OnInit {
   @Input('parentForm')
   public parentForm: FormGroup;
 
-  nativeText: String;
+  nativeText: string;
   translateTextForm: FormGroup;
-  translateText: String;
+  translateText: string;
+
+  audioSrc: string;
+
   constructor(
     private fb: FormBuilder,
     private translateService: TranslateService,
@@ -109,6 +112,13 @@ export class TranslateTextComponent implements OnInit {
   clearForm(){
     this.clearTextControl('nativeText');
     this.clearTextControl('translateText');
+  }
+
+  playAudio(){
+    let audio = new Audio();
+    audio.src = "https://s3.us-east-2.amazonaws.com/teamjonesonline-translate-audio/hello_test_file4.mp3";
+    audio.load();
+    audio.play();
   }
 
 }

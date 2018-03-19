@@ -3,6 +3,7 @@ import {TranslateService} from '../../../services/translate.service';
 import {WebCamComponent} from 'ack-angular-webcam';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {SelectedLanguagesService} from "../../../services/selected-languages/selected-languages.service";
+import {TextToMp3Service} from "../../../services/text-to-mp3.service";
 
 @Component({
   selector: 'app-translate-image',
@@ -14,6 +15,7 @@ export class TranslateImageComponent implements OnInit {
   @Input('parentForm')
   public parentForm: FormGroup;
   translatedText: string = '';
+  originalText: string = '';
   webcam: WebCamComponent;
   base64;
   webcamOptions: {
@@ -30,10 +32,17 @@ export class TranslateImageComponent implements OnInit {
   facingMode: string = 'environment';
   useParentWidthHeight: boolean = true;
 
+
+  translateAudioSrc: string = '';
+  originalAudioSrc: string = '';
+  baseAudioLocation = "https://s3.us-east-2.amazonaws.com/teamjonesonline-translate-audio/";
+
+
   constructor(
     private fb: FormBuilder,
     private translateService: TranslateService,
-    private selectedLanguageService: SelectedLanguagesService
+    private selectedLanguageService: SelectedLanguagesService,
+    private textToMP3Service: TextToMp3Service
   ) {
     this.createForm();
   }
@@ -53,6 +62,9 @@ export class TranslateImageComponent implements OnInit {
     console.log('updateTranslation: ' + translation);
     console.log(translation);
     var translatedValue = '';
+    var originalValue = '';
+    var rawOriginalValue = translation.originalText;
+    var rawTranslatedValue = translation.translatedText;
 
     if(Array.isArray(translation)){
       console.log('array: ' + translation);
@@ -66,9 +78,11 @@ export class TranslateImageComponent implements OnInit {
       if(translation){
         console.log('msg: ' + msg);
         if(msg == 'translated image description'){
-          translatedValue = translation.translatedText + ' : ' + translation.originalText;
+          translatedValue = translation.translatedText;
+          originalValue = translation.originalText;
         }else {
           translatedValue = translation.translatedText;
+          originalValue = translation.originalText;
         }
 
       } else {
@@ -76,6 +90,29 @@ export class TranslateImageComponent implements OnInit {
       }
     }
     this.translatedText = translatedValue;
+    this.originalText = originalValue;
+
+    const originalGuid = this.textToMP3Service.guid();
+    const originalReq = {
+      text: rawOriginalValue,
+      lang: this.getTargetLanguage(),
+      baseFileName: originalGuid
+    }
+
+    const translateGuid = this.textToMP3Service.guid();
+    const translatedReq = {
+      text: rawTranslatedValue,
+      lang: this.getSourceLanguage(),
+      baseFileName: translateGuid
+    }
+
+    this.textToMP3Service.textToMP3(originalReq).subscribe( data => {
+      this.originalAudioSrc = this.baseAudioLocation + originalGuid + '.mp3';
+    })
+
+    this.textToMP3Service.textToMP3(translatedReq).subscribe( data => {
+      this.translateAudioSrc = this.baseAudioLocation + translateGuid + '.mp3';
+    })
 
   }
 
@@ -96,6 +133,9 @@ export class TranslateImageComponent implements OnInit {
           mediaBase64: imageData,
           audioFileName: ''
         }
+
+        this.originalAudioSrc = '';
+        this.translateAudioSrc = '';
 
         this.translateService.translateImage(translateRequest).subscribe( res =>{
           if(res.success){
@@ -118,7 +158,7 @@ export class TranslateImageComponent implements OnInit {
   flipTranslation() {
     this.flipSource = !this.flipSource;
 
-    this.translatedText = '';
+    this.resetFields();
   }
 
 
@@ -140,7 +180,25 @@ export class TranslateImageComponent implements OnInit {
 
   turnCameraOn() {
     this.cameraOn = true;
+    this.resetFields();
   }
 
+
+  resetFields(){
+    this.translatedText = '';
+    this.originalText = '';
+    this.originalAudioSrc = '';
+    this.translateAudioSrc = '';
+  }
+  playAudio(originalOrTranslated){
+    let audio = new Audio();
+    if(originalOrTranslated == 'original'){
+      audio.src = this.originalAudioSrc;
+    } else if (originalOrTranslated === 'translated') {
+      audio.src = this.translateAudioSrc;
+    }
+    audio.load();
+    audio.play();
+  }
 
 }

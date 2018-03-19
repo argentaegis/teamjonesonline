@@ -23,6 +23,19 @@
   </div>
   <div class="form-group">
     <label>{{getSourceLanguage().nativeName}}</label>
-    <textarea class="form-control" readonly="readonly" [innerHTML]="translatedText"></textarea>
+    <div class="row">
+      <textarea class="form-control col-11" readonly="readonly" [innerHTML]="translatedText"></textarea>
+      <button class="btn btn-primary col-1" type="button" [disabled]="translateAudioSrc === ''" (click)="playAudio('translated')">
+        <fa [name]="'volume-up'" [size]=2 ></fa>
+      </button>
+    </div>
+    <br/>
+    <label>{{getTargetLanguage().nativeName}}</label>
+    <div class="row">
+      <textarea class="form-control col-11" readonly="readonly" [innerHTML]="originalText"></textarea>
+      <button class="btn btn-primary col-1" type="button" [disabled]="originalAudioSrc === ''" (click)="playAudio('original')">
+        <fa [name]="'volume-up'" [size]=2 ></fa>
+      </button>
+    </div>
   </div>
 </form>

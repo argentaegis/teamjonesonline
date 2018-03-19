@@ -25,7 +25,9 @@ vision.init({auth: googleAPIKey});
 
 
 translateText = function(translateRequest, callback){
-  if(translateRequest.sourceLang == translateRequest.targetLang && translateRequest.targetLang == 'en'){
+  console.log('In text');
+  console.log(translateRequest);
+  if(translateRequest.sourceLang.code == translateRequest.targetLang.code && translateRequest.targetLang.code == 'en'){
     callback(null, {translatedText: translateRequest.sourceText, originalText: translateRequest.sourceText});
   } else {
     googleTranslate.translate(
@@ -88,6 +90,7 @@ router.post('/translateImage', (req, res, next) =>{
       }
 
       translateText(translateRequest, (err, translation) => {
+        console.log(1);
         if(err){
           console.log(err);
           res.json({success: false, msg: 'translation failed'});
@@ -106,11 +109,21 @@ router.post('/translateImage', (req, res, next) =>{
 
         translateRequest = {
           sourceText: imageDescription,
-          sourceLang: 'en',
+          sourceLang: {
+            "code": "en",
+            "longCode": "en-US",
+            "name": "English",
+            "nativeName": "English",
+            "icon": "",
+            "voice": "Joanna"
+          },
           targetLang: req.body.targetLang
         }
+
+
         translateText(translateRequest, (err, translation) => {
           if (err) {
+            console.log("ERROR");
             console.log(err);
             res.json({success: false, msg: 'translation failed'});
           } else {
@@ -118,11 +131,20 @@ router.post('/translateImage', (req, res, next) =>{
 
             var innerTranslateRequest = {
               sourceText: translation.originalText,
-              sourceLang: 'en',
+              sourceLang: {
+                "code": "en",
+                "longCode": "en-US",
+                "name": "English",
+                "nativeName": "English",
+                "icon": "",
+                "voice": "Joanna"
+              },
               targetLang: req.body.sourceLang
             }
 
             translateText(innerTranslateRequest, (err, translation) => {
+
+              console.log(3);
               if (err) {
                 console.log(err);
                 res.json({success: false, msg: 'translation failed'});

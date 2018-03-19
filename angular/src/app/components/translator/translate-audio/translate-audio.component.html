@@ -2,9 +2,13 @@
   <div>
     <label><fa [name]="'microphone'" [size]=1></fa> {{getSourceLanguage().nativeName}}</label>
     <br>
-
-    <textarea class="form-control" rows="5" readonly="readonly"
-              [innerHTML]="originalText"></textarea>
+    <div class="row">
+      <textarea class="form-control  col-11" rows="5" readonly="readonly"
+                [innerHTML]="originalText"></textarea>
+      <button class="btn btn-primary col-1" type="button" [disabled]="originalAudioSrc === ''" (click)="playAudio('original')">
+        <fa [name]="'volume-up'" [size]=2 ></fa>
+      </button>
+    </div>
   </div>
   <br>
   <div class="text-center">
@@ -22,7 +26,12 @@
   <div>
     <label><fa [name]="'align-left'" [size]=1></fa>{{getTargetLanguage().nativeName}}</label>
     <br>
-    <textarea class="form-control" rows="5" readonly="readonly"
-              [innerHTML]="translatedText"></textarea>
+    <div class="row">
+      <textarea class="form-control col-11" rows="5" readonly="readonly"
+                [innerHTML]="translatedText"></textarea>
+      <button class="btn btn-primary col-1" type="button" [disabled]="translateAudioSrc === ''" (click)="playAudio('translated')">
+        <fa [name]="'volume-up'" [size]=2 ></fa>
+      </button>
+    </div>
   </div>
 </form>

@@ -49,6 +49,9 @@ export class TranslateTextComponent implements OnInit {
     var targetLang;
     var translateToControlName;
 
+    this.originalAudioSrc = '';
+    this.translateAudioSrc = '';
+
     if (this.translateTextForm.value.nativeText !== '') {
       sourceText = this.translateTextForm.value.nativeText;
       sourceLang = this.getSourceLanguage();

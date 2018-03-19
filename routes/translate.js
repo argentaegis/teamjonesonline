@@ -152,7 +152,7 @@ router.post('/translateAudio', (req, res, next) => {
 
   const config = {
     encoding: 'LPCM',
-    languageCode: req.body.sourceLang
+    languageCode: req.body.sourceLang.code
   };
 
   const audio = {

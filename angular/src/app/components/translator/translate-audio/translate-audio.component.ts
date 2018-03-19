@@ -2,6 +2,7 @@ import {Component, Input} from '@angular/core';
 import { TranslateService } from '../../../services/translate.service';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {SelectedLanguagesService} from "../../../services/selected-languages/selected-languages.service";
+import {TextToMp3Service} from "../../../services/text-to-mp3.service";
 const MediaStreamRecorder = require('msr');
 
 @Component({
@@ -25,10 +26,17 @@ export class TranslateAudioComponent {
   flipSource: boolean;
   audioStream: any;
 
+
+  translateAudioSrc: string = '';
+  originalAudioSrc: string = '';
+  baseAudioLocation = "https://s3.us-east-2.amazonaws.com/teamjonesonline-translate-audio/";
+
+
   constructor(
     private fb: FormBuilder,
     private translateService: TranslateService,
-    private selectedLanguageService: SelectedLanguagesService
+    private selectedLanguageService: SelectedLanguagesService,
+    private textToMP3Service: TextToMp3Service
   ) {
     this.createForm();
     this.recording = false;
@@ -70,11 +78,15 @@ export class TranslateAudioComponent {
       reader.onloadend = function () {
         mediaData = reader.result;
 
+
+        this.originalAudioSrc = '';
+        this.translateAudioSrc = '';
+
         var translateRequest = {
           sourceText: '',
           sourceImage: '',
-          sourceLang: this.getSourceLanguage().code,
-          targetLang: this.getTargetLanguage().code,
+          sourceLang: this.getSourceLanguage(),
+          targetLang: this.getTargetLanguage(),
           mediaBase64: mediaData
         };
 
@@ -99,6 +111,9 @@ export class TranslateAudioComponent {
     var translatedValue = '';
     var originalValue = '';
 
+    var rawOriginalValue = translation.originalText;
+    var rawTranslatedValue = translation.translatedText;
+
     if(Array.isArray(translation)){
       console.log('array: ' + translation);
       translation.forEach( function(trans) {
@@ -114,6 +129,31 @@ export class TranslateAudioComponent {
     }
     this.translatedText = translatedValue;
     this.originalText = originalValue;
+
+    const originalGuid = this.textToMP3Service.guid();
+    const originalReq = {
+      text: rawOriginalValue,
+      lang: this.getSourceLanguage(),
+      baseFileName: originalGuid
+    }
+
+    const translateGuid = this.textToMP3Service.guid();
+    const translatedReq = {
+      text: rawTranslatedValue,
+      lang: this.getTargetLanguage(),
+      baseFileName: translateGuid
+    }
+
+
+    this.textToMP3Service.textToMP3(originalReq).subscribe( data => {
+      this.originalAudioSrc = this.baseAudioLocation + originalGuid + '.mp3';
+    })
+
+    this.textToMP3Service.textToMP3(translatedReq).subscribe( data => {
+      this.translateAudioSrc = this.baseAudioLocation + translateGuid + '.mp3';
+    })
+
+
   }
 
   getSourceLanguage() {
@@ -140,5 +180,16 @@ export class TranslateAudioComponent {
   clearForm(){
     this.originalText = '';
     this.translatedText = '';
+  }
+
+  playAudio(originalOrTranslated){
+    let audio = new Audio();
+    if(originalOrTranslated == 'original'){
+      audio.src = this.originalAudioSrc;
+    } else if (originalOrTranslated === 'translated') {
+      audio.src = this.translateAudioSrc;
+    }
+    audio.load();
+    audio.play();
   }
 }

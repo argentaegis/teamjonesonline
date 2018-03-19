@@ -70,7 +70,10 @@ export class TranslateImageComponent implements OnInit {
       console.log('array: ' + translation);
       translation.forEach( function(trans) {
         console.log(trans);
+        rawTranslatedValue = translatedValue.concat(trans.translatedText + ' ');
         translatedValue = translatedValue.concat(trans.translatedText + '\n');
+        rawOriginalValue = originalValue.concat(trans.originalText + ' ');
+        originalValue = originalValue.concat(trans.originalText + '\n');
         console.log(translatedValue);
       });
     } else {

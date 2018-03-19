@@ -1,15 +1,24 @@
 <form [formGroup]="translateTextForm" (ngSubmit)="onTranslateSubmit()">
   <div class="form-group">
     <label>{{getSourceLanguage().nativeName}}</label>
-    <input class="form-control" formControlName="nativeText" (keypress)="clearTextControl('translateText')">
+    <span class="row">
+      <input class="form-control col-11" formControlName="nativeText" (keypress)="clearTextControl('translateText')">
+            <button class="btn btn-primary col-1" type="button" [disabled]="originalAudioSrc == ''" (click)="playAudio('original')">
+        <fa [name]="'volume-up'" [size]=2 ></fa>
+      </button>
+    </span>
 
-    <button class="btn btn-primary" (click)="playAudio()">Play</button>
   </div>
   <div class="text-center">
     <button class="btn btn-primary" type="submit" [disabled]="translateTextForm.pristine" >Translate</button>
   </div>
   <div class="form-group">
     <label>{{getTargetLanguage().nativeName}}</label>
-    <input class="form-control" formControlName="translateText" (keypress)="clearTextControl('nativeText')">
+    <div class="row">
+      <input class="form-control col-11" formControlName="translateText" (keypress)="clearTextControl('nativeText')">
+      <button class="btn btn-primary col-1" type="button" [disabled]="translateAudioSrc == ''" (click)="playAudio('translated')">
+        <fa [name]="'volume-up'" [size]=2 ></fa>
+      </button>
+    </div>
   </div>
 </form>

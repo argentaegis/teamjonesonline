@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ConfigService} from './config.service';
+import { Language } from './selected-languages/selected-languages.service';
 
 @Injectable()
 export class TranslateService {
@@ -41,7 +42,8 @@ export interface TranslateResponse {
 export interface TranslateRequest {
   sourceText: string;
   sourceImage: string;
-  sourceLang: string;
-  targetLang: string;
+  sourceLang: Language;
+  targetLang: Language;
   mediaBase64: string;
+  audioFileName: string;
 }

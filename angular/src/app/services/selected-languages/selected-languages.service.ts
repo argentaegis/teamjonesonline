@@ -59,7 +59,9 @@ export class SelectedLanguagesService {
 
 export interface Language {
   code: string;
+  longCode: string;
   name: string;
   nativeName: string;
   icon: string;
+  voice: string;
 }

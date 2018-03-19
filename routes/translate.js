@@ -30,8 +30,8 @@ translateText = function(translateRequest, callback){
   } else {
     googleTranslate.translate(
       translateRequest.sourceText,
-      translateRequest.sourceLang,
-      translateRequest.targetLang,
+      translateRequest.sourceLang.code,
+      translateRequest.targetLang.code,
       (err, translation) => {
         callback(err, translation);
       }

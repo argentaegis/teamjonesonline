@@ -17,7 +17,7 @@ import {ValidateService} from './services/validate.service';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthService } from './services/auth.service';
 import {ConfigService} from "./services/config.service";
-import {TokenInterceptor} from "./services/authToken.interceptor";
+import {TokenInterceptor} from './services/authToken.interceptor';
 import { AuthGuard } from "./guards/auth.guard";
 import { TranslateComponent } from './components/translator/translate/translate.component';
 import { TranslateService } from './services/translate.service';
@@ -35,6 +35,7 @@ import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawe
 
 import { CookieService } from 'ngx-cookie-service';
 import { SelectedLanguagesService } from "./services/selected-languages/selected-languages.service";
+import {TextToMp3Service} from "./services/text-to-mp3.service";
 
 const appRoutes: Routes =  [
   {path:'', component: HomeComponent},
@@ -83,7 +84,8 @@ const appRoutes: Routes =  [
       TranslateService,
       ImageAnalysisService,
       CookieService,
-      SelectedLanguagesService
+      SelectedLanguagesService,
+      TextToMp3Service
     ],
     bootstrap: [AppComponent],
 

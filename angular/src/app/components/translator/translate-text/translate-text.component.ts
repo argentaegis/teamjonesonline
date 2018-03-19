@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {TranslateService} from "../../../services/translate.service";
 import {SelectedLanguagesService} from "../../../services/selected-languages/selected-languages.service";
+import {TextToMp3Service} from "../../../services/text-to-mp3.service";
 
 @Component({
   selector: 'app-translate-text',
@@ -17,12 +18,16 @@ export class TranslateTextComponent implements OnInit {
   translateTextForm: FormGroup;
   translateText: string;
 
-  audioSrc: string;
+
+  translateAudioSrc: string = '';
+  originalAudioSrc: string = '';
+  baseAudioLocation = "https://s3.us-east-2.amazonaws.com/teamjonesonline-translate-audio/";
 
   constructor(
     private fb: FormBuilder,
     private translateService: TranslateService,
-    private selectedLanguageService: SelectedLanguagesService
+    private selectedLanguageService: SelectedLanguagesService,
+    private textToMP3Service: TextToMp3Service
   ) {
     this.createForm();
   }
@@ -46,13 +51,13 @@ export class TranslateTextComponent implements OnInit {
 
     if (this.translateTextForm.value.nativeText !== '') {
       sourceText = this.translateTextForm.value.nativeText;
-      sourceLang = this.getSourceLanguage().code;
-      targetLang = this.getTargetLanguage().code;
+      sourceLang = this.getSourceLanguage();
+      targetLang = this.getTargetLanguage();
       translateToControlName = 'translateText';
     } else {
       sourceText = this.translateTextForm.value.translateText;
-      sourceLang = this.getTargetLanguage().code;
-      targetLang = this.getSourceLanguage().code;
+      sourceLang = this.getTargetLanguage();
+      targetLang = this.getSourceLanguage();
       translateToControlName = 'nativeText';
     }
 
@@ -61,7 +66,8 @@ export class TranslateTextComponent implements OnInit {
       sourceImage: '',
       sourceLang: sourceLang,
       targetLang: targetLang,
-      mediaBase64: ''
+      mediaBase64: '',
+      audioFileName: this.textToMP3Service.guid()
     }
 
     this.translateService.translateText(translateRequest).subscribe( data => {
@@ -80,6 +86,9 @@ export class TranslateTextComponent implements OnInit {
     console.log('updateTranslation: ' + translation);
     console.log(translation);
     var translatedValue = '';
+    var rawOriginalValue = translation.originalText;
+    var rawTranslatedValue = translation.translatedText;
+
 
     if(Array.isArray(translation)){
       console.log('array: ' + translation);
@@ -94,6 +103,30 @@ export class TranslateTextComponent implements OnInit {
     }
 
     this.translateTextForm.controls[translateToControlName].setValue(translatedValue);
+
+
+    const originalGuid = this.textToMP3Service.guid();
+    const originalReq = {
+      text: rawOriginalValue,
+      lang: this.selectedLanguageService.leftLang,
+      baseFileName: originalGuid
+    }
+
+    const translateGuid = this.textToMP3Service.guid();
+    const translatedReq = {
+      text: rawTranslatedValue,
+      lang: this.selectedLanguageService.rightLang,
+      baseFileName: translateGuid
+    }
+
+
+    this.textToMP3Service.textToMP3(originalReq).subscribe( data => {
+      this.originalAudioSrc = this.baseAudioLocation + originalGuid + '.mp3';
+    })
+
+    this.textToMP3Service.textToMP3(translatedReq).subscribe( data => {
+      this.translateAudioSrc = this.baseAudioLocation + translateGuid + '.mp3';
+    })
   }
 
   getSourceLanguage() {
@@ -114,9 +147,13 @@ export class TranslateTextComponent implements OnInit {
     this.clearTextControl('translateText');
   }
 
-  playAudio(){
+  playAudio(originalOrTranslated){
     let audio = new Audio();
-    audio.src = "https://s3.us-east-2.amazonaws.com/teamjonesonline-translate-audio/hello_test_file4.mp3";
+    if(originalOrTranslated == 'original'){
+      audio.src = this.originalAudioSrc;
+    } else if (originalOrTranslated === 'translated') {
+      audio.src = this.translateAudioSrc;
+    }
     audio.load();
     audio.play();
   }

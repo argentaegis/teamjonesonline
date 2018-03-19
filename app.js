@@ -40,9 +40,11 @@ require('./config/passport')(passport);
 
 const users = require('./routes/users');
 const translate = require('./routes/translate');
+const textToMP3 = require('./routes/textToMP3');
 
 app.use('/users', users);
 app.use('/translate', translate);
+app.use('/textToMP3', textToMP3);
 app.get('/', (req, res) => {
   res.redirect('https://www.teamjonesonline.com');
   res.send('index');

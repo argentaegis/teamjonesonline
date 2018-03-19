@@ -2,27 +2,35 @@
   "languages": [
     {
       "code": "en",
+      "longCode": "en-US",
       "name": "English",
       "nativeName": "English",
-      "icon": ""
+      "icon": "",
+      "voice": "Joanna"
     },
     {
       "code": "fr",
+      "longCode": "fr-FR",
       "name": "French",
       "nativeName": "français",
-      "icon": ""
+      "icon": "",
+      "voice": "Celine"
     },
     {
       "code": "es",
+      "longCode": "es-ES",
       "name": "Spanish",
       "nativeName": "Español",
-      "icon": ""
+      "icon": "",
+      "voice": "Penelope"
     },
     {
       "code": "de",
+      "longCode": "de-DE",
       "name": "German",
       "nativeName": "Deutsch",
-      "icon": ""
+      "icon": "",
+      "voice": "Marlene"
     }
   ]
 }

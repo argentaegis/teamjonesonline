@@ -91,9 +91,10 @@ export class TranslateImageComponent implements OnInit {
         var translateRequest = {
           sourceText: '',
           sourceImage: '',
-          sourceLang: this.getTargetLanguage().code,
-          targetLang: this.getSourceLanguage().code,
-          mediaBase64: imageData
+          sourceLang: this.getTargetLanguage(),
+          targetLang: this.getSourceLanguage(),
+          mediaBase64: imageData,
+          audioFileName: ''
         }
 
         this.translateService.translateImage(translateRequest).subscribe( res =>{

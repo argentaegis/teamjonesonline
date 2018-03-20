@@ -48,6 +48,7 @@ export class TranslateTextComponent implements OnInit {
     var sourceLang;
     var targetLang;
     var translateToControlName;
+    var flipped = false;
 
     this.originalAudioSrc = '';
     this.translateAudioSrc = '';
@@ -62,6 +63,7 @@ export class TranslateTextComponent implements OnInit {
       sourceLang = this.getTargetLanguage();
       targetLang = this.getSourceLanguage();
       translateToControlName = 'nativeText';
+      flipped = true;
     }
 
     var translateRequest = {
@@ -76,7 +78,7 @@ export class TranslateTextComponent implements OnInit {
     this.translateService.translateText(translateRequest).subscribe( data => {
         console.log(data);
         if (data.success) {
-          this.updateTranslation(data.translation, translateToControlName);
+          this.updateTranslation(data.translation, translateToControlName, flipped);
         } else {
           console.log(data.msg);
         }
@@ -84,7 +86,7 @@ export class TranslateTextComponent implements OnInit {
     );
   };
 
-  updateTranslation(translation, translateToControlName){
+  updateTranslation(translation, translateToControlName, flipped){
 
     console.log('updateTranslation: ' + translation);
     console.log(translation);
@@ -111,24 +113,32 @@ export class TranslateTextComponent implements OnInit {
     const originalGuid = this.textToMP3Service.guid();
     const originalReq = {
       text: rawOriginalValue,
-      lang: this.selectedLanguageService.leftLang,
+      lang: flipped ? this.selectedLanguageService.rightLang : this.selectedLanguageService.leftLang,
       baseFileName: originalGuid
     }
 
     const translateGuid = this.textToMP3Service.guid();
     const translatedReq = {
       text: rawTranslatedValue,
-      lang: this.selectedLanguageService.rightLang,
+      lang: flipped ? this.selectedLanguageService.leftLang : this.selectedLanguageService.rightLang,
       baseFileName: translateGuid
     }
 
 
     this.textToMP3Service.textToMP3(originalReq).subscribe( data => {
-      this.originalAudioSrc = this.baseAudioLocation + originalGuid + '.mp3';
-    })
+      if (flipped){
+        this.translateAudioSrc = this.baseAudioLocation + originalGuid + '.mp3';
+      } else {
+        this.originalAudioSrc = this.baseAudioLocation + originalGuid + '.mp3';
+      }
+    });
 
     this.textToMP3Service.textToMP3(translatedReq).subscribe( data => {
-      this.translateAudioSrc = this.baseAudioLocation + translateGuid + '.mp3';
+      if (flipped){
+        this.originalAudioSrc =  this.baseAudioLocation + translateGuid + '.mp3';
+      } else {
+        this.translateAudioSrc = this.baseAudioLocation + translateGuid + '.mp3';
+      }
     })
   }
 

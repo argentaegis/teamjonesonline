@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-const languages = require('../../assets/languages.json');
+const languages = require('./languages.json');
 
 @Injectable()
 export class SelectedLanguagesService {
@@ -45,21 +45,20 @@ export class SelectedLanguagesService {
 
     if(leftOrRight === 'left'){
       this.leftLang = selectedLang;
-      // this.cookies.set('translator_current_left',
-      //   this.leftLang.code);
     }
 
     if(leftOrRight === 'right'){
       this.rightLang = selectedLang;
-      // this.cookies.set('translator_current_right',
-      //   this.rightLang.code);
     }
   }
 }
 
+
 export interface Language {
   code: string;
+  longCode: string;
   name: string;
   nativeName: string;
   icon: string;
+  voice: string;
 }

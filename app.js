@@ -47,8 +47,14 @@ app.use('/translate', translate);
 app.use('/textToMP3', textToMP3);
 app.get('/', (req, res) => {
   res.redirect('https://www.teamjonesonline.com');
-  res.send('index');
+  res.sendfile(__dirname + '/public/index.html');
 });
+
+app.get('/translate', (req, res) => {
+  res.sendfile(__dirname + '/public/index.html');
+});
+
+
 
 
 const httpServer = http.createServer(app);
@@ -62,7 +68,3 @@ httpServer.listen(port, () => {
 httpsServer.listen(httpsPort, () => {
   console.log('HTTPS server started on port ' + httpsPort);
 });
-
-// app.listen(port, () => {
-//   console.log('Server started  on port ' + port);
-// });

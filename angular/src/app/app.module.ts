@@ -36,6 +36,7 @@ import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawe
 import { CookieService } from 'ngx-cookie-service';
 import { SelectedLanguagesService } from "./services/selected-languages/selected-languages.service";
 import {TextToMp3Service} from "./services/text-to-mp3.service";
+import { MobilePlaceholderComponent } from './components/translator/mobile-placeholder/mobile-placeholder.component';
 
 const appRoutes: Routes =  [
   {path:'', component: HomeComponent},
@@ -60,7 +61,8 @@ const appRoutes: Routes =  [
       TranslateImageComponent,
       TranslateAudioComponent,
       TranslateTextComponent,
-      SelectLanguagesComponent
+      SelectLanguagesComponent,
+      MobilePlaceholderComponent
     ],
     imports: [
       BrowserModule,

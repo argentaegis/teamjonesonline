@@ -2,12 +2,11 @@
   <div class="form-group">
     <label>{{getSourceLanguage().nativeName}}</label>
     <div class="row">
-      <input class="form-control col-11" formControlName="nativeText" (keypress)="clearTextControl('translateText')">
-            <button class="btn btn-primary col-1" type="button" [disabled]="originalAudioSrc === ''" (click)="playAudio('original')">
+      <input class="form-control col-md-11 col-sm-10" formControlName="nativeText" (keypress)="clearTextControl('translateText')">
+      <button class="btn btn-primary col-md-1 col-sm-2" type="button" [disabled]="originalAudioSrc === ''" (click)="playAudio('original')">
         <fa [name]="'volume-up'" [size]=2 ></fa>
       </button>
     </div>
-
   </div>
   <div class="text-center">
     <button class="btn btn-primary" type="submit" [disabled]="translateTextForm.pristine" >Translate</button>
@@ -15,8 +14,8 @@
   <div class="form-group">
     <label>{{getTargetLanguage().nativeName}}</label>
     <div class="row">
-      <input class="form-control col-11" formControlName="translateText" (keypress)="clearTextControl('nativeText')">
-      <button class="btn btn-primary col-1" type="button" [disabled]="translateAudioSrc === ''" (click)="playAudio('translated')">
+      <input class="form-control col-md-11 col-sm-10" formControlName="translateText" (keypress)="clearTextControl('nativeText')">
+      <button class="btn btn-primary col-md-1 col-sm-2" type="button" [disabled]="translateAudioSrc === ''" (click)="playAudio('translated')">
         <fa [name]="'volume-up'" [size]=2 ></fa>
       </button>
     </div>

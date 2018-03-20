@@ -14,29 +14,32 @@
         </div>
       </div>
     </div>
-    <div calss="card">
-      <div class="card-header" (click)="showCard('translateAudio')" >
-        <h5 class="mb-0">
-          <fa [name]="'microphone'" [size]=1></fa>
-        </h5>
-      </div>
-      <div id="translateAudio" [ngClass]="cardToShow == 'translateAudio' ? 'collapse show' : 'collapse'" aria-labelledby="headingOne" data-parent="#accordion">
-        <div class="card-body">
-          <app-translate-audio [parentForm]="translateForm"></app-translate-audio>
+      <div calss="card">
+        <div class="card-header" (click)="showCard('translateAudio')" >
+          <h5 class="mb-0">
+            <fa [name]="'microphone'" [size]=1></fa>
+          </h5>
+        </div>
+        <div id="translateAudio" [ngClass]="cardToShow == 'translateAudio' ? 'collapse show' : 'collapse'" aria-labelledby="headingOne" data-parent="#accordion">
+          <div class="card-body">
+            <app-translate-audio *ngIf="!isMobile()" [parentForm]="translateForm"></app-translate-audio>
+            <app-mobile-placeholder *ngIf="isMobile()"></app-mobile-placeholder>
+          </div>
         </div>
       </div>
-    </div>
-    <div calss="card">
-      <div class="card-header" (click)="showCard('translateImage')" >
-        <h5 class="mb-0">
-          <fa [name]="'camera'" [size]=1></fa>
-        </h5>
-      </div>
-      <div id="translateImage" [ngClass]="cardToShow == 'translateImage' ? 'collapse show' : 'collapse'" aria-labelledby="headingOne" data-parent="#accordion">
-        <div class="card-body">
-          <app-translate-image [parentForm]="translateForm"></app-translate-image>
+      <div calss="card">
+        <div class="card-header" (click)="showCard('translateImage')" >
+          <h5 class="mb-0">
+            <fa [name]="'camera'" [size]=1></fa>
+          </h5>
+        </div>
+        <div id="translateImage" [ngClass]="cardToShow == 'translateImage' ? 'collapse show' : 'collapse'" aria-labelledby="headingOne" data-parent="#accordion">
+          <div class="card-body">
+            <app-translate-image *ngIf="!isMobile()" [parentForm]="translateForm"></app-translate-image>
+            <app-mobile-placeholder *ngIf="isMobile()"></app-mobile-placeholder>
+          </div>
         </div>
       </div>
-    </div>
+
   </div>
 </form>

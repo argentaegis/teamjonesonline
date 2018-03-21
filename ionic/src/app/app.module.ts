@@ -2,6 +2,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { HTTP } from '@ionic-native/http';
 
 
 import { TabsPage } from '../pages/tabs/tabs';
@@ -11,7 +12,9 @@ import { ImagePage } from '../pages/image/image';
 import { SelectLanguagesPage } from '../pages/selectlanguages/selectlanguages';
 
 import { SelectedLanguagesService } from '../services/selected-languages/selected-languages.service';
-
+import { TextToMp3Service } from "../services/text-to-mp3.service";
+import { TranslateService } from "../services/translate.service";
+import { ConfigService } from "../services/config.service";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -42,7 +45,11 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    SelectedLanguagesService
+    SelectedLanguagesService,
+    TranslateService,
+    TextToMp3Service,
+    ConfigService,
+    HTTP
   ]
 })
 export class AppModule {}

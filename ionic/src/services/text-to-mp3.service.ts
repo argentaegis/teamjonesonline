@@ -14,7 +14,7 @@ export class TextToMp3Service {
   textToMP3(request) {
     var url = this.config.baseServiceUrl + '/textToMP3/createNew';
 
-    return this.http.post(url, request, {});
+    return this.http.post(url, request, { 'Content-Type':'application/json'});
   }
 
 

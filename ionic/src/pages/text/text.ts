@@ -15,6 +15,7 @@ export class TextPage implements OnInit {
 
   nativeText: string = '';
   translateText: string = '';
+  debugText: string = '';
 
 
   translateAudioSrc: string = '';
@@ -33,6 +34,8 @@ export class TextPage implements OnInit {
 
 
   onTranslateSubmit() {
+    this.debugText += '\n submit';
+
     var sourceText;
     var sourceLang;
     var targetLang;
@@ -55,6 +58,8 @@ export class TextPage implements OnInit {
       flipped = true;
     }
 
+    this.debugText += '\n translateRequest \n';
+
     var translateRequest = {
       sourceText: sourceText,
       sourceImage: '',
@@ -64,20 +69,29 @@ export class TextPage implements OnInit {
       audioFileName: this.textToMP3Service.guid()
     }
 
+
     this.translateService.translateText(translateRequest).then( response => {
-        console.log(response);
+
+      console.log(response);
         if (response.data) {
 
           this.updateTranslation(response.data.translation, translateToControlName, flipped);
         } else {
+          this.debugText += '\n error\n';
+          this.debugText += response;
           console.log(response.error);
         }
       }
-    );
+    ).catch((error) => {
+      this.debugText += '\n error \n';
+      this.debugText += JSON.stringify(error);
+    });
   };
 
   updateTranslation(translation, translateToControlName, flipped){
-
+    this.debugText += '\n updateTranslation';
+    this.debugText += '\n translation \n';
+    this.debugText += JSON.stringify(translation);
     console.log('updateTranslation: ' + translation);
     console.log(translation);
     var translatedValue = '';

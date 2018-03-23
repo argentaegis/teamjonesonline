@@ -92,6 +92,7 @@ export class TranslateAudioComponent {
 
         console.log('translateRequest');
         console.log(translateRequest);
+
         this.translateService.translateAudio(translateRequest).subscribe( data =>{
           console.log('Returned with: ' + JSON.stringify(data));
           this.updateTranslation(data.translation);
@@ -106,7 +107,7 @@ export class TranslateAudioComponent {
   }
 
   updateTranslation(translation){
-    console.log('updateTranslation: ' + translation);
+    console.log('updateTranslation: ');
     console.log(translation);
     var translatedValue = '';
     var originalValue = '';
@@ -127,8 +128,8 @@ export class TranslateAudioComponent {
       translatedValue = translation.translatedText;
       originalValue = translation.originalText;
     }
-    this.translatedText = translatedValue;
-    this.originalText = originalValue;
+    this.translatedText += translatedValue;
+    this.originalText += originalValue;
 
     const originalGuid = this.textToMP3Service.guid();
     const originalReq = {

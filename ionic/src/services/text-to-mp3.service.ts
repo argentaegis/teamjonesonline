@@ -13,8 +13,13 @@ export class TextToMp3Service {
 
   textToMP3(request) {
     var url = this.config.baseServiceUrl + '/textToMP3/createNew';
+    let headers = {
+      //'Content-Type': 'application/json'
+    };
 
-    return this.http.post(url, request, { 'Content-Type':'application/json'});
+    this.http.setDataSerializer('json');
+
+    return this.http.post(url, request, headers);
   }
 
 

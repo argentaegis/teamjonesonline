@@ -44,7 +44,8 @@ translateText = function(translateRequest, callback){
 
 // Translate text
 router.post('/translateText', (req, res, next) =>{
-
+  console.log('translate text');
+  console.log(JSON.stringify(req.body));
   var translateRequest = {
     sourceText: req.body.sourceText,
     sourceLang: req.body.sourceLang,

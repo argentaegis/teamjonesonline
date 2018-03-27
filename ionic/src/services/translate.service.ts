@@ -8,20 +8,16 @@ export class TranslateService {
 
   constructor(
     private http: HTTP,
-    private config: ConfigService
-  ) { }
+  private config: ConfigService
+  ) {
+
+    this.http.setDataSerializer('json');
+  }
 
   translateText(translateRequest: TranslateRequest){
     var url = this.config.baseServiceUrl + '/translate/translateText';
-    let headers = {
-      //'Content-Type': 'application/json'
-    };
 
-    this.http.setDataSerializer('json');
-
-    console.log('Translate Text');
-    console.log(JSON.stringify(translateRequest));
-    return this.http.post(url, translateRequest, headers);
+    return this.http.post(url, translateRequest, {});
   }
 
   translateImage(translateRequest: TranslateRequest){

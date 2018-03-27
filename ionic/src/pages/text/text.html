@@ -1,17 +1,6 @@
-<ion-header>
-  <ion-navbar>
-    <page-selectlanguages></page-selectlanguages>
-  </ion-navbar>
-</ion-header>
-
-<ion-content padding>
   <ion-item>
     <ion-label stacked>{{selectedLanguageService.leftLang.nativeName}}</ion-label>
-    <ion-textarea type="text" max="2" min="2" [(ngModel)]="nativeText"></ion-textarea>
+    <ion-input type="text" [(ngModel)]="nativeText"></ion-input>
   </ion-item>
   <button ion-button full [disabled]="nativeText == '' && translateText == ''" (click)="onTranslateSubmit();">Translate</button>
-  <ion-item>
-    <ion-label stacked>{{selectedLanguageService.rightLang.nativeName}}</ion-label>
-    <ion-textarea type="text" max="2" min="2" [(ngModel)]="translateText"></ion-textarea>
-  </ion-item>
-</ion-content>
+

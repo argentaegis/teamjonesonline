@@ -9,7 +9,6 @@ export class ConfigService {
     this.baseServiceUrl = "https://www.teamjonesonline.com";
     //this.baseServiceUrl = "https://translate-env.us-east-2.elasticbeanstalk.com";
     //this.baseServiceUrl = "https://localhost:443";
-    //this.baseServiceUrl = "http://localhost:8080";
   }
 
 

@@ -15,8 +15,6 @@ export class SelectedLanguagesService {
   }
 
   setStartingLanguage() {
-    // var left = this.cookies.get('translator_current_left');
-    // var right = this.cookies.get('translator_current_right');a
     var left;
     var right;
 

@@ -10,6 +10,7 @@ router.post('/createNew', (req, res, next) => {
   const apiPath = '/beta/'
 
   console.log('TTM3');
+  console.log(req.body);
 
   var body =  {
       "text": req.body.text,

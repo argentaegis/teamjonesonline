@@ -4,20 +4,21 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HTTP } from '@ionic-native/http';
 
-
-import { TabsPage } from '../pages/tabs/tabs';
 import { TextPage } from '../pages/text/text';
 import { VoicePage } from '../pages/voice/voice';
 import { ImagePage } from '../pages/image/image';
+import { TranslationListComponent } from "../pages/translation-list/translation-list";
 import { SelectLanguagesPage } from '../pages/selectlanguages/selectlanguages';
 
 import { SelectedLanguagesService } from '../services/selected-languages/selected-languages.service';
 import { TextToMp3Service } from "../services/text-to-mp3.service";
 import { TranslateService } from "../services/translate.service";
 import { ConfigService } from "../services/config.service";
+import { CurrentDataService } from "../services/currend-data.service";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import {HomePage} from "../pages/home/home";
 
 @NgModule({
   declarations: [
@@ -25,8 +26,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     TextPage,
     VoicePage,
     ImagePage,
+    TranslationListComponent,
     SelectLanguagesPage,
-    TabsPage
+    HomePage
   ],
   imports: [
     BrowserModule,
@@ -38,8 +40,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     TextPage,
     VoicePage,
     ImagePage,
+    TranslationListComponent,
     SelectLanguagesPage,
-    TabsPage
+    HomePage
   ],
   providers: [
     StatusBar,
@@ -49,7 +52,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     TranslateService,
     TextToMp3Service,
     ConfigService,
-    HTTP
+    HTTP,
+    CurrentDataService
   ]
 })
 export class AppModule {}

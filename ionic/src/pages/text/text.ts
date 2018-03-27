@@ -4,6 +4,7 @@ import { NavController } from 'ionic-angular';
 import { SelectedLanguagesService } from "../../services/selected-languages/selected-languages.service";
 import { TextToMp3Service } from '../../services/text-to-mp3.service';
 import { TranslateService } from '../../services/translate.service';
+import {CurrentDataService} from "../../services/currend-data.service";
 
 @Component({
   selector: 'page-text',
@@ -15,6 +16,7 @@ export class TextPage implements OnInit {
 
   nativeText: string = '';
   translateText: string = '';
+  debugText: string = '';
 
 
   translateAudioSrc: string = '';
@@ -25,7 +27,8 @@ export class TextPage implements OnInit {
     public navCtrl: NavController,
     public selectedLanguageService: SelectedLanguagesService,
     private translateService: TranslateService,
-    private textToMP3Service: TextToMp3Service) {
+    private textToMP3Service: TextToMp3Service,
+    private currentDataService: CurrentDataService) {
   }
 
   ngOnInit() {
@@ -33,12 +36,16 @@ export class TextPage implements OnInit {
 
 
   onTranslateSubmit() {
+    this.debugText += '\n submit';
 
     var sourceText;
     var sourceLang;
     var targetLang;
     var translateToControlName;
     var flipped = false;
+
+    this.originalAudioSrc = '';
+    this.translateAudioSrc = '';
 
     if (this.nativeText !== '') {
       sourceText = this.nativeText;
@@ -52,6 +59,8 @@ export class TextPage implements OnInit {
       translateToControlName = 'nativeText';
       flipped = true;
     }
+
+    this.debugText += '\n translateRequest \n';
 
     var translateRequest = {
       sourceText: sourceText,
@@ -67,28 +76,26 @@ export class TextPage implements OnInit {
 
       console.log(response);
         if (response.data) {
-          console.log('return with data');
-          console.log(JSON.stringify(response));
 
-          console.log('data');
-          console.log(response.data);
-
-          var d = JSON.parse(response.data);
-          console.log('translation');
-          console.log(d.translation);
-          this.updateTranslation(d.translation, translateToControlName, flipped);
+          var transData = JSON.parse(response.data);
+          this.updateTranslation(transData.translation, translateToControlName, flipped);
         } else {
+          this.debugText += '\n error\n';
+          this.debugText += response;
           console.log(response.error);
         }
       }
     ).catch((error) => {
-      console.log('ERROR');
-      console.log(JSON.stringify(error));
+      this.debugText += '\n error \n';
+      this.debugText += JSON.stringify(error);
     });
   };
 
   updateTranslation(translation, translateToControlName, flipped){
-    console.log('updateTranslation: ');
+    this.debugText += '\n updateTranslation';
+    this.debugText += '\n translation \n';
+    this.debugText += JSON.stringify(translation);
+    console.log('updateTranslation: ' + translation);
     console.log(translation);
     var translatedValue = '';
     var rawOriginalValue = translation.originalText;
@@ -131,9 +138,6 @@ export class TextPage implements OnInit {
       } else {
         this.originalAudioSrc = this.baseAudioLocation + originalGuid + '.mp3';
       }
-    }).catch((error) => {
-      console.log('ERROR');
-      console.log(error);
     });
 
     this.textToMP3Service.textToMP3(translatedReq).then( response => {
@@ -142,10 +146,9 @@ export class TextPage implements OnInit {
       } else {
         this.translateAudioSrc = this.baseAudioLocation + translateGuid + '.mp3';
       }
-    }).catch((error) => {
-      console.log('ERROR');
-      console.log(error);
     });
+
+    this.currentDataService.addTranslation(rawOriginalValue, originalGuid, rawTranslatedValue, translateGuid)
   }
 
   getSourceLanguage() {

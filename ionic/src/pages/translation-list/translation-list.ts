@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild } from '@angular/core';
 import {CurrentDataService} from "../../services/currend-data.service";
+import { Content } from 'ionic-angular';
 
 /**
  * Generated class for the TranslationListComponent component.
@@ -12,10 +13,12 @@ import {CurrentDataService} from "../../services/currend-data.service";
   templateUrl: 'translation-list.html'
 })
 export class TranslationListComponent {
+  @ViewChild('content') content: Content;
+
+
 
   constructor(
     public currentDataService: CurrentDataService
   ) {
   }
-
 }

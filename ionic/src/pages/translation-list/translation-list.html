@@ -1,7 +1,15 @@
-<ion-list padding>
-  <ion-item ion-item *ngFor="let item of currentDataService.translations">
-    <p>{{item.original}}</p>
-    <p>{{item.translated}}</p>
-  </ion-item>
-</ion-list>
+<div class="scrollListWrapper">
+  <div class="noBottomMargin">
+    <ion-list class="test" >
+      <ion-item ion-item *ngFor="let item of currentDataService.translations">
+        <p>{{item.original}}</p>
+        <p>{{item.translated}}</p>
+      </ion-item>
+    </ion-list>
+  </div>
+</div>
+
+
+
+
 

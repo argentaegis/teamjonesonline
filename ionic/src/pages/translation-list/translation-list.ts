@@ -1,6 +1,7 @@
 import {Component,  ViewChild, ElementRef, OnInit} from '@angular/core';
 import {CurrentDataService} from "../../services/currend-data.service";
 import {ScreenOrientation} from "@ionic-native/screen-orientation";
+import { Scroll } from 'ionic-angular';
 
 
 /**
@@ -15,7 +16,7 @@ import {ScreenOrientation} from "@ionic-native/screen-orientation";
 })
 export class TranslationListComponent implements OnInit{
   orientationClass: string = 'translationsRowPortrait';
-  //@ViewChild('scrollWrapper') private myScrollContainer: Content;
+
   @ViewChild('scrollWrapper') private myScrollContainer: ElementRef;
 
   constructor(
@@ -24,18 +25,9 @@ export class TranslationListComponent implements OnInit{
   ) {
     this.screenOrientation.onChange().subscribe(
       () => {
-        console.log("List Orientation Changed...waiting")
-        setTimeout(function () {
-            console.log('done waiting');
-            this.scrollToBottom();
-          }.bind(this), 50);
+        this.scrollToBottom();
       },
-      (err) => console.log(err),
-      () => {
-        console.log('sO complete');
-        this.scrollToBottom()
-      }
-
+      (err) => console.log(err)
     );
   }
 
@@ -49,8 +41,6 @@ export class TranslationListComponent implements OnInit{
     try {
       console.log('Pre: ' + this.myScrollContainer.nativeElement.scrollTop);
       this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-      //this.myScrollContainer.scrollToBottom();
-      console.log('Post: ' + this.myScrollContainer.nativeElement.scrollTop);
     } catch(err) {
       console.log('ERR');
       console.log(err);

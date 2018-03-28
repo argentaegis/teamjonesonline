@@ -21,7 +21,7 @@ export class HomePage {
     this.keyboard.disableScroll(false);
     this.keyboard.hideKeyboardAccessoryBar(true);
     this.keyboard.show();
-
+    this.setOrientationClass();
     this.screenOrientation.onChange().subscribe(
       () => {
         console.log("Home Orientation Changed");

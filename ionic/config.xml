@@ -84,6 +84,7 @@
     <allow-navigation href="http://172.27.205.225:8100" />
     <allow-navigation href="http://10.1.51.81:8100" />
     <plugin name="cordova-plugin-advanced-http" spec="^1.11.0" />
+    <plugin name="cordova-plugin-screen-orientation" spec="^3.0.1" />
     <engine name="android" spec="7.0.0" />
     <engine name="browser" spec="5.0.3" />
 </widget>

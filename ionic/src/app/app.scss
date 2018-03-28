@@ -25,12 +25,20 @@
   -webkit-flex: 1;
 }
 
-.home-container > .translationsRow {
+.home-container > .translationsRowPortrait {
   -webkit-flex: 6;
 }
 
+.home-container > .translationsRowLandscape {
+  -webkit-flex: 2;
+}
+
 .home-container > .controlsRow {
-  -webkit-flex: 4;
+
+}
+
+.home-container > .controlRowContainer{
+  -webkit-flex: auto;
 }
 
 

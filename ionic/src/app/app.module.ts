@@ -15,6 +15,8 @@ import { TextToMp3Service } from "../services/text-to-mp3.service";
 import { TranslateService } from "../services/translate.service";
 import { ConfigService } from "../services/config.service";
 import { CurrentDataService } from "../services/currend-data.service";
+import { Keyboard } from '@ionic-native/keyboard';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -53,7 +55,9 @@ import {HomePage} from "../pages/home/home";
     TextToMp3Service,
     ConfigService,
     HTTP,
-    CurrentDataService
+    CurrentDataService,
+    Keyboard,
+    ScreenOrientation
   ]
 })
 export class AppModule {}

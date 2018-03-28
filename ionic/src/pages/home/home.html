@@ -1,16 +1,23 @@
-<div class="home-container">
-  <div class="headerRow">
-    <page-selectlanguages></page-selectlanguages>
-  </div>
-  <div class="translationsRow">
+<ion-header>
+  <page-selectlanguages></page-selectlanguages>
+</ion-header>
 
+<ion-content>
+  <div class="home-container">
+    <div class="{{orientationClass}}">
       <translation-list></translation-list>
+    </div>
+    <div class="controlRowContainer">
+      <div class="controlsRow">
+        <div class="noBottomMargin">
+          <page-text></page-text>
+        </div>
+      </div>
+    </div>
 
   </div>
-  <div class="controlsRow">
-    <page-text></page-text>
-  </div>
-</div>
+</ion-content>
+
 
 
 

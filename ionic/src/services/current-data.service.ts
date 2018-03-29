@@ -1,10 +1,13 @@
-import { Injectable,  } from '@angular/core';
+import { Injectable, OnInit  } from '@angular/core';
+import { Subject, Observable } from "rxjs";
 
 @Injectable()
 
-export class CurrentDataService {
+export class CurrentDataService implements OnInit{
 
   translations: Array<any> = [];
+  translationData: Observable<any>;
+  private translationSubject: Subject<any>;
 
   constructor() {
     // this.addTranslation('1','1','1','1');
@@ -21,8 +24,14 @@ export class CurrentDataService {
     // this.addTranslation('7', '2', '7', '2');
     // this.addTranslation('8', '2', '8', '2');
     // this.addTranslation('9', '2', '9', '2');
+    this.translationSubject = new Subject<Array<any>>();
+    this.translationData = this.translationSubject.asObservable();
   }
 
+  ngOnInit(){
+
+
+  }
   addTranslation(newOriginal, originalGuid, newTranslated, translateGuid){
     var translatedItem = {
       original: newOriginal,
@@ -31,6 +40,8 @@ export class CurrentDataService {
       tGuid: translateGuid
     }
 
+
     this.translations.push(translatedItem);
+    this.translationSubject.next(translatedItem);
   }
 }

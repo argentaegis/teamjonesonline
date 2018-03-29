@@ -1,7 +1,6 @@
 import {Component,  ViewChild, ElementRef, OnInit} from '@angular/core';
-import {CurrentDataService} from "../../services/currend-data.service";
+import {CurrentDataService} from "../../services/current-data.service";
 import {ScreenOrientation} from "@ionic-native/screen-orientation";
-import { Scroll } from 'ionic-angular';
 
 
 /**
@@ -34,6 +33,13 @@ export class TranslationListComponent implements OnInit{
   ngOnInit() {
     console.log('list init');
     this.scrollToBottom();
+
+    this.currentDataService.translationData.subscribe({
+      next: x => console.log('got value ' + x),
+      error: err => console.error('something wrong occurred: ' + err),
+      complete: () => console.log('done'),
+    });
+
   }
 
   scrollToBottom(): void {

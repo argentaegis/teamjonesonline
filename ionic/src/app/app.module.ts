@@ -14,7 +14,7 @@ import { SelectedLanguagesService } from '../services/selected-languages/selecte
 import { TextToMp3Service } from "../services/text-to-mp3.service";
 import { TranslateService } from "../services/translate.service";
 import { ConfigService } from "../services/config.service";
-import { CurrentDataService } from "../services/currend-data.service";
+import { CurrentDataService } from "../services/current-data.service";
 import { Keyboard } from '@ionic-native/keyboard';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 

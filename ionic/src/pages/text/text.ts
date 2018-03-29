@@ -4,7 +4,7 @@ import { NavController } from 'ionic-angular';
 import { SelectedLanguagesService } from "../../services/selected-languages/selected-languages.service";
 import { TextToMp3Service } from '../../services/text-to-mp3.service';
 import { TranslateService } from '../../services/translate.service';
-import {CurrentDataService} from "../../services/currend-data.service";
+import {CurrentDataService} from "../../services/current-data.service";
 
 @Component({
   selector: 'page-text',

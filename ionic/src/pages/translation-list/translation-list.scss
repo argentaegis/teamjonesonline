@@ -3,7 +3,19 @@ translation-list {
 
 
 .noBottomMargin {
+   position: absolute;
+   overflow-y: auto;
+   max-height: 100%;
+   width: 100%;
+ }
+
+.bottomOnly{
+
   bottom: 0px;
+}
+
+.offsetBottomMargin {
+  bottom: 85px;
   position: absolute;
   overflow-y: auto;
   max-height: 100%;
@@ -13,8 +25,6 @@ translation-list {
 .scrollListWrapper {
   left: 0;
   top: 0;
-  position: relative;
-  display: block;
   width: 100%;
   height: 100%;
 }

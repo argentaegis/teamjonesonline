@@ -1,4 +1,4 @@
-import {Component,  ViewChild, ElementRef, OnInit} from '@angular/core';
+import {Component,  ViewChild, ElementRef, OnInit, AfterViewChecked} from '@angular/core';
 import {CurrentDataService} from "../../services/current-data.service";
 import {ScreenOrientation} from "@ionic-native/screen-orientation";
 
@@ -13,8 +13,7 @@ import {ScreenOrientation} from "@ionic-native/screen-orientation";
   selector: 'translation-list',
   templateUrl: 'translation-list.html'
 })
-export class TranslationListComponent implements OnInit{
-  orientationClass: string = 'translationsRowPortrait';
+export class TranslationListComponent implements AfterViewChecked{
 
   @ViewChild('scrollWrapper') private myScrollContainer: ElementRef;
 
@@ -22,31 +21,33 @@ export class TranslationListComponent implements OnInit{
     public currentDataService: CurrentDataService,
     private screenOrientation: ScreenOrientation
   ) {
-    this.screenOrientation.onChange().subscribe(
-      () => {
-        this.scrollToBottom();
-      },
-      (err) => console.log(err)
-    );
+    // this.screenOrientation.onChange().subscribe(
+    //   () => {
+    //     this.scrollToBottom();
+    //   },
+    //   (err) => console.log(err)
+    // );
+
+    // this.currentDataService.translation.onchange( x => {
+    //   console.log('change');
+    // });
+    //
+    // this.currentDataService.translationData.subscribe( ( x ) => {
+    //   this.scrollToBottom();
+    // });
   }
 
-  ngOnInit() {
-    console.log('list init');
+  ngAfterViewChecked() {
     this.scrollToBottom();
-
-    this.currentDataService.translationData.subscribe({
-      next: x => console.log('got value ' + x),
-      error: err => console.error('something wrong occurred: ' + err),
-      complete: () => console.log('done'),
-    });
-
   }
 
   scrollToBottom(): void {
     console.log('scrollToBottom');
     try {
       console.log('Pre: ' + this.myScrollContainer.nativeElement.scrollTop);
+      console.log('Pre: ' + this.myScrollContainer.nativeElement.scrollHeight);
       this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+      console.log('POST: ' + this.myScrollContainer.nativeElement.scrollTop);
     } catch(err) {
       console.log('ERR');
       console.log(err);

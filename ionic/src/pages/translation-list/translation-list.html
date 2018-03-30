@@ -1,6 +1,6 @@
 <div class="scrollListWrapper">
-  <div #scrollWrapper class="noBottomMargin">
-    <ion-list class="test" >
+  <div  #scrollWrapper class="offsetBottomMargin">
+    <ion-list #scrollList>
       <ion-item ion-item *ngFor="let item of currentDataService.translations">
         <p>{{item.original}}</p>
         <p>{{item.translated}}</p>

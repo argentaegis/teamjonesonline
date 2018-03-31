@@ -1,13 +1,12 @@
-<div class="scrollListWrapper">
-  <div  #scrollWrapper class="offsetBottomMargin">
-    <ion-list #scrollList>
-      <ion-item ion-item *ngFor="let item of currentDataService.translations">
-        <p>{{item.original}}</p>
-        <p>{{item.translated}}</p>
-      </ion-item>
-    </ion-list>
-  </div>
+<div  #scrollWrapper class="offsetBottomMargin">
+  <ion-list #scrollList>
+    <ion-item ion-item *ngFor="let item of currentDataService.translations">
+      <p>{{item.original}}</p>
+      <p>{{item.translated}}</p>
+    </ion-item>
+  </ion-list>
 </div>
+
 
 
 

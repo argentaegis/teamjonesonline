@@ -21,20 +21,6 @@ export class TranslationListComponent implements AfterViewChecked{
     public currentDataService: CurrentDataService,
     private screenOrientation: ScreenOrientation
   ) {
-    // this.screenOrientation.onChange().subscribe(
-    //   () => {
-    //     this.scrollToBottom();
-    //   },
-    //   (err) => console.log(err)
-    // );
-
-    // this.currentDataService.translation.onchange( x => {
-    //   console.log('change');
-    // });
-    //
-    // this.currentDataService.translationData.subscribe( ( x ) => {
-    //   this.scrollToBottom();
-    // });
   }
 
   ngAfterViewChecked() {

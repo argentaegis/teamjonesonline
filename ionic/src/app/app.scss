@@ -16,29 +16,14 @@
 // automatically applied to the <body> element in the app.
 
 
-.home-container {
-  display: -webkit-flex;
-  -webkit-flex-direction: column;
+.scroll-content {
+  display: flex;
+  flex-direction: column;
   height: 100%;
 }
-.home-container > .headerRow {
-  -webkit-flex: 1;
+
+.outer-ion-list{
+  margin-top: auto;
+  margin-bottom: 54px;
 }
-
-.home-container > .translationsRowPortrait {
-  -webkit-flex: 5;
-}
-
-.home-container > .translationsRowLandscape {
-  -webkit-flex: 2;
-}
-
-.home-container > .controlsRow {
-
-}
-
-.home-container > .controlRowContainer{
-
-}
-
 

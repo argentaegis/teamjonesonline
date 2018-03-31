@@ -18,7 +18,7 @@ export class HomePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
-    this.keyboard.disableScroll(false);
+    this.keyboard.disableScroll(true);
     this.keyboard.hideKeyboardAccessoryBar(true);
     this.keyboard.show();
     this.setOrientationClass();

@@ -12,10 +12,21 @@
   </ion-col>
   <ion-col class="recording-control-col">
 
-    <button ion-button large icon-right round>
-      {{getTargetLanguage().nativeName}}
-      <ion-icon name="recording"></ion-icon>
-    </button>
+    <div *ngIf="!recording">
+      <button ion-button large icon-right round (click)="startRecording();">
+        {{getTargetLanguage().nativeName}}
+        <ion-icon name="recording"></ion-icon>
+      </button>
+
+    </div>
+    <div *ngIf="recording">
+      <button ion-button large icon-right round color="danger" class="button-glow" (click)="stopRecording();">
+        {{getTargetLanguage().nativeName}}
+        <ion-icon name="recording"></ion-icon>
+      </button>
+    </div>
+
+
   </ion-col>
   <ion-col col-2>
 

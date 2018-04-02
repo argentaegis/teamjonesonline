@@ -11,6 +11,7 @@ import {CurrentDataService} from "../../services/current-data.service";
 })
 export class VoicePage {
   flipped: boolean = false;
+  recording: boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -19,6 +20,14 @@ export class VoicePage {
     private textToMP3Service: TextToMp3Service,
     private currentDataService: CurrentDataService) {
 
+  }
+
+  startRecording(){
+    this.recording = true;
+  }
+
+  stopRecording(){
+    this.recording = false;
   }
 
 

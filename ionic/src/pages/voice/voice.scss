@@ -1,3 +1,15 @@
 .recording-control-col {
   text-align: center;
 }
+
+
+@keyframes glowing {
+  0% { box-shadow: 0 0 -10px red; }
+  33% { box-shadow: 0 0 10px red; }
+  66% { box-shadow: 0 0 10px red; }
+  100% { box-shadow: 0 0 -10px red; }
+}
+
+.button-glow {
+  animation: glowing 2000ms infinite;
+}

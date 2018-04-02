@@ -179,9 +179,6 @@ export class TextPage implements OnInit {
     }
   }
 
-  flipLanguages(){
-    this.flipped = !this.flipped;
-  }
 
   getCurrentModeIcon(){
     if(this.translateService.currentMode == 'text'){

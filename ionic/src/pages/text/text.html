@@ -6,7 +6,7 @@
         <button ion-fab (click)="translateService.setMode($event, fab, 'text');"><ion-icon name="list"></ion-icon></button>
         <button ion-fab (click)="translateService.setMode($event, fab, 'voice');"><ion-icon name="mic"></ion-icon></button>
         <button ion-fab (click)="translateService.setMode($event, fab, 'image');"><ion-icon name="camera"></ion-icon></button>
-        <button ion-fab (click)="flipLanguages();"><ion-icon name="swap"></ion-icon></button>
+        <button ion-fab (click)="flipLanguages($event, fab);"><ion-icon name="swap"></ion-icon></button>
       </ion-fab-list>
     </ion-fab>
   </ion-col>

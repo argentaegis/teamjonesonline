@@ -13,3 +13,14 @@
 .button-glow {
   animation: glowing 2000ms infinite;
 }
+
+.progress-div{
+  height: 2px;
+  width: 100%;
+  background-color: #f4f4f4;
+}
+
+.inner-progress-div {
+  height: 2px;
+  background-color: #222;
+}

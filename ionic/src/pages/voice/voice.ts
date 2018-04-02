@@ -12,6 +12,7 @@ import {CurrentDataService} from "../../services/current-data.service";
 export class VoicePage {
   flipped: boolean = false;
   recording: boolean = false;
+  percentageRecorded: number = 0;
 
   constructor(
     public navCtrl: NavController,
@@ -24,14 +25,29 @@ export class VoicePage {
 
   startRecording(){
     this.recording = true;
+
+    this.startTimer();
   }
 
   stopRecording(){
     this.recording = false;
+    this.percentageRecorded = 0;
   }
 
+  startTimer(){
+    setTimeout(function(){
+      this.percentageRecorded =
+        this.percentageRecorded + 0.33;
+      if(this.recording){
+        this.startTimer();
+      }
+      else{
+        this.percentageRecorded = 0;
+      }
+    }.bind(this), 100);
+  }
 
-  getSourceLanguage() {
+  getTargetLanguage() {
     if(this.flipped){
       return this.selectedLanguageService.rightLang;
     } else{
@@ -39,7 +55,7 @@ export class VoicePage {
     }
   }
 
-  getTargetLanguage() {
+  getSourceLanguage() {
     if(this.flipped) {
       return this.selectedLanguageService.leftLang;
 
@@ -49,10 +65,10 @@ export class VoicePage {
   }
 
   flipLanguages(event, fab){
+    this.stopRecording();
     this.flipped = !this.flipped;
     fab.close();
   }
-
 
   getCurrentModeIcon(){
     if(this.translateService.currentMode == 'text'){
@@ -64,5 +80,11 @@ export class VoicePage {
     else if(this.translateService.currentMode == 'image'){
       return 'camera'
     }
+  }
+
+  getPercentWidth(){
+    var v = {'width' : this.percentageRecorded.toString() + "%"};
+
+    return v;
   }
 }

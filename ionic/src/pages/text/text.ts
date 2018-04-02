@@ -17,6 +17,7 @@ export class TextPage implements OnInit {
   nativeText: string = '';
   translateText: string = '';
   debugText: string = '';
+  flipped: boolean = false;
 
 
   translateAudioSrc: string = '';
@@ -152,12 +153,21 @@ export class TextPage implements OnInit {
   }
 
   getSourceLanguage() {
-    return this.selectedLanguageService.leftLang;
+    if(this.flipped){
+      return this.selectedLanguageService.rightLang;
+    } else{
+      return this.selectedLanguageService.leftLang;
+    }
 
   }
 
   getTargetLanguage() {
-    return this.selectedLanguageService.rightLang;
+    if(this.flipped) {
+      return this.selectedLanguageService.leftLang;
+
+    } else {
+      return this.selectedLanguageService.rightLang;
+    }
   }
 
   clearTextControl(controlToClear){
@@ -169,9 +179,20 @@ export class TextPage implements OnInit {
     }
   }
 
-  clearForm(){
-    this.clearTextControl('nativeText');
-    this.clearTextControl('translateText');
+  flipLanguages(){
+    this.flipped = !this.flipped;
+  }
+
+  getCurrentModeIcon(){
+    if(this.translateService.currentMode == 'text'){
+      return 'list';
+    }
+    else if(this.translateService.currentMode == 'voice'){
+      return 'mic';
+    }
+    else if(this.translateService.currentMode == 'image'){
+      return 'camera'
+    }
   }
 
   playAudio(originalOrTranslated){

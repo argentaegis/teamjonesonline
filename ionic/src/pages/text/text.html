@@ -1,8 +1,25 @@
- <div>
-     <div>
-         <ion-label stacked>{{selectedLanguageService.leftLang.nativeName}}</ion-label>
-         <ion-input type="text" [(ngModel)]="nativeText"></ion-input>
-     </div>
-     <button ion-button full [disabled]="nativeText == '' && translateText == ''" (click)="onTranslateSubmit();">Translate</button>
- </div>
+<ion-row class="min-grid-height">
+  <ion-col col-2>
+    <ion-fab bottom left #fab>
+      <button ion-fab ><ion-icon name={{getCurrentModeIcon()}}></ion-icon></button>
+      <ion-fab-list side="top">
+        <button ion-fab (click)="translateService.setMode($event, fab, 'text');"><ion-icon name="list"></ion-icon></button>
+        <button ion-fab (click)="translateService.setMode($event, fab, 'voice');"><ion-icon name="mic"></ion-icon></button>
+        <button ion-fab (click)="translateService.setMode($event, fab, 'image');"><ion-icon name="camera"></ion-icon></button>
+        <button ion-fab (click)="flipLanguages();"><ion-icon name="swap"></ion-icon></button>
+      </ion-fab-list>
+    </ion-fab>
+  </ion-col>
+  <ion-col>
+    <ion-input type="text" placeholder={{getSourceLanguage().nativeName}} [(ngModel)]="nativeText"></ion-input>
+
+  </ion-col>
+  <ion-col col-2>
+    <ion-fab >
+      <button bottom right ion-fab [disabled]="nativeText == '' && translateText == ''" (click)="onTranslateSubmit();"><ion-icon name="globe"></ion-icon></button>
+    </ion-fab>
+  </ion-col>
+  <!--<button ion-button full [disabled]="nativeText == '' && translateText == ''" (click)="onTranslateSubmit();">Translate</button>-->
+
+</ion-row>
 

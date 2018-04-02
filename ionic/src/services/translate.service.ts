@@ -6,6 +6,9 @@ import { Language } from './selected-languages/selected-languages.service';
 @Injectable()
 export class TranslateService {
 
+
+  public currentMode: string = 'text';
+
   constructor(
     private http: HTTP,
   private config: ConfigService
@@ -33,7 +36,25 @@ export class TranslateService {
     return this.http.post(url, translateRequest, {});
   }
 
+
+  setMode(event, fab, mode){
+    this.currentMode = mode;
+    fab.close();
+  }
+
+  getCurrentModeIcon(){
+    if(this.currentMode == 'text'){
+      return 'list';
+    }
+    else if(this.currentMode == 'voice'){
+      return 'mic';
+    }
+    else if(this.currentMode == 'image'){
+      return 'camera'
+    }
+  }
 }
+
 
 
 export interface TranslateRequest {

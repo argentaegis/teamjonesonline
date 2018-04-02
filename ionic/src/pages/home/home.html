@@ -7,22 +7,12 @@
 
     <div #scrollWrapper class="translation-list-wrapper">
       <translation-list ></translation-list>
-
     </div>
-
-      <page-text></page-text>
+          <page-text *ngIf="translateService.currentMode == 'text'"></page-text>
+          <page-voice *ngIf="translateService.currentMode == 'voice'"></page-voice>
+          <page-image *ngIf="translateService.currentMode == 'image'"></page-image>
 
   </ion-list>
-    <!--<div class="{{orientationClass}}">-->
-    <!--</div>-->
-    <!--<div class="controlRowContainer">-->
-      <!--<div class="controlsRow">-->
-        <!--<div class="bottomOnly">-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
-
-  <!--</div>-->
 </ion-content>
 
 

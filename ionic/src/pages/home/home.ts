@@ -1,6 +1,7 @@
 import {AfterViewChecked, Component, ElementRef, ViewChild} from '@angular/core';
 import { Keyboard } from '@ionic-native/keyboard';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
+import { TranslateService} from "../../services/translate.service";
 
 @Component({
   templateUrl: 'home.html',
@@ -12,7 +13,8 @@ export class HomePage implements AfterViewChecked{
 
   constructor(
     private keyboard: Keyboard,
-    private screenOrientation: ScreenOrientation
+    private screenOrientation: ScreenOrientation,
+    public translateService: TranslateService
   ) {
 
   }
@@ -56,5 +58,9 @@ export class HomePage implements AfterViewChecked{
       console.log(err);
     }
   }
+
+
+
+
 
 }

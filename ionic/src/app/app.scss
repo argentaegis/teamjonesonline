@@ -25,5 +25,15 @@
 .outer-ion-list{
   margin-top: auto;
   margin-bottom: 54px;
+  display: flex;
+  flex-direction: column;
 }
 
+.translation-list-wrapper {
+  overflow: auto;
+  flex: 1 1 auto;
+}
+
+page-text {
+  flex: 0 1;
+}

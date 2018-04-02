@@ -14,17 +14,17 @@ translation-list {
   bottom: 0px;
 }
 
-.offsetBottomMargin {
-  bottom: 140px;
-  position: absolute;
+.scrollListWrapper {
+  bottom: 170px;
+  display: inline-block;
+  position: relative;
   overflow-y: auto;
   max-height: 100%;
   width: 100%;
 }
 
-.scrollListWrapper {
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
+.absolute-content {
+
 }
+
+.scrolled-content {}

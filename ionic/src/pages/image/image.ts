@@ -10,7 +10,7 @@ import {TextToMp3Service} from "../../services/text-to-mp3.service";
   templateUrl: 'image.html'
 })
 export class ImagePage {
-  flipped: boolean = 'false';
+  flipped: boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -24,7 +24,7 @@ export class ImagePage {
 
   }
 
-  getSourceLanguage() {
+  getTargetLanguage() {
     if(this.flipped){
       return this.selectedLanguageService.rightLang;
     } else{
@@ -32,7 +32,7 @@ export class ImagePage {
     }
   }
 
-  getTargetLanguage() {
+  getSourceLanguage() {
     if(this.flipped) {
       return this.selectedLanguageService.leftLang;
 

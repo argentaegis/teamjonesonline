@@ -179,7 +179,6 @@ export class TextPage implements OnInit {
     }
   }
 
-
   getCurrentModeIcon(){
     if(this.translateService.currentMode == 'text'){
       return 'list';
@@ -190,6 +189,11 @@ export class TextPage implements OnInit {
     else if(this.translateService.currentMode == 'image'){
       return 'camera'
     }
+  }
+
+  flipLanguages(event, fab){
+    this.flipped = !this.flipped;
+    fab.close();
   }
 
   playAudio(originalOrTranslated){

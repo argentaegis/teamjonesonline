@@ -1,4 +1,4 @@
-.roundBorder {
+.text-input-box {
   -moz-border-radius: 50px;
   -webkit-border-radius: 50px;
   border-radius: 10px;
@@ -7,5 +7,6 @@
   border-width: 1px;
   border-style: solid;
   margin-left: 65px;
-  margin-top: 5px
+  margin-top: 5px;
+  background-color: #fff;
 }

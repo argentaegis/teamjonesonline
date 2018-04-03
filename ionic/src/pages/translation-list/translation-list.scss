@@ -28,3 +28,47 @@ translation-list {
 }
 
 .scrolled-content {}
+
+
+.translation-list-item {
+  border-radius: 10px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  background-color: #fff;
+  width: auto !important;
+}
+
+.translation-list-item ion-label {
+  margin: 0px 0px 0px 0;
+}
+
+.list-md .item-block .item-inner {
+  border-bottom: none;
+}
+
+.translation-text-p {
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+.play-audio-button{
+  height: 40px;
+  width: 40px;
+  background-color: #488aff;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.play-audio-col{
+  padding: 0px;
+  display: flex;
+  align-items: center;
+  text-align: right;
+}
+
+.top-translate-text {
+  border-bottom: 1px solid #dedede;
+  margin-bottom: 3px;
+  color: #b1b1b1;
+}

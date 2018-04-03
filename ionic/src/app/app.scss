@@ -45,3 +45,16 @@ page-text {
 .control-buttons{
   display: block;
 }
+
+
+ion-content {
+  background: #f0f9ff;
+  background: -moz-linear-gradient(top, #f0f9ff 0%, #f0f9ff 0%, #a1dbff 24%, #a1dbff 69%, #f0f9ff 100%);
+  background: -webkit-linear-gradient(top, #f0f9ff 0%,#f0f9ff 0%,#a1dbff 24%,#a1dbff 69%,#f0f9ff 100%);
+  background: linear-gradient(to bottom, #f0f9ff 0%,#f0f9ff 0%,#a1dbff 24%,#a1dbff 69%,#f0f9ff 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f9ff', endColorstr='#f0f9ff',GradientType=0 );
+}
+
+.header-md:after{
+  content: none;
+}

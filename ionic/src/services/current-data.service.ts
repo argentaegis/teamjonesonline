@@ -33,7 +33,8 @@ export class CurrentDataService implements OnInit{
 
     this.addTranslation('3', '2', '3', '2');
 
-    this.addTranslation('4', '2', '4', '2');
+    this.addTranslation('this is a very long item to read so you can see what happens when it is very long and if it wraps or runs off and such sorts of things because that could look bad'
+      , '2', 'this is a very long item to read so you can see what happens when it is very long and if it wraps or runs off and such sorts of things because that could look bad', '2');
 
   }
 

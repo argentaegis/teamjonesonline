@@ -15,6 +15,7 @@ export class TranslateService {
   ) {
 
     this.http.setDataSerializer('json');
+    this.http.setRequestTimeout(5.0);
   }
 
   translateText(translateRequest: TranslateRequest){

@@ -5,6 +5,7 @@ import { SelectedLanguagesService } from "../../services/selected-languages/sele
 import { TextToMp3Service } from '../../services/text-to-mp3.service';
 import { TranslateService } from '../../services/translate.service';
 import {CurrentDataService} from "../../services/current-data.service";
+import { AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'page-text',
@@ -29,7 +30,8 @@ export class TextPage implements OnInit {
     public selectedLanguageService: SelectedLanguagesService,
     private translateService: TranslateService,
     private textToMP3Service: TextToMp3Service,
-    private currentDataService: CurrentDataService) {
+    private currentDataService: CurrentDataService,
+    public alertCtrl: AlertController) {
   }
 
   ngOnInit() {
@@ -86,9 +88,10 @@ export class TextPage implements OnInit {
           console.log(response.error);
         }
       }
-    ).catch((error) => {
-      this.debugText += '\n error \n';
-      this.debugText += JSON.stringify(error);
+    ).catch((error: any) => {
+      console.log('error');
+      console.log(error);
+      this.showNetworkErrorAlert();
     });
   };
 
@@ -209,15 +212,12 @@ export class TextPage implements OnInit {
     audio.play();
   }
 
-  onKey(e) {
-    if (e.code == 'Enter' || e.keyCode == 'enter') {
-      console.log('Enter');
-      this.onTranslateSubmit();
-    }
-
-    if (e.code == 'Go' || e.keyCode == 'go') {
-      console.log('Go');
-      this.onTranslateSubmit();
-    }
+  showNetworkErrorAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Network Error!',
+      subTitle: 'There seems to be a problem with your network connection.',
+      buttons: ['OK']
+    });
+    alert.present();
   }
 }

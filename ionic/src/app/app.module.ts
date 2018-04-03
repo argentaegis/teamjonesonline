@@ -21,6 +21,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {HomePage} from "../pages/home/home";
+import {TranslateLineComponent} from "../pages/translate-line/translate-line";
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {HomePage} from "../pages/home/home";
     ImagePage,
     TranslationListComponent,
     SelectLanguagesPage,
-    HomePage
+    HomePage,
+    TranslateLineComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +50,8 @@ import {HomePage} from "../pages/home/home";
     ImagePage,
     TranslationListComponent,
     SelectLanguagesPage,
-    HomePage
+    HomePage,
+    TranslateLineComponent
   ],
   providers: [
     StatusBar,

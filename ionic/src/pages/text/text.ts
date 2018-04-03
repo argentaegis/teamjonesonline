@@ -144,11 +144,11 @@ export class TextPage implements OnInit {
     //   }
     // });
 
-    this.textToMP3Service.textToMP3(translatedReq).then( response => {
+    // this.textToMP3Service.textToMP3(translatedReq).then( response => {
+    //
+    // });
 
-    });
-
-    this.currentDataService.addTranslation(rawOriginalValue, originalGuid, rawTranslatedValue, translateGuid)
+    this.currentDataService.addTranslation(rawOriginalValue, originalGuid, rawTranslatedValue, translateGuid, translatedReq)
 
     this.nativeText = '';
   }

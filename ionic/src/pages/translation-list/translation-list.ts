@@ -16,7 +16,6 @@ import {ScreenOrientation} from "@ionic-native/screen-orientation";
 export class TranslationListComponent {
 
 
-  baseAudioLocation = "https://s3.us-east-2.amazonaws.com/teamjonesonline-translate-audio/";
 
   constructor(
     public currentDataService: CurrentDataService,
@@ -27,12 +26,5 @@ export class TranslationListComponent {
 
 
 
-
-  playAudio(guid){
-    let audio = new Audio();
-    audio.src = this.baseAudioLocation + guid + '.mp3';
-    audio.load();
-    audio.play();
-  }
 
 }

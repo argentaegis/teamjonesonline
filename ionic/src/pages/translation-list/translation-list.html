@@ -2,22 +2,7 @@
   <!--<div class="absolute-content">-->
     <ion-list #scrollList>
       <ion-item ion-item *ngFor="let item of currentDataService.translations" class="translation-list-item">
-        <ion-row>
-          <ion-col col-10>
-            <ion-item text-wrap class="top-translate-text">
-              {{item.original}}
-            </ion-item>
-
-            <ion-item text-wrap>
-              {{item.translated}}
-            </ion-item>
-          </ion-col>
-          <ion-col col-2 class="play-audio-col">
-            <button ion-button icon-only class="play-audio-button" id={{item.tGuid}} (click)="playAudio(item.tGuid)">
-              <ion-icon name="volume-up"></ion-icon>
-            </button>
-          </ion-col>
-        </ion-row>
+        <translate-line [item]="item"></translate-line>
       </ion-item>
     </ion-list>
   <!--</div>-->

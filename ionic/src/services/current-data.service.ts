@@ -55,4 +55,6 @@ export class CurrentDataService implements OnInit{
     this.translations.push(translatedItem);
     this.translationSubject.next(translatedItem);
   }
+
+
 }

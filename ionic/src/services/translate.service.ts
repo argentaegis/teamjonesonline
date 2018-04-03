@@ -9,6 +9,7 @@ export class TranslateService {
 
   public currentMode: string = 'text';
 
+
   constructor(
     private http: HTTP,
   private config: ConfigService

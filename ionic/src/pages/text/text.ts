@@ -136,20 +136,16 @@ export class TextPage implements OnInit {
     }
 
 
-    this.textToMP3Service.textToMP3(originalReq).then( response => {
-      if (flipped){
-        this.translateAudioSrc = this.baseAudioLocation + originalGuid + '.mp3';
-      } else {
-        this.originalAudioSrc = this.baseAudioLocation + originalGuid + '.mp3';
-      }
-    });
+    // this.textToMP3Service.textToMP3(originalReq).then( response => {
+    //   if (flipped){
+    //     this.translateAudioSrc = this.baseAudioLocation + originalGuid + '.mp3';
+    //   } else {
+    //     this.originalAudioSrc = this.baseAudioLocation + originalGuid + '.mp3';
+    //   }
+    // });
 
     this.textToMP3Service.textToMP3(translatedReq).then( response => {
-      if (flipped){
-        this.originalAudioSrc =  this.baseAudioLocation + translateGuid + '.mp3';
-      } else {
-        this.translateAudioSrc = this.baseAudioLocation + translateGuid + '.mp3';
-      }
+
     });
 
     this.currentDataService.addTranslation(rawOriginalValue, originalGuid, rawTranslatedValue, translateGuid)
@@ -201,16 +197,7 @@ export class TextPage implements OnInit {
     fab.close();
   }
 
-  playAudio(originalOrTranslated){
-    let audio = new Audio();
-    if(originalOrTranslated == 'original'){
-      audio.src = this.originalAudioSrc;
-    } else if (originalOrTranslated === 'translated') {
-      audio.src = this.translateAudioSrc;
-    }
-    audio.load();
-    audio.play();
-  }
+
 
   showNetworkErrorAlert() {
     let alert = this.alertCtrl.create({

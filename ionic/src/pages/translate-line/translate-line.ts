@@ -16,7 +16,7 @@ export class TranslateLineComponent implements OnInit {
   isDisabled: boolean = true;
 
   baseAudioLocation = "https://s3.us-east-2.amazonaws.com/teamjonesonline-translate-audio/";
-  
+
   constructor(
 
     private textToMP3Service: TextToMp3Service
@@ -26,8 +26,6 @@ export class TranslateLineComponent implements OnInit {
 
   ngOnInit(){
     this.textToMP3Service.textToMP3(this.item.req).then( response => {
-      console.log('back from mp3');
-      console.log(response);
       this.isDisabled = false;
     });
   }

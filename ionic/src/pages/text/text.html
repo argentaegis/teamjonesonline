@@ -11,14 +11,19 @@
     </ion-fab>
   </ion-col>
   <ion-col>
-    <ion-input type="text" placeholder={{getSourceLanguage().nativeName}} [(ngModel)]="nativeText"></ion-input>
+    <!--<ion-input type="text" (keyup)="onKey($event)" placeholder={{getSourceLanguage().nativeName}} [(ngModel)]="nativeText"></ion-input>-->
+
+      <form (submit)="onTranslateSubmit()" class="roundBorder">
+        <ion-input type="text" placeholder={{getSourceLanguage().nativeName}} [(ngModel)]="nativeText" name="originalText"></ion-input>
+      </form>
+
 
   </ion-col>
-  <ion-col col-2>
-    <ion-fab >
-      <button bottom right ion-fab [disabled]="nativeText == '' && translateText == ''" (click)="onTranslateSubmit();"><ion-icon name="globe"></ion-icon></button>
-    </ion-fab>
-  </ion-col>
+  <!--<ion-col col-2>-->
+    <!--<ion-fab >-->
+      <!--<button bottom right ion-fab [disabled]="nativeText == '' && translateText == ''" (click)="onTranslateSubmit();"><ion-icon name="globe"></ion-icon></button>-->
+    <!--</ion-fab>-->
+  <!--</ion-col>-->
   <!--<button ion-button full [disabled]="nativeText == '' && translateText == ''" (click)="onTranslateSubmit();">Translate</button>-->
 
 </ion-row>

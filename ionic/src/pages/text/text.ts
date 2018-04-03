@@ -150,6 +150,8 @@ export class TextPage implements OnInit {
     });
 
     this.currentDataService.addTranslation(rawOriginalValue, originalGuid, rawTranslatedValue, translateGuid)
+
+    this.nativeText = '';
   }
 
   getSourceLanguage() {
@@ -207,4 +209,15 @@ export class TextPage implements OnInit {
     audio.play();
   }
 
+  onKey(e) {
+    if (e.code == 'Enter' || e.keyCode == 'enter') {
+      console.log('Enter');
+      this.onTranslateSubmit();
+    }
+
+    if (e.code == 'Go' || e.keyCode == 'go') {
+      console.log('Go');
+      this.onTranslateSubmit();
+    }
+  }
 }

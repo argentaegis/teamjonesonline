@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HTTP } from '@ionic-native/http';
 import {ConfigService} from './config.service';
 import { Language } from './selected-languages/selected-languages.service';
+import { AdService } from './ad-service';
 
 @Injectable()
 export class TranslateService {
@@ -12,8 +13,8 @@ export class TranslateService {
 
   constructor(
     private http: HTTP,
-  private config: ConfigService
-  ) {
+    private config: ConfigService,
+    private adService: AdService ) {
 
     this.http.setDataSerializer('json');
     this.http.setRequestTimeout(5.0);
@@ -42,6 +43,7 @@ export class TranslateService {
   setMode(event, fab, mode){
     this.currentMode = mode;
     fab.close();
+    this.adService.displayInterstitial();
   }
 
   getCurrentModeIcon(){

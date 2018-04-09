@@ -4,6 +4,7 @@ import {SelectedLanguagesService} from "../../services/selected-languages/select
 import {TranslateService} from "../../services/translate.service";
 import {TextToMp3Service} from "../../services/text-to-mp3.service";
 import {CurrentDataService} from "../../services/current-data.service";
+import { MediaCapture, MediaFile, CaptureError, CaptureAudioOptions } from '@ionic-native/media-capture';
 
 @Component({
   selector: 'page-voice',
@@ -19,7 +20,8 @@ export class VoicePage {
     public selectedLanguageService: SelectedLanguagesService,
     private translateService: TranslateService,
     private textToMP3Service: TextToMp3Service,
-    private currentDataService: CurrentDataService) {
+    private currentDataService: CurrentDataService,
+    private mediaCapture: MediaCapture) {
 
   }
 
@@ -27,6 +29,13 @@ export class VoicePage {
     this.recording = true;
 
     this.startTimer();
+    let options: CaptureAudioOptions = { limit: 1, duration:30 };
+    this.mediaCapture.captureAudio(options)
+      .then(
+        (data: MediaFile[]) => console.log(data),
+        (err: CaptureError) => console.error(err)
+      );
+
   }
 
   stopRecording(){

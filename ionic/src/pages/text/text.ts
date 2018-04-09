@@ -6,6 +6,7 @@ import { TextToMp3Service } from '../../services/text-to-mp3.service';
 import { TranslateService } from '../../services/translate.service';
 import {CurrentDataService} from "../../services/current-data.service";
 import { AlertController } from 'ionic-angular';
+import { AdService } from '../../services/ad-service'
 
 @Component({
   selector: 'page-text',
@@ -31,7 +32,8 @@ export class TextPage implements OnInit {
     private translateService: TranslateService,
     private textToMP3Service: TextToMp3Service,
     private currentDataService: CurrentDataService,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController,
+    private adService: AdService ) {
   }
 
   ngOnInit() {
@@ -73,7 +75,6 @@ export class TextPage implements OnInit {
       mediaBase64: '',
       audioFileName: this.textToMP3Service.guid()
     }
-
 
     this.translateService.translateText(translateRequest).then( response => {
 
@@ -135,19 +136,6 @@ export class TextPage implements OnInit {
       baseFileName: translateGuid
     }
 
-
-    // this.textToMP3Service.textToMP3(originalReq).then( response => {
-    //   if (flipped){
-    //     this.translateAudioSrc = this.baseAudioLocation + originalGuid + '.mp3';
-    //   } else {
-    //     this.originalAudioSrc = this.baseAudioLocation + originalGuid + '.mp3';
-    //   }
-    // });
-
-    // this.textToMP3Service.textToMP3(translatedReq).then( response => {
-    //
-    // });
-
     this.currentDataService.addTranslation(rawOriginalValue, originalGuid, rawTranslatedValue, translateGuid, translatedReq)
 
     this.nativeText = '';
@@ -196,8 +184,6 @@ export class TextPage implements OnInit {
     this.flipped = !this.flipped;
     fab.close();
   }
-
-
 
   showNetworkErrorAlert() {
     let alert = this.alertCtrl.create({

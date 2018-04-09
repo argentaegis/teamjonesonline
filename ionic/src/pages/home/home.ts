@@ -2,6 +2,8 @@ import {AfterViewChecked, Component, ElementRef, ViewChild} from '@angular/core'
 import { Keyboard } from '@ionic-native/keyboard';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { TranslateService} from "../../services/translate.service";
+import { AdService } from '../../services/ad-service';
+import { Platform } from 'ionic-angular';
 
 @Component({
   templateUrl: 'home.html',
@@ -14,10 +16,18 @@ export class HomePage implements AfterViewChecked{
   constructor(
     private keyboard: Keyboard,
     private screenOrientation: ScreenOrientation,
-    public translateService: TranslateService
+    public translateService: TranslateService,
+    private adService: AdService,
+    platform: Platform
   ) {
-
+      platform.ready().then(() => {
+        this.adService.start();
+        //this.adService.displayBanner();
+        this.adService.displayBanner();
+      });
   }
+
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');

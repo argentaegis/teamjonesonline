@@ -22,6 +22,10 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {HomePage} from "../pages/home/home";
 import {TranslateLineComponent} from "../pages/translate-line/translate-line";
+import { AdService } from '../services/ad-service';
+import { AdMobFree } from '@ionic-native/admob-free';
+
+import { MediaCapture } from '@ionic-native/media-capture';
 
 @NgModule({
   declarations: [
@@ -64,7 +68,10 @@ import {TranslateLineComponent} from "../pages/translate-line/translate-line";
     HTTP,
     CurrentDataService,
     Keyboard,
-    ScreenOrientation
+    ScreenOrientation,
+    AdMobFree,
+    AdService,
+    MediaCapture
   ]
 })
 export class AppModule {}

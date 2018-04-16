@@ -156,7 +156,7 @@ export class VoicePage {
     const translateGuid = this.textToMP3Service.guid();
     const translatedReq = {
       text: rawTranslatedValue,
-      lang: this.flipped ? this.selectedLanguageService.leftLang : this.selectedLanguageService.rightLang,
+      lang: this.flipped ? this.selectedLanguageService.rightLang : this.selectedLanguageService.leftLang,
       baseFileName: translateGuid
     }
 

@@ -20,21 +20,15 @@ export class VoicePage {
 
   audioDataBuffer  = [];
 
-  timerInterVal: any;
-  timerGenerateSimulatedData: any;
-
-  objectURL: any = null;
-
   totalReceivedData: any = 0;
 
 
   constructor(
-    public navCtrl: NavController,
     public selectedLanguageService: SelectedLanguagesService,
     private translateService: TranslateService,
     private textToMP3Service: TextToMp3Service,
     private currentDataService: CurrentDataService,
-    public alertCtrl: AlertController,) {
+    public alertCtrl: AlertController) {
 
     this.captureCfg = {
       sampleRate: 16000,
@@ -47,8 +41,6 @@ export class VoicePage {
     if ((<any>window).cordova && (<any>window).audioinput) {
       console.log("Use 'Start Capture' to begin...");
 
-      // Subscribe to audioinput events
-      //
       (<any>window).addEventListener('audioinput', this.onAudioInputCapture.bind(this), false);
       (<any>window).addEventListener('audioinputerror', this.onAudioInputError, false);
     }
@@ -127,6 +119,8 @@ export class VoicePage {
         console.log(JSON.stringify(error));
         this.showNetworkErrorAlert();
       });
+
+      this.audioDataBuffer = [];
 
     }.bind(this);
     reader.readAsDataURL(blob);

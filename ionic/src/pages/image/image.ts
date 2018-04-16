@@ -55,7 +55,7 @@ export class ImagePage {
 
         var transData = JSON.parse(response.data);
 
-        this.updateTranslation(transData.translation);
+        this.updateTranslation(transData.translation, transData.msg);
       }).catch((error: any) => {
         console.log('translateService.translateAudio error');
         console.log(JSON.stringify(error));
@@ -70,28 +70,41 @@ export class ImagePage {
     });
   }
 
-  updateTranslation(translation){
+  updateTranslation(translation, msg){
     console.log('updateTranslation:');
     console.log( JSON.stringify(translation));
 
     var translatedValue = '';
+    var originalValue = '';
     var rawOriginalValue = translation.originalText;
     var rawTranslatedValue = translation.translatedText;
-
 
     if(Array.isArray(translation)){
       console.log('array: ' + translation);
       translation.forEach( function(trans) {
         console.log(trans);
-        translatedValue = translatedValue.concat(trans.translatedText + '<br>');
+        rawTranslatedValue = translatedValue.concat(trans.translatedText + ' ');
+        translatedValue = translatedValue.concat(trans.translatedText + '\n');
+        rawOriginalValue = originalValue.concat(trans.originalText + ' ');
+        originalValue = originalValue.concat(trans.originalText + '\n');
         console.log(translatedValue);
       });
     } else {
       console.log('notarray: ' + translation);
-      translatedValue = translation.translatedText;
+      if(translation){
+        console.log('msg: ' + msg);
+        if(msg == 'translated image description'){
+          translatedValue = translation.translatedText;
+          originalValue = translation.originalText;
+        }else {
+          translatedValue = translation.translatedText;
+          originalValue = translation.originalText;
+        }
+
+      } else {
+        translatedValue = 'No translation available.';
+      }
     }
-
-
 
     const originalGuid = this.textToMP3Service.guid();
 
@@ -105,7 +118,7 @@ export class ImagePage {
     this.currentDataService.addTranslation(rawOriginalValue, originalGuid, rawTranslatedValue, translateGuid, translatedReq)
   }
 
-  getTargetLanguage() {
+  getSourceLanguage() {
     if(this.flipped){
       return this.selectedLanguageService.rightLang;
     } else{
@@ -113,7 +126,7 @@ export class ImagePage {
     }
   }
 
-  getSourceLanguage() {
+  getTargetLanguage() {
     if(this.flipped) {
       return this.selectedLanguageService.leftLang;
 

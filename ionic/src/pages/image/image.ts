@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
 import {CurrentDataService} from "../../services/current-data.service";
 import {SelectedLanguagesService} from "../../services/selected-languages/selected-languages.service";
 import {TranslateService} from "../../services/translate.service";
 import {TextToMp3Service} from "../../services/text-to-mp3.service";
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 @Component({
   selector: 'page-image',
@@ -12,16 +13,96 @@ import {TextToMp3Service} from "../../services/text-to-mp3.service";
 export class ImagePage {
   flipped: boolean = false;
 
+  imageOptions: CameraOptions;
+
   constructor(
-    public navCtrl: NavController,
     public selectedLanguageService: SelectedLanguagesService,
     private translateService: TranslateService,
     private textToMP3Service: TextToMp3Service,
-    private currentDataService: CurrentDataService) {
+    private currentDataService: CurrentDataService,
+    private camera: Camera,
+    public alertCtrl: AlertController) {
+
+    this.imageOptions = {
+      quality: 50,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      targetWidth: 400,
+      targetHeight: 400
+    }
   }
 
   captureImage(){
 
+    this.camera.getPicture(this.imageOptions).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64:
+      let base64Image = 'data:image/jpeg;base64,' + imageData;
+
+      var translateRequest = {
+        sourceText: '',
+        sourceImage: '',
+        sourceLang: this.getTargetLanguage(),
+        targetLang: this.getSourceLanguage(),
+        mediaBase64: base64Image,
+        audioFileName: ''
+      }
+
+      this.translateService.translateImage(translateRequest).then( response => {
+        console.log('***RESPONSE***');
+        console.log(JSON.stringify(response.data));
+
+        var transData = JSON.parse(response.data);
+
+        this.updateTranslation(transData.translation);
+      }).catch((error: any) => {
+        console.log('translateService.translateAudio error');
+        console.log(JSON.stringify(error));
+        this.showNetworkErrorAlert();
+      });
+
+
+    }, (err) => {
+
+      console.log('captureImage error');
+      console.log(JSON.stringify(err));
+    });
+  }
+
+  updateTranslation(translation){
+    console.log('updateTranslation:');
+    console.log( JSON.stringify(translation));
+
+    var translatedValue = '';
+    var rawOriginalValue = translation.originalText;
+    var rawTranslatedValue = translation.translatedText;
+
+
+    if(Array.isArray(translation)){
+      console.log('array: ' + translation);
+      translation.forEach( function(trans) {
+        console.log(trans);
+        translatedValue = translatedValue.concat(trans.translatedText + '<br>');
+        console.log(translatedValue);
+      });
+    } else {
+      console.log('notarray: ' + translation);
+      translatedValue = translation.translatedText;
+    }
+
+
+
+    const originalGuid = this.textToMP3Service.guid();
+
+    const translateGuid = this.textToMP3Service.guid();
+    const translatedReq = {
+      text: rawTranslatedValue,
+      lang: this.flipped ? this.selectedLanguageService.rightLang : this.selectedLanguageService.leftLang,
+      baseFileName: translateGuid
+    }
+
+    this.currentDataService.addTranslation(rawOriginalValue, originalGuid, rawTranslatedValue, translateGuid, translatedReq)
   }
 
   getTargetLanguage() {
@@ -56,5 +137,14 @@ export class ImagePage {
     else if(this.translateService.currentMode == 'image'){
       return 'camera'
     }
+  }
+
+  showNetworkErrorAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Network Error!',
+      subTitle: 'There seems to be a problem with your network connection.',
+      buttons: ['OK']
+    });
+    alert.present();
   }
 }

@@ -25,7 +25,9 @@ import {TranslateLineComponent} from "../pages/translate-line/translate-line";
 import { AdService } from '../services/ad-service';
 import { AdMobFree } from '@ionic-native/admob-free';
 
-import { MediaCapture } from '@ionic-native/media-capture';
+
+import { Camera } from '@ionic-native/camera';
+
 
 @NgModule({
   declarations: [
@@ -71,7 +73,7 @@ import { MediaCapture } from '@ionic-native/media-capture';
     ScreenOrientation,
     AdMobFree,
     AdService,
-    MediaCapture
+    Camera
   ]
 })
 export class AppModule {}

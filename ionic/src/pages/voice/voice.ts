@@ -190,6 +190,11 @@ export class VoicePage {
     setTimeout(function(){
       this.percentageRecorded =
         this.percentageRecorded + 0.33;
+
+      if(this.percentageRecorded > 100){
+        this.stopRecording();
+      }
+
       if(this.recording){
         this.startTimer();
       }

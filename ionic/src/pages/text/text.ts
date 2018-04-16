@@ -84,14 +84,13 @@ export class TextPage implements OnInit {
           var transData = JSON.parse(response.data);
           this.updateTranslation(transData.translation, translateToControlName, flipped);
         } else {
-          this.debugText += '\n error\n';
-          this.debugText += response;
-          console.log(response.error);
+          console.log('translateService.translateText ERROR')
+          console.log(JSON.stringify(response.error));
         }
       }
     ).catch((error: any) => {
       console.log('error');
-      console.log(error);
+      console.log(JSON.stringify(error));
       this.showNetworkErrorAlert();
     });
   };

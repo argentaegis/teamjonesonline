@@ -17,7 +17,7 @@ export class TranslateService {
     private adService: AdService ) {
 
     this.http.setDataSerializer('json');
-    this.http.setRequestTimeout(5.0);
+    this.http.setRequestTimeout(10.0);
   }
 
   translateText(translateRequest: TranslateRequest){

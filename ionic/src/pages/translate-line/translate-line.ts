@@ -21,7 +21,6 @@ export class TranslateLineComponent implements OnInit {
 
     private textToMP3Service: TextToMp3Service
   ) {
-    console.log('Hello TranslateLineComponent Component');
   }
 
   ngOnInit(){

@@ -57,12 +57,8 @@ export class HomePage implements AfterViewChecked{
   }
 
   scrollToBottom(): void {
-    console.log('scrollToBottom');
     try {
-      console.log('Pre: ' + this.myScrollContainer.nativeElement.scrollTop);
-      console.log('Pre: ' + this.myScrollContainer.nativeElement.scrollHeight);
       this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-      console.log('POST: ' + this.myScrollContainer.nativeElement.scrollTop);
     } catch(err) {
       console.log('ERR');
       console.log(err);

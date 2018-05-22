@@ -1,6 +1,22 @@
 {
   "languages": [
     {
+      "code": "da",
+      "longCode": "da-DK",
+      "name": "Danish",
+      "nativeName": "Danish",
+      "icon": "",
+      "voice": "Naja"
+    },
+    {
+      "code": "nl",
+      "longCode": "nl-NL",
+      "name": "Dutch",
+      "nativeName": "Dutch",
+      "icon": "",
+      "voice": "Lotte"
+    },
+    {
       "code": "en",
       "longCode": "en-US",
       "name": "English",
@@ -17,6 +33,86 @@
       "voice": "Celine"
     },
     {
+      "code": "de",
+      "longCode": "de-DE",
+      "name": "German",
+      "nativeName": "Deutsch",
+      "icon": "",
+      "voice": "Marlene"
+    },
+    {
+      "code": "is",
+      "longCode": "is-IS",
+      "name": "Icelandic",
+      "nativeName": "Icelandic",
+      "icon": "",
+      "voice": "Karl"
+    },
+    {
+      "code": "it",
+      "longCode": "it-IT",
+      "name": "Italian",
+      "nativeName": "Italian",
+      "icon": "",
+      "voice": "Carla"
+    },
+    {
+      "code": "ja",
+      "longCode": "ja-JP",
+      "name": "Japanese",
+      "nativeName": "Japanese",
+      "icon": "",
+      "voice": "Mizuki"
+    },
+    {
+      "code": "ko",
+      "longCode": "ko-KR",
+      "name": "Korean",
+      "nativeName": "Korean",
+      "icon": "",
+      "voice": "Seoyeon"
+    },
+    {
+      "code": "no",
+      "longCode": "nb-NO",
+      "name": "Norwegian",
+      "nativeName": "Norwegian",
+      "icon": "",
+      "voice": "Liv"
+    },
+    {
+      "code": "pl",
+      "longCode": "pl-PL",
+      "name": "Polish",
+      "nativeName": "Polish",
+      "icon": "",
+      "voice": "Maja"
+    },
+    {
+      "code": "pt",
+      "longCode": "pt-BR",
+      "name": "Portuguese",
+      "nativeName": "Portuguese",
+      "icon": "",
+      "voice": "Ricardo"
+    },
+    {
+      "code": "ro",
+      "longCode": "ro-RO",
+      "name": "Romanian",
+      "nativeName": "Romanian",
+      "icon": "",
+      "voice": "Carmen"
+    },
+    {
+      "code": "ru",
+      "longCode": "ru-RU",
+      "name": "Russian",
+      "nativeName": "Russian",
+      "icon": "",
+      "voice": "Tatyana"
+    },
+    {
       "code": "es",
       "longCode": "es-ES",
       "name": "Spanish",
@@ -25,12 +121,28 @@
       "voice": "Penelope"
     },
     {
-      "code": "de",
-      "longCode": "de-DE",
-      "name": "German",
-      "nativeName": "Deutsch",
+      "code": "sv",
+      "longCode": "sv-SE",
+      "name": "Swedish",
+      "nativeName": "Swedish",
       "icon": "",
-      "voice": "Marlene"
+      "voice": "Astrid"
+    },
+    {
+      "code": "tr",
+      "longCode": "tr-TR",
+      "name": "Turkish",
+      "nativeName": "Turkish",
+      "icon": "",
+      "voice": "Filiz"
+    },
+    {
+      "code": "cy",
+      "longCode": "cy-GB",
+      "name": "Welsh",
+      "nativeName": "Welsh",
+      "icon": "",
+      "voice": "Gwyneth"
     }
   ]
 }

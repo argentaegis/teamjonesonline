@@ -37,6 +37,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { SelectedLanguagesService } from "./services/selected-languages/selected-languages.service";
 import {TextToMp3Service} from "./services/text-to-mp3.service";
 import { MobilePlaceholderComponent } from './components/translator/mobile-placeholder/mobile-placeholder.component';
+import { TranslatorPrivacyComponent } from './components/translator/translator-privacy/translator-privacy.component';
 
 const appRoutes: Routes =  [
   {path:'', component: HomeComponent},
@@ -45,6 +46,7 @@ const appRoutes: Routes =  [
   {path:'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
   {path:'profile', component: ProfileComponent, canActivate:[AuthGuard]},
   {path:'translate', component: TranslateComponent},
+  {path:'translate/privacy', component: TranslatorPrivacyComponent},
   {path:'*', redirectTo: ''}
 ]
 
@@ -62,7 +64,8 @@ const appRoutes: Routes =  [
       TranslateAudioComponent,
       TranslateTextComponent,
       SelectLanguagesComponent,
-      MobilePlaceholderComponent
+      MobilePlaceholderComponent,
+      TranslatorPrivacyComponent
     ],
     imports: [
       BrowserModule,

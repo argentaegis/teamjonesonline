@@ -11,7 +11,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
   templateUrl: 'image.html'
 })
 export class ImagePage {
-  flipped: boolean = false;
+  flipped: boolean = true;
 
   imageOptions: CameraOptions;
 

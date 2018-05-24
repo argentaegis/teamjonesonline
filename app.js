@@ -54,6 +54,9 @@ app.get('/translate', (req, res) => {
   res.sendfile(__dirname + '/public/index.html');
 });
 
+app.get('/translate/privacy', (req, res) => {
+  res.sendfile(__dirname + '/public/index.html');
+});
 
 
 

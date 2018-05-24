@@ -8,17 +8,17 @@ export class AdService {
   adConfig: any;
 
   constructor( private admobFree: AdMobFree) {
-    // this.admobID = {
-    //   banner: 'ca-app-pub-4032953517610324/4093986742',
-    //   interstitial: '',
-    //   testing: false
-    // };
-
     this.adConfig = {
-      banner: 'ca-app-pub-3940256099942544/6300978111',
-      interstitial: 'ca-app-pub-3940256099942544/1033173712',
-      testing: true
-    }
+      banner: 'ca-app-pub-4032953517610324/4093986742',
+      interstitial: 'ca-app-pub-4032953517610324/8955240573',
+      testing: false
+    };
+
+    // this.adConfig = {
+    //   banner: 'ca-app-pub-3940256099942544/6300978111',
+    //   interstitial: 'ca-app-pub-3940256099942544/1033173712',
+    //   testing: true
+    // }
   }
 
   start(){

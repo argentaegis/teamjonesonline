@@ -9,7 +9,7 @@
     </ion-item>
   </ion-col>
   <ion-col col-2 class="play-audio-col">
-    <button ion-button icon-only class="play-audio-button" [disabled]="getDisabled()" (click)="playAudio(item.tGuid)">
+    <button ion-button icon-only class="play-audio-button" [hidden]="!hasPolly" [disabled]="getDisabled()" (click)="playAudio(item.tGuid)">
       <ion-icon name="volume-up"></ion-icon>
     </button>
   </ion-col>

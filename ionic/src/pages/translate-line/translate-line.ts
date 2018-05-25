@@ -14,6 +14,7 @@ import {TextToMp3Service} from "../../services/text-to-mp3.service";
 export class TranslateLineComponent implements OnInit {
   @Input() item: any;
   isDisabled: boolean = true;
+  hasPolly: boolean = false;
 
   baseAudioLocation = "https://s3.us-east-2.amazonaws.com/teamjonesonline-translate-audio/";
 
@@ -24,7 +25,8 @@ export class TranslateLineComponent implements OnInit {
   }
 
   ngOnInit(){
-    if(this.item.req.lang.hasPolly) {
+    this.hasPolly = this.item.req.lang.hasPolly;
+    if(this.hasPolly) {
       this.textToMP3Service.textToMP3(this.item.req).then(response => {
         this.isDisabled = false;
       });

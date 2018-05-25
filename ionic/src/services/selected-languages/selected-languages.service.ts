@@ -59,4 +59,5 @@ export interface Language {
   nativeName: string;
   icon: string;
   voice: string;
+  hasPolly: boolean;
 }

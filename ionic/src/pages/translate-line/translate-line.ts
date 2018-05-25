@@ -24,9 +24,11 @@ export class TranslateLineComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.textToMP3Service.textToMP3(this.item.req).then( response => {
-      this.isDisabled = false;
-    });
+    if(this.item.req.lang.hasPolly) {
+      this.textToMP3Service.textToMP3(this.item.req).then(response => {
+        this.isDisabled = false;
+      });
+    }
   }
 
   playAudio(guid){

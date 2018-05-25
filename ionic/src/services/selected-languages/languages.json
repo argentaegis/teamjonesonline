@@ -2,7 +2,7 @@
   "languages": [
     {
       "code": "af",
-      "longCode": "af-AF",
+      "longCode": "af-ZA",
       "name": "Afrikaans",
       "nativeName": "Afrikaans",
       "icon": "",
@@ -10,17 +10,8 @@
       "hasPolly": false
     },
     {
-      "code": "sq",
-      "longCode": "sq-SQ",
-      "name": "Albanian",
-      "nativeName": "shqiptar",
-      "icon": "",
-      "voice": "",
-      "hasPolly": false
-    },
-    {
       "code": "am",
-      "longCode": "am-AM",
+      "longCode": "am-ET",
       "name": "Amharic",
       "nativeName": "አማርኛ",
       "icon": "",
@@ -29,7 +20,7 @@
     },
     {
       "code": "ar",
-      "longCode": "ar-AR",
+      "longCode": "ar-SA",
       "name": "Arabic",
       "nativeName": "العَرَبِيَّة",
       "icon": "",
@@ -38,7 +29,7 @@
     },
     {
       "code": "hy",
-      "longCode": "hy-HY",
+      "longCode": "hy-AM",
       "name": "Armenian",
       "nativeName": "հայերեն",
       "icon": "",
@@ -56,27 +47,72 @@
     },
     {
       "code": "eu",
-      "longCode": "eu-EU",
+      "longCode": "eu-ES",
       "name": "Basque",
-      "nativeName": "Euskal",
+      "nativeName": "Euskara",
       "icon": "",
       "voice": "",
       "hasPolly": false
     },
     {
-      "code": "be",
-      "longCode": "be-BE",
-      "name": "Belarusian",
-      "nativeName": "беларускі",
+      "code": "bn",
+      "longCode": "bn-IN",
+      "name": "Bengali",
+      "nativeName": "বাংলা",
       "icon": "",
       "voice": "",
       "hasPolly": false
     },
     {
-      "code": "bs",
-      "longCode": "bs-BS",
-      "name": "Bosnian",
-      "nativeName": "Bosanski",
+      "code": "bg",
+      "longCode": "bg-BG",
+      "name": "Bulgarian",
+      "nativeName": "Български",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
+      "code": "ca",
+      "longCode": "ca-ES",
+      "name": "Catalan",
+      "nativeName": "Català",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
+      "code": "zh-CN",
+      "longCode": "cmn-Hans-CN",
+      "name": "Chinese, Mandarin (Simplified, China)",
+      "nativeName": "简体中文",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
+      "code": "zh-TW",
+      "longCode": "cmn-Hant-TW",
+      "name": "Chinese, Mandarin (Traditional, Taiwan)",
+      "nativeName": "正體字/繁體字",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
+      "code": "hr",
+      "longCode": "hr-HR",
+      "name": "Croatian",
+      "nativeName": "Hrvatski",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
+      "code": "cs",
+      "longCode": "cs-CZ",
+      "name": "Czech",
+      "nativeName": "Čeština",
       "icon": "",
       "voice": "",
       "hasPolly": false
@@ -85,7 +121,7 @@
       "code": "da",
       "longCode": "da-DK",
       "name": "Danish",
-      "nativeName": "dansk",
+      "nativeName": "Dansk",
       "icon": "",
       "voice": "Naja",
       "hasPolly": true
@@ -109,6 +145,15 @@
       "hasPolly": true
     },
     {
+      "code": "fi",
+      "longCode": "fi-FL",
+      "name": "Finnish",
+      "nativeName": "Suomi",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
       "code": "fr",
       "longCode": "fr-FR",
       "name": "French",
@@ -116,6 +161,24 @@
       "icon": "",
       "voice": "Celine",
       "hasPolly": true
+    },
+    {
+      "code": "gl",
+      "longCode": "gl-ES",
+      "name": "Galician",
+      "nativeName": "Galego",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
+      "code": "ka",
+      "longCode": "ka-GE",
+      "name": "Georgian",
+      "nativeName": "ქართული",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
     },
     {
       "code": "de",
@@ -127,6 +190,51 @@
       "hasPolly": true
     },
     {
+      "code": "el",
+      "longCode": "el-GR",
+      "name": "Greek",
+      "nativeName": "Ελληνικά",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
+      "code": "gu",
+      "longCode": "gu-IN",
+      "name": "Gujarati",
+      "nativeName": "ગુજરાતી",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
+      "code": "iw",
+      "longCode": "he-IL",
+      "name": "Hebrew",
+      "nativeName": "עברית",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
+      "code": "hi",
+      "longCode": "hi-IN",
+      "name": "Hindi",
+      "nativeName": "हिन्दी",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
+      "code": "hu",
+      "longCode": "hu-HU",
+      "name": "Hungarian",
+      "nativeName": "Magyar",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
       "code": "is",
       "longCode": "is-IS",
       "name": "Icelandic",
@@ -136,10 +244,19 @@
       "hasPolly": true
     },
     {
+      "code": "id",
+      "longCode": "id-ID",
+      "name": "Indonesian",
+      "nativeName": "bahasa Indonesia",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
       "code": "it",
-      "longCode": "it-IT",Japanese
+      "longCode": "it-IT",
       "name": "Italian",
-      "nativeName": "italiano",
+      "nativeName": "Italiano",
       "icon": "",
       "voice": "Carla",
       "hasPolly": true
@@ -154,6 +271,33 @@
       "hasPolly": true
     },
     {
+      "code": "jw",
+      "longCode": "jv-ID",
+      "name": "Javanese",
+      "nativeName": "Jawa",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
+      "code": "kn",
+      "longCode": "kn-IN",
+      "name": "Kannada",
+      "nativeName": "ಕನ್ನಡ",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
+      "code": "km",
+      "longCode": "km-KH",
+      "name": "Khmer",
+      "nativeName": "ភាសាខ្មែរ",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
       "code": "ko",
       "longCode": "ko-KR",
       "name": "Korean",
@@ -163,6 +307,69 @@
       "hasPolly": true
     },
     {
+      "code": "lo",
+      "longCode": "lo-LA",
+      "name": "Lao",
+      "nativeName": "ລາວ",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
+      "code": "la",
+      "longCode": "it-IT",
+      "name": "Latin",
+      "nativeName": "Latin",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
+      "code": "lv",
+      "longCode": "lv-LV",
+      "name": "Latvian",
+      "nativeName": "Latviešu",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
+      "code": "lt",
+      "longCode": "lt-LT",
+      "name": "Lithuanian",
+      "nativeName": "Lietuvių",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
+      "code": "ms",
+      "longCode": "ms-MY",
+      "name": "Malay",
+      "nativeName": "Bahasa Melayu",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
+      "code": "ml",
+      "longCode": "ml-IN",
+      "name": "Malayalam",
+      "nativeName": "മലയാളം",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
+      "code": "ne",
+      "longCode": "ne-NP",
+      "name": "Nepali",
+      "nativeName": "नेपाली",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
       "code": "no",
       "longCode": "nb-NO",
       "name": "Norwegian",
@@ -170,6 +377,15 @@
       "icon": "",
       "voice": "Liv",
       "hasPolly": true
+    },
+    {
+      "code": "fa",
+      "longCode": "fa-IR",
+      "name": "Persian",
+      "nativeName": "فارسی",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
     },
     {
       "code": "pl",
@@ -208,22 +424,112 @@
       "hasPolly": true
     },
     {
+      "code": "sr",
+      "longCode": "sr-RS",
+      "name": "Serbian",
+      "nativeName": "Српски",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
+      "code": "si",
+      "longCode": "si-LK",
+      "name": "Sinhala",
+      "nativeName": "සිංහල",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
+      "code": "sk",
+      "longCode": "sk-SK",
+      "name": "Slovak",
+      "nativeName": "Slovenčina",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
+      "code": "sl",
+      "longCode": "sl-SL",
+      "name": "Slovenian",
+      "nativeName": "Slovenščina",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
       "code": "es",
       "longCode": "es-ES",
-      "name": "Spanish",
+      "name": "Spanish (Spain)",
       "nativeName": "Español",
       "icon": "",
       "voice": "Penelope",
       "hasPolly": true
     },
     {
+      "code": "es",
+      "longCode": "es-US",
+      "name": "Spanish (Latin America)",
+      "nativeName": "Español",
+      "icon": "",
+      "voice": "Penelope",
+      "hasPolly": true
+    },
+    {
+      "code": "su",
+      "longCode": "su-ID",
+      "name": "Sundanese",
+      "nativeName": "Urang",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
+      "code": "sw",
+      "longCode": "sw-KE",
+      "name": "Swahili",
+      "nativeName": "Swahili",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
       "code": "sv",
       "longCode": "sv-SE",
       "name": "Swedish",
-      "nativeName": "svenska",
+      "nativeName": "Svenska",
       "icon": "",
       "voice": "Astrid",
       "hasPolly": true
+    },
+    {
+      "code": "ta",
+      "longCode": "ta-IN",
+      "name": "Tamil",
+      "nativeName": "தமிழ்",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
+      "code": "te",
+      "longCode": "te-IN",
+      "name": "Telugu",
+      "nativeName": "తెలుగు",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
+      "code": "th",
+      "longCode": "th-TH",
+      "name": "Thai",
+      "nativeName": "ไทย",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
     },
     {
       "code": "tr",
@@ -235,13 +541,40 @@
       "hasPolly": true
     },
     {
-      "code": "cy",
-      "longCode": "cy-GB",
-      "name": "Welsh",
-      "nativeName": "Cymraeg",
+      "code": "uk",
+      "longCode": "uk-UA",
+      "name": "Ukrainian",
+      "nativeName": "Українська",
       "icon": "",
-      "voice": "Gwyneth",
-      "hasPolly": true
+      "voice": "",
+      "hasPolly": false
+    },
+    {
+      "code": "ud",
+      "longCode": "ud-IN",
+      "name": "Urdu",
+      "nativeName": "اردو",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
+      "code": "vi",
+      "longCode": "vi-VN",
+      "name": "Vietnamese",
+      "nativeName": "Tiếng Việt",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
+    },
+    {
+      "code": "zu",
+      "longCode": "zu-ZA",
+      "name": "Zulu",
+      "nativeName": "IsiZulu",
+      "icon": "",
+      "voice": "",
+      "hasPolly": false
     }
   ]
 }

@@ -3,7 +3,7 @@
     <label>{{getSourceLanguage().nativeName}}</label>
     <div class="row">
       <input class="form-control col-md-11 col-sm-10" formControlName="nativeText" (keypress)="clearTextControl('translateText')">
-      <button class="btn btn-primary col-md-1 col-sm-2" type="button" [disabled]="originalAudioSrc === ''" (click)="playAudio('original')">
+      <button class="btn btn-primary col-md-1 col-sm-2" type="button" [hidden]="!getSourceLanguage().hasPolly" [disabled]="originalAudioSrc === ''" (click)="playAudio('original')">
         <fa [name]="'volume-up'" [size]=2 ></fa>
       </button>
     </div>
@@ -15,7 +15,7 @@
     <label>{{getTargetLanguage().nativeName}}</label>
     <div class="row">
       <input class="form-control col-md-11 col-sm-10" formControlName="translateText" (keypress)="clearTextControl('nativeText')">
-      <button class="btn btn-primary col-md-1 col-sm-2" type="button" [disabled]="translateAudioSrc === ''" (click)="playAudio('translated')">
+      <button class="btn btn-primary col-md-1 col-sm-2" type="button" [hidden]="!getTargetLanguage().hasPolly" [disabled]="translateAudioSrc === ''" (click)="playAudio('translated')">
         <fa [name]="'volume-up'" [size]=2 ></fa>
       </button>
     </div>

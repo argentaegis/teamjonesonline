@@ -109,13 +109,18 @@ export class TranslateImageComponent implements OnInit {
       baseFileName: translateGuid
     }
 
-    this.textToMP3Service.textToMP3(originalReq).subscribe( data => {
-      this.originalAudioSrc = this.baseAudioLocation + originalGuid + '.mp3';
-    })
+    if(originalReq.lang.hasPolly){
+      this.textToMP3Service.textToMP3(originalReq).subscribe( data => {
+        this.originalAudioSrc = this.baseAudioLocation + originalGuid + '.mp3';
+      })
+    }
 
-    this.textToMP3Service.textToMP3(translatedReq).subscribe( data => {
-      this.translateAudioSrc = this.baseAudioLocation + translateGuid + '.mp3';
-    })
+
+    if(translatedReq.lang.hasPolly){
+      this.textToMP3Service.textToMP3(translatedReq).subscribe( data => {
+        this.translateAudioSrc = this.baseAudioLocation + translateGuid + '.mp3';
+      })
+    }
 
   }
 

@@ -125,21 +125,25 @@ export class TranslateTextComponent implements OnInit {
     }
 
 
-    this.textToMP3Service.textToMP3(originalReq).subscribe( data => {
-      if (flipped){
-        this.translateAudioSrc = this.baseAudioLocation + originalGuid + '.mp3';
-      } else {
-        this.originalAudioSrc = this.baseAudioLocation + originalGuid + '.mp3';
-      }
-    });
+    if(originalReq.lang.hasPolly){
+      this.textToMP3Service.textToMP3(originalReq).subscribe( data => {
+        if (flipped){
+          this.translateAudioSrc = this.baseAudioLocation + originalGuid + '.mp3';
+        } else {
+          this.originalAudioSrc = this.baseAudioLocation + originalGuid + '.mp3';
+        }
+      });
+    }
 
-    this.textToMP3Service.textToMP3(translatedReq).subscribe( data => {
-      if (flipped){
-        this.originalAudioSrc =  this.baseAudioLocation + translateGuid + '.mp3';
-      } else {
-        this.translateAudioSrc = this.baseAudioLocation + translateGuid + '.mp3';
-      }
-    })
+    if(translatedReq.lang.hasPolly){
+      this.textToMP3Service.textToMP3(translatedReq).subscribe( data => {
+        if (flipped){
+          this.originalAudioSrc =  this.baseAudioLocation + translateGuid + '.mp3';
+        } else {
+          this.translateAudioSrc = this.baseAudioLocation + translateGuid + '.mp3';
+        }
+      })
+    }
   }
 
   getSourceLanguage() {

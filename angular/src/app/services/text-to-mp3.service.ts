@@ -14,7 +14,9 @@ export class TextToMp3Service {
   textToMP3(request) {
     var url = this.config.baseServiceUrl + '/textToMP3/createNew';
 
-    return this.http.post<any>(url, request);
+    if(request.lang.hasPolly) {
+      return this.http.post<any>(url, request);
+    }
   }
 
 

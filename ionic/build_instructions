@@ -1,0 +1,20 @@
+change version in config.xml
+
+ionic cordova build --release android
+
+C:\Users\Andrew\code\teamjonesonline\ionic\platforms\android\app\build\outputs\apk\release\app-release-unsigned.apk
+
+
+Java SDK Location
+C:\Program Files\Java\jdk1.8.0_181\bin
+
+keytool -genkey -v -keystore complete-translator-023.keystore -alias translatorKey -keyalg RSA -keysize 2048 -validity 10000
+
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore translate-key.keystore app-release-unsigned.apk translatoe
+
++1
+
+Android SDK Location
+C:\Users\Andrew\AppData\Local\Android\Sdk\build-tools\26.0.3
+
+zipalign -v 4 app-release-unsigned.apk complete-translator-023.apk

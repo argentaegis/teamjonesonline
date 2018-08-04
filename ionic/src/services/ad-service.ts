@@ -1,37 +1,33 @@
 import { Injectable } from '@angular/core';
 import {AdMobFree, AdMobFreeBannerConfig, AdMobFreeInterstitialConfig} from "@ionic-native/admob-free";
+import { CurrentDataService } from "./current-data.service";
 
 @Injectable()
 export class AdService {
 
   canDisplayInterstitial: boolean = false;
+  interstitialReady: boolean = false;
   adConfig: any;
 
-  constructor( private admobFree: AdMobFree) {
+
+  constructor( private admobFree: AdMobFree,
+               private cds: CurrentDataService) {
     this.adConfig = {
       banner: 'ca-app-pub-4032953517610324/4093986742',
       interstitial: 'ca-app-pub-4032953517610324/8955240573',
       testing: false
     };
-
-    // this.adConfig = {
-    //   banner: 'ca-app-pub-3940256099942544/6300978111',
-    //   interstitial: 'ca-app-pub-3940256099942544/1033173712',
-    //   testing: true
-    // }
   }
 
   start(){
     console.log("starting AdService");
 
-
-    this.startInterstitialTimer();
+    this.setupBanner();
+    this.setupInterstitial();
   }
 
-  displayBanner(){
+  setupBanner(){
     const bannerConfig: AdMobFreeBannerConfig = {
-      // add your config here
-      // for the sake of this example we will just use the test config
       id: this.adConfig.banner,
       isTesting: this.adConfig.testing,
       autoShow: false
@@ -41,40 +37,48 @@ export class AdService {
 
     this.admobFree.banner.prepare()
       .then(() => {
-        console.log('addmob prepared');
-        // banner Ad is ready
-        // if we set autoShow to false, then we will need to call the show method here
-
-
-          this.admobFree.banner.show();
+        this.cds.logToTranslationlist('banner ready');
+        this.admobFree.banner.show();
       })
       .catch(e => console.log(e));
   }
 
-  displayInterstitial(){
-    if(this.canDisplayInterstitial){
-      const interstitialConfig: AdMobFreeInterstitialConfig = {
-        id: this.adConfig.interstitial,
-        isTesting: this.adConfig.testing,
-        autoShow: true
-      }
+  setupInterstitial(){
+    this.startInterstitialTimer();
 
-      this.admobFree.interstitial.config(interstitialConfig);
-
-      this.admobFree.interstitial.prepare().then(() =>
-      {
-      }).catch( e => console.log(e));
-
-      this.startInterstitialTimer();
+    const interstitialConfig: AdMobFreeInterstitialConfig = {
+      id: this.adConfig.interstitial,
+      isTesting: this.adConfig.testing,
+      autoShow: false
     }
 
+    this.admobFree.interstitial.config(interstitialConfig);
+
+    this.admobFree.interstitial.prepare().then(() =>
+    {
+      this.cds.logToTranslationlist('interstitial ready');
+      this.interstitialReady = true;
+    }).catch( e => this.cds.logToTranslationlist(e));
+  }
+
+  displayInterstitial(){
+    console.log('displayInterstitial')
+
+    this.cds.logToTranslationlist('can Display interstitial: ' + this.canDisplayInterstitial);
+    this.cds.logToTranslationlist('interstitial is ready: ' + this.interstitialReady);
+
+    if(this.canDisplayInterstitial && this.interstitialReady) {
+      this.cds.logToTranslationlist('.interstitial.show()')
+      this.admobFree.interstitial.show();
+    }
   }
 
   startInterstitialTimer(){
     this.canDisplayInterstitial = false;
     setTimeout(function(){
-      console.log('interstitial timer up');
+      this.cds.logToTranslationlist('interstitial timer up');
       this.canDisplayInterstitial = true;
-    }.bind(this), 120000);
+    //}.bind(this), 120000);
+    }.bind(this), 1200);
   }
 }

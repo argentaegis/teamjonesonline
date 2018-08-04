@@ -22,8 +22,6 @@ export class HomePage implements AfterViewChecked{
   ) {
       platform.ready().then(() => {
         this.adService.start();
-        //this.adService.displayBanner();
-        this.adService.displayBanner();
       });
   }
 

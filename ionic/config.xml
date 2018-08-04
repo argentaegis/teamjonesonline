@@ -91,6 +91,7 @@
     <allow-navigation href="http://10.0.0.3:8100" />
     <plugin name="com-badrit-base64" spec="^0.2.0" />
     <plugin name="cordova-plugin-camera" spec="^4.0.2" />
+    <allow-navigation href="http://172.20.10.3:8100" />
     <engine name="android" spec="7.0.0" />
     <engine name="browser" spec="5.0.3" />
 </widget>

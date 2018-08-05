@@ -70,6 +70,7 @@ export class AdService {
     if(this.canDisplayInterstitial && this.interstitialReady) {
       this.cds.logToTranslationlist('.interstitial.show()')
       this.admobFree.interstitial.show();
+      this.setupInterstitial();
     }
   }
 
@@ -78,7 +79,7 @@ export class AdService {
     setTimeout(function(){
       this.cds.logToTranslationlist('interstitial timer up');
       this.canDisplayInterstitial = true;
-    //}.bind(this), 120000);
-    }.bind(this), 1200);
+    }.bind(this), 120000);
+    //}.bind(this), 30000);
   }
 }

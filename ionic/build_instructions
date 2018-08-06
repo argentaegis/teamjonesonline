@@ -1,8 +1,6 @@
 change version in config.xml
 
-ionic cordova build --release android
-
-ionic cordova build android --release --minifyjs --aot --minifycss
+ionic cordova build android --device --minifyjs --aot --minifycss --release
 
 C:\Users\Andrew\code\teamjonesonline\ionic\platforms\android\app\build\outputs\apk\release\app-release-unsigned.apk
 

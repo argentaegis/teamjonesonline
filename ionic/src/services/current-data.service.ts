@@ -36,9 +36,8 @@ export class CurrentDataService implements OnInit{
 
   ngOnInit(){
     console.log('CDS init');
-
-
   }
+
   addTranslation(newOriginal, originalGuid, newTranslated, translateGuid, transReq){
     var translatedItem = {
       original: newOriginal,
@@ -54,7 +53,7 @@ export class CurrentDataService implements OnInit{
   }
 
   logToTranslationlist(message){
-    //this.addTranslation(message, '1', message, '1', {});
+    // this.addTranslation(message, '1', message, '1', {});
     console.log(message);
   }
 

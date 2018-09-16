@@ -6,9 +6,9 @@
 <ion-row class="min-grid-height">
   <ion-col col-2>
     <ion-fab bottom left #fab>
-      <button ion-fab ><ion-icon name={{getCurrentModeIcon()}}></ion-icon></button>
+      <button ion-fab ><ion-icon name="list"></ion-icon></button>
       <ion-fab-list side="top">
-        <button ion-fab (click)="translateService.setMode($event, fab, 'text');"><ion-icon name="list"></ion-icon></button>
+        <button ion-fab (click)="translateService.setMode($event, fab, 'text');"><ion-icon name="paper"></ion-icon></button>
         <button ion-fab (click)="translateService.setMode($event, fab, 'voice');"><ion-icon name="mic"></ion-icon></button>
         <button ion-fab (click)="translateService.setMode($event, fab, 'image');"><ion-icon name="camera"></ion-icon></button>
         <button ion-fab (click)="flipLanguages($event, fab);"><ion-icon name="swap"></ion-icon></button>
@@ -20,14 +20,14 @@
     <div *ngIf="!recording">
       <button ion-button large icon-right round (click)="startRecording();">
         {{getSourceLanguage().nativeName}}
-        <ion-icon name="recording"></ion-icon>
+        <ion-icon name="mic"></ion-icon>
       </button>
 
     </div>
     <div *ngIf="recording">
       <button ion-button large icon-right round color="danger" class="button-glow" (click)="stopRecording();">
         {{getSourceLanguage().nativeName}}
-        <ion-icon name="recording"></ion-icon>
+        <ion-icon name="mic"></ion-icon>
       </button>
     </div>
 

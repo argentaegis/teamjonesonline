@@ -18,4 +18,4 @@ jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore translate-key.k
 Android SDK Location
 C:\Users\Andrew\AppData\Local\Android\Sdk\build-tools\26.0.3
 
-zipalign -v 4 app-release-unsigned.apk complete-translator-031.apk
+zipalign -v 4 app-release-unsigned.apk complete-translator-042.apk

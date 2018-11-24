@@ -45,18 +45,6 @@ export class TranslateService {
     fab.close();
     this.adService.displayInterstitial();
   }
-
-  getCurrentModeIcon(){
-    if(this.currentMode == 'text'){
-      return 'list';
-    }
-    else if(this.currentMode == 'voice'){
-      return 'mic';
-    }
-    else if(this.currentMode == 'image'){
-      return 'camera'
-    }
-  }
 }
 
 

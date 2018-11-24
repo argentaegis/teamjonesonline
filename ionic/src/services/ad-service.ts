@@ -43,7 +43,7 @@ export class AdService {
 
     this.setupReward();      
     this.setupBanner();
-    this.setupInterstitial();
+    //this.setupInterstitial();
     this.displayRewardAlert();
   }
 

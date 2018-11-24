@@ -1,12 +1,10 @@
 import { Component, Input, OnInit} from '@angular/core';
 import { FormGroup} from "@angular/forms";
-import { NavController } from 'ionic-angular';
 import { SelectedLanguagesService } from "../../services/selected-languages/selected-languages.service";
 import { TextToMp3Service } from '../../services/text-to-mp3.service';
 import { TranslateService } from '../../services/translate.service';
 import {CurrentDataService} from "../../services/current-data.service";
 import { AlertController } from 'ionic-angular';
-import { AdService } from '../../services/ad-service'
 
 @Component({
   selector: 'page-text',
@@ -24,16 +22,13 @@ export class TextPage implements OnInit {
 
   translateAudioSrc: string = '';
   originalAudioSrc: string = '';
-  baseAudioLocation = "https://s3.us-east-2.amazonaws.com/teamjonesonline-translate-audio/";
 
   constructor(
-    public navCtrl: NavController,
     public selectedLanguageService: SelectedLanguagesService,
     private translateService: TranslateService,
     private textToMP3Service: TextToMp3Service,
     private currentDataService: CurrentDataService,
-    public alertCtrl: AlertController,
-    private adService: AdService ) {
+    public alertCtrl: AlertController ) {
   }
 
   ngOnInit() {
@@ -91,7 +86,7 @@ export class TextPage implements OnInit {
     ).catch((error: any) => {
       console.log('error');
       console.log(JSON.stringify(error));
-      this.showNetworkErrorAlert();
+      this.showNetworkErrorAlert(error);
     });
   };
 
@@ -122,11 +117,6 @@ export class TextPage implements OnInit {
 
 
     const originalGuid = this.textToMP3Service.guid();
-    const originalReq = {
-      text: rawOriginalValue,
-      lang: flipped ? this.selectedLanguageService.rightLang : this.selectedLanguageService.leftLang,
-      baseFileName: originalGuid
-    }
 
     const translateGuid = this.textToMP3Service.guid();
     const translatedReq = {
@@ -158,36 +148,16 @@ export class TextPage implements OnInit {
     }
   }
 
-  clearTextControl(controlToClear){
-    if('left'){
-      this.nativeText = '';
-    }
-    else {
-      this.translateText = '';
-    }
-  }
-
-  getCurrentModeIcon(){
-    if(this.translateService.currentMode == 'text'){
-      return 'list';
-    }
-    else if(this.translateService.currentMode == 'voice'){
-      return 'mic';
-    }
-    else if(this.translateService.currentMode == 'image'){
-      return 'camera'
-    }
-  }
-
   flipLanguages(event, fab){
     this.flipped = !this.flipped;
     fab.close();
   }
 
-  showNetworkErrorAlert() {
+  showNetworkErrorAlert(error) {
     let alert = this.alertCtrl.create({
       title: 'Network Error!',
       subTitle: 'There seems to be a problem with your network connection.',
+      //subTitle: JSON.stringify(error),
       buttons: ['OK']
     });
     alert.present();

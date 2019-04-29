@@ -10,7 +10,7 @@ export class AdService {
   interstitialReady: boolean = false;
   adConfig: any;
   showAds: boolean = true;
-  testing: boolean = false;
+  testing: boolean = true;
 
   testingConfig: any = {
     banner: 'ca-app-pub-3940256099942544/6300978111',
@@ -41,10 +41,10 @@ export class AdService {
   start(){
     this.cds.logToTranslationlist("starting AdService");
 
-    this.setupReward();      
+    // this.setupReward();
     this.setupBanner();
-    //this.setupInterstitial();
-    this.displayRewardAlert();
+    // this.displayRewardAlert();
+    // this.setupInterstitial();
   }
 
   setupBanner(){
@@ -56,10 +56,26 @@ export class AdService {
 
     this.admobFree.banner.config(bannerConfig);
 
-    this.displayBanner();
+    this.admobFree.banner.prepare().then(() => {
+      this.cds.logToTranslationlist('Showing banner');
+      this.admobFree.banner.show();
+    });
+
+    //this.displayBanner();
+  }
+
+  setupReward(){
+    this.cds.logToTranslationlist('setupReward');
+    this.admobFree.rewardVideo.config({
+      id: this.adConfig.reward,
+      isTesting: this.adConfig.testing,
+      autoShow: true
+   });
+
   }
 
   setupInterstitial(){
+    this.cds.logToTranslationlist('setupInterstitial');
     this.startInterstitialTimer();
 
     const interstitialConfig: AdMobFreeInterstitialConfig = {
@@ -77,16 +93,6 @@ export class AdService {
     }).catch( e => this.cds.logToTranslationlist(e));
   }
 
-  setupReward(){
-    this.cds.logToTranslationlist('setupReward');
-    this.admobFree.rewardVideo.config({
-      id: this.adConfig.reward,
-      isTesting: true,
-      autoShow: true
-   });
-
-  }
-
   displayBanner(){
     this.admobFree.banner.prepare()
       .then(() => {
@@ -94,26 +100,6 @@ export class AdService {
         this.admobFree.banner.show();
       })
       .catch(e => console.log(e));
-  }
-
-  displayInterstitial(){
-    console.log('displayInterstitial')
-
-    this.cds.logToTranslationlist('can Display interstitial: ' + this.canDisplayInterstitial);
-    this.cds.logToTranslationlist('interstitial is ready: ' + this.interstitialReady);
-
-    if(this.showAds && this.interstitialReady && this.canDisplayInterstitial) {
-      this.cds.logToTranslationlist('.interstitial.show()')
-      this.admobFree.interstitial.show();
-      this.setupInterstitial();
-    }
-  }
-
-  startInterstitialTimer(){
-    this.canDisplayInterstitial = false;
-    setTimeout(function(){
-      this.canDisplayInterstitial = true;
-    }.bind(this), this.adConfig.interstitialTimeout);
   }
 
   displayReward() {
@@ -124,11 +110,15 @@ export class AdService {
         this.admobFree.on(this.admobFree.events.REWARD_VIDEO_REWARD).subscribe(() => {
           this.stopAds();
         });
+        this.admobFree.on(this.admobFree.events.REWARD_VIDEO_LOAD_FAIL).subscribe( () => {
+          this.stopAds();
+        });
       })
     });
   }
 
   stopAds() {
+    this.cds.logToTranslationlist('stopAds');
     this.showAds = false;
     this.admobFree.banner.hide();
   }
@@ -151,6 +141,14 @@ export class AdService {
     });
 
     alert.present();
+  }
+
+  startInterstitialTimer(){
+    this.canDisplayInterstitial = false;
+
+    setTimeout(function(){
+      this.canDisplayInterstitial = true;
+    }.bind(this), this.adConfig.interstitialTimeout);
   }
 
   testAlert(){

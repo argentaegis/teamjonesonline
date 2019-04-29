@@ -10,7 +10,7 @@ export class AdService {
   interstitialReady: boolean = false;
   adConfig: any;
   showAds: boolean = true;
-  testing: boolean = true;
+  testing: boolean = false;
 
   testingConfig: any = {
     banner: 'ca-app-pub-3940256099942544/6300978111',
@@ -41,10 +41,10 @@ export class AdService {
   start(){
     this.cds.logToTranslationlist("starting AdService");
 
-    // this.setupReward();
+    this.setupReward();
     this.setupBanner();
-    // this.displayRewardAlert();
-    // this.setupInterstitial();
+    this.displayRewardAlert();
+    this.setupInterstitial();
   }
 
   setupBanner(){
@@ -60,8 +60,6 @@ export class AdService {
       this.cds.logToTranslationlist('Showing banner');
       this.admobFree.banner.show();
     });
-
-    //this.displayBanner();
   }
 
   setupReward(){
@@ -74,7 +72,7 @@ export class AdService {
 
   }
 
-  setupInterstitial(){
+  setupInterstitial() {
     this.cds.logToTranslationlist('setupInterstitial');
     this.startInterstitialTimer();
 
@@ -86,11 +84,10 @@ export class AdService {
 
     this.admobFree.interstitial.config(interstitialConfig);
 
-    this.admobFree.interstitial.prepare().then(() =>
-    {
+    this.admobFree.interstitial.prepare().then(() => {
       this.cds.logToTranslationlist('interstitial ready');
       this.interstitialReady = true;
-    }).catch( e => this.cds.logToTranslationlist(e));
+    }).catch(e => this.cds.logToTranslationlist(e));
   }
 
   displayBanner(){
@@ -100,6 +97,19 @@ export class AdService {
         this.admobFree.banner.show();
       })
       .catch(e => console.log(e));
+  }
+
+  displayInterstitial(){
+    console.log('displayInterstitial')
+
+    this.cds.logToTranslationlist('can Display interstitial: ' + this.canDisplayInterstitial);
+    this.cds.logToTranslationlist('interstitial is ready: ' + this.interstitialReady);
+
+    if(this.showAds && this.interstitialReady && this.canDisplayInterstitial) {
+      this.cds.logToTranslationlist('.interstitial.show()')
+      this.admobFree.interstitial.show();
+      this.setupInterstitial();
+    }
   }
 
   displayReward() {
@@ -145,7 +155,6 @@ export class AdService {
 
   startInterstitialTimer(){
     this.canDisplayInterstitial = false;
-
     setTimeout(function(){
       this.canDisplayInterstitial = true;
     }.bind(this), this.adConfig.interstitialTimeout);

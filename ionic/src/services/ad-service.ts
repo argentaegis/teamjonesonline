@@ -6,8 +6,6 @@ import { AlertController } from "ionic-angular";
 @Injectable()
 export class AdService {
 
-  canDisplayInterstitial: boolean = false;
-  interstitialReady: boolean = false;
   adConfig: any;
   showAds: boolean = true;
   testing: boolean = false;
@@ -43,7 +41,6 @@ export class AdService {
 
     this.setupReward();      
     this.setupBanner();
-    //this.setupInterstitial();
     this.displayRewardAlert();
   }
 
@@ -59,29 +56,11 @@ export class AdService {
     this.displayBanner();
   }
 
-  setupInterstitial(){
-    this.startInterstitialTimer();
-
-    const interstitialConfig: AdMobFreeInterstitialConfig = {
-      id: this.adConfig.interstitial,
-      isTesting: this.adConfig.testing,
-      autoShow: false
-    }
-
-    this.admobFree.interstitial.config(interstitialConfig);
-
-    this.admobFree.interstitial.prepare().then(() =>
-    {
-      this.cds.logToTranslationlist('interstitial ready');
-      this.interstitialReady = true;
-    }).catch( e => this.cds.logToTranslationlist(e));
-  }
-
   setupReward(){
     this.cds.logToTranslationlist('setupReward');
     this.admobFree.rewardVideo.config({
       id: this.adConfig.reward,
-      isTesting: true,
+      isTesting: this.adConfig.testing,
       autoShow: true
    });
 
@@ -96,32 +75,15 @@ export class AdService {
       .catch(e => console.log(e));
   }
 
-  displayInterstitial(){
-    console.log('displayInterstitial')
-
-    this.cds.logToTranslationlist('can Display interstitial: ' + this.canDisplayInterstitial);
-    this.cds.logToTranslationlist('interstitial is ready: ' + this.interstitialReady);
-
-    if(this.showAds && this.interstitialReady && this.canDisplayInterstitial) {
-      this.cds.logToTranslationlist('.interstitial.show()')
-      this.admobFree.interstitial.show();
-      this.setupInterstitial();
-    }
-  }
-
-  startInterstitialTimer(){
-    this.canDisplayInterstitial = false;
-    setTimeout(function(){
-      this.canDisplayInterstitial = true;
-    }.bind(this), this.adConfig.interstitialTimeout);
-  }
-
   displayReward() {
     this.cds.logToTranslationlist('displayReward');
 
     this.admobFree.rewardVideo.prepare().then((e) => {
       this.admobFree.rewardVideo.show().then((e) => {
         this.admobFree.on(this.admobFree.events.REWARD_VIDEO_REWARD).subscribe(() => {
+          this.stopAds();
+        });
+        this.admobFree.on(this.admobFree.events.REWARD_VIDEO_LOAD_FAIL).subscribe( () => {
           this.stopAds();
         });
       })

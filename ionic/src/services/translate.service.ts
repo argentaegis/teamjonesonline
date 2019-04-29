@@ -43,7 +43,6 @@ export class TranslateService {
   setMode(event, fab, mode){
     this.currentMode = mode;
     fab.close();
-    this.adService.displayInterstitial();
   }
 }
 
